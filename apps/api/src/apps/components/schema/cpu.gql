@@ -1,0 +1,68 @@
+enum PackagingType {
+  BOXED
+}
+
+type CPU {
+  # image: String
+  id: String!
+  name: String!
+  price: String!
+  manufacturer: String!
+  partNumber: String!
+  
+  socket: String!
+  series: String!
+  microarchitecture: String!
+  coreFamily: String!
+  coreCount: String!
+  coreClock: String!
+  tdp: String!
+  integratedGraphics: String!
+  cooler: Boolean!
+  packaging: PackagingType!
+}
+
+input CreateCPUInput {
+  name: String!
+  price: String!
+  manufacturer: String!
+  partNumber: String!
+  series: String!
+  microarchitecture: String!
+  coreFamily: String!
+  socket: String!
+  coreCount: String!
+  coreClock: String!
+  tdp: String!
+  integratedGraphics: String!
+  cooler: Boolean!
+  packaging: PackagingType!
+}
+
+input UpdateCPUInput {
+  name: String
+  price: String
+  manufacturer: String
+  partNumber: String
+  series: String
+  microarchitecture: String
+  coreFamily: String
+  socket: String
+  coreCount: String
+  coreClock: String
+  tdp: String
+  integratedGraphics: String
+  cooler: Boolean
+  packaging: PackagingType
+}
+
+type Query {
+  getCPUs: [CPU]!
+  getCPU(id: String!): CPU
+}
+
+type Mutation {
+  createCPU(createCPUInput: CreateCPUInput!): Boolean
+  updateCPU(id: String!, updateCPUInput: UpdateCPUInput!): Boolean
+  deleteCPU(id: String!): Boolean
+}

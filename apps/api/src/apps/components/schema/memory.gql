@@ -1,0 +1,53 @@
+
+type Memory {
+  # image: String
+  id: String!
+  name: String!
+  price: String!
+  manufacturer: String!
+  partNumber: String!
+  
+  speed: String!
+  formFactor: String!
+  modules: String!
+  voltage: String!
+  heatSpreader: Boolean!
+  color: String!
+}
+
+input CreateMemoryInput {
+  name: String!
+  price: String!
+  manufacturer: String!
+  partNumber: String!
+  speed: String!
+  formFactor: String!
+  modules: String!
+  voltage: String!
+  heatSpreader: Boolean! 
+  color: String!
+}
+
+input UpdateMemoryInput {
+  name: String
+  price: String
+  manufacturer: String
+  partNumber: String
+  speed: String
+  formFactor: String
+  modules: String
+  voltage: String
+  heatSpreader: Boolean
+  color: String
+}
+
+type Query {
+  getMemorys: [Memory]!
+  getMemory(id: String!): Memory
+}
+
+type Mutation {
+  createMemory(createMemoryInput: CreateMemoryInput!): Boolean
+  updateMemory(id: String!, updateMemoryInput: UpdateMemoryInput!): Boolean
+  deleteMemory(id: String!): Boolean
+}
