@@ -1,0 +1,55 @@
+type PowerSupply {
+  # image: String
+  id: String!
+  name: String!
+  price: String!
+  manufacturer: String!
+  partNumber: String!
+  
+  model: String!
+  type: String!
+  wattage: String!
+  color: String!
+  fanless: Boolean!
+  SATAConnectors: String!
+  length: String!
+}
+
+input CreatePowerSupplyInput {
+  name: String!
+  price: String!
+  manufacturer: String!
+  partNumber: String!
+  model: String!
+  type: String!
+  wattage: String!
+  color: String!
+  fanless: Boolean!
+  SATAConnectors: String!
+  length: String!
+}
+
+input UpdatePowerSupplyInput {
+  name: String
+  price: String
+  manufacturer: String
+  partNumber: String
+  model: String
+  type: String
+  wattage: String
+  color: String
+  fanless: Boolean
+  SATAConnectors: String
+  length: String
+}
+
+type Query {
+  getPowerSupplys: [PowerSupply]!
+  getPowerSupply(id: String!): PowerSupply
+}
+
+type Mutation {
+  createPowerSupply(createPowerSupplyInput: CreatePowerSupplyInput!): Boolean
+  updatePowerSupply(id: String!, updatePowerSupplyInput: UpdatePowerSupplyInput!): Boolean
+  deletePowerSupply(id: String!): Boolean
+}

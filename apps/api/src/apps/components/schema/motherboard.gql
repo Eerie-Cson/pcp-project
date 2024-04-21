@@ -1,0 +1,60 @@
+enum MemoryType {
+  DDR4
+  DDR5
+}
+
+type Motherboard {
+  # image: String
+  id: String!
+  name: String!
+  price: String!
+  manufacturer: String!
+  partNumber: String!
+  
+  socket: String!
+  formFactor: String!
+  chipset: String!
+  memoryMax: String!
+  memoryType: MemoryType!
+  memorySlots: String!
+  color: String!
+}
+
+input CreateMotherboardInput {
+  name: String!
+  price: String!
+  manufacturer: String!
+  partNumber: String!
+  socket: String!
+  formFactor: String!
+  chipset: String!
+  memoryMax: String!
+  memoryType: MemoryType!
+  memorySlots: String!
+  color: String!
+}
+
+input UpdateMotherboardInput {
+  name: String
+  price: String
+  manufacturer: String
+  partNumber: String
+  socket: String
+  formFactor: String
+  chipset: String
+  memoryMax: String
+  memoryType: MemoryType
+  memorySlots: String
+  color: String
+}
+
+type Query {
+  getMotherboards: [Motherboard]!
+  getMotherboard(id: String!): Motherboard
+}
+
+type Mutation {
+  createMotherboard(createMotherboardInput: CreateMotherboardInput!): Boolean
+  updateMotherboard(id: String!, updateMotherboardInput: UpdateMotherboardInput!): Boolean
+  deleteMotherboard(id: String!): Boolean
+}

@@ -1,0 +1,67 @@
+type VideoCard {
+  # image: String
+  id: String!
+  name: String!
+  price: String!
+  manufacturer: String!
+  partNumber: String!
+  
+  model: String!
+  chipset: String!
+  memory: String!
+  memoryType: String!
+  coreClock: String!
+  interface: String!
+  color: String!
+  TDP: String!
+  coolingFans: String!
+  displayPortOutputs: String!
+  HDMIOutputs: String!
+}
+
+input CreateVideoCardInput {
+  name: String!
+  price: String!
+  manufacturer: String!
+  partNumber: String!
+  model: String!
+  chipset: String!
+  memory: String!
+  memoryType: String!
+  coreClock: String!
+  interface: String!
+  color: String!
+  TDP: String!
+  coolingFans: String!
+  displayPortOutputs: String!
+  HDMIOutputs: String!
+}
+
+input UpdateVideoCardInput {
+  name: String
+  price: String
+  manufacturer: String
+  partNumber: String
+  model: String
+  chipset: String
+  memory: String
+  memoryType: String
+  coreClock: String
+  interface: String
+  color: String
+  TDP: String
+  coolingFans: String
+  displayPortOutputs: String
+  HDMIOutputs: String
+}
+
+type Query {
+  getVideoCards: [VideoCard]!
+  getVideoCard(id: String!): VideoCard
+}
+
+type Mutation {
+  createVideoCard(createVideoCardInput: CreateVideoCardInput!): Boolean
+  updateVideoCard(id: String!, updateVideoCardInput: UpdateVideoCardInput!): Boolean
+  deleteVideoCard(id: String!): Boolean
+}

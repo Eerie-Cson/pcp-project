@@ -1,0 +1,54 @@
+enum StorageType {
+  SSD
+  HDD
+}
+
+type Storage {
+  # image: String
+  id: String!
+  name: String!
+  price: String!
+  manufacturer: String!
+  partNumber: String!
+  
+  capacity: String!
+  type: StorageType!
+  formFactor: String!
+  interface: String!
+  NVME: Boolean!
+}
+
+input CreateStorageInput {
+  name: String!
+  price: String!
+  manufacturer: String!
+  partNumber: String!
+  capacity: String!
+  type: StorageType!
+  formFactor: String!
+  interface: String!
+  NVME: Boolean!
+}
+
+input UpdateStorageInput {
+  name: String
+  price: String
+  manufacturer: String
+  partNumber: String
+  capacity: String
+  type: StorageType
+  formFactor: String
+  interface: String
+  NVME: Boolean
+}
+
+type Query {
+  getStorages: [Storage]!
+  getStorage(id: String!): Storage
+}
+
+type Mutation {
+  createStorage(createStorageInput: CreateStorageInput!): Boolean
+  updateStorage(id: String!, updateStorageInput: UpdateStorageInput!): Boolean
+  deleteStorage(id: String!): Boolean
+}
