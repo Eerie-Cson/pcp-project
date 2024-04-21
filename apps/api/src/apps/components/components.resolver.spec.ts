@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ComponentsResolver } from './components.resolver';
+import { ComponentsResolver } from './resolvers/components.resolver';
 import { ComponentsService } from './components.service';
 
 describe('ComponentsResolver', () => {
