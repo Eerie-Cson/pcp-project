@@ -1,8 +1,22 @@
 import { Module } from '@nestjs/common';
-import { ComponentsService } from './components.service';
-import { ComponentsResolver } from './components.resolver';
+import { CaseResolver } from './resolvers/case.resolver';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { MongooseModule } from '@nestjs/mongoose';
+import { ComponentModule } from '../../features/component/component.module';
 
 @Module({
-  providers: [ComponentsResolver, ComponentsService],
+  imports: [
+    ConfigModule.forRoot(),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (config: ConfigService) => ({
+        uri: config.get<string>('COMPONENT_URI'),
+      }),
+      inject: [ConfigService],
+    }),
+
+    ComponentModule,
+  ],
+  providers: [CaseResolver],
 })
 export class ComponentsModule {}
