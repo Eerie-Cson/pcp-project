@@ -1,14 +1,9 @@
-import { ObjectId } from '@highoutputventures/opexa-object-id';
+import { ObjectId } from "@pcp/object-id";
 
-export type Node = {
+export type Component = {
   id: ObjectId;
+  name: string;
+  price: string;
+  manufacturer: string;
+  partNumber: string;
 };
-
-export enum Currency {
-  PHP = 'PHP',
-  USD = 'USD',
-}
-
-export enum Language {
-  English = 'en',
-}
