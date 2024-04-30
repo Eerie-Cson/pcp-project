@@ -7,7 +7,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ObjectId as _ObjectId } from '@highoutputventures/opexa-object-id';
+import { ObjectId as _ObjectId } from '@pcp/object-id';
 
 export enum SortOrder {
   ASC = 'ASC',
@@ -136,7 +136,7 @@ export interface SystemJob extends Node {
 
 export interface IMutation {
   startLoadGamesSystemJob(
-    input: StartLoadGamesSystemJobInput,
+    input: StartLoadGamesSystemJobInput
   ): boolean | Promise<boolean>;
 }
 
