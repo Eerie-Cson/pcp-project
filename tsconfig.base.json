@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@pcp/object-id": ["packages/object-id/object-id"]
+      "@pcp/object-id": ["packages/object-id/index"],
+      "@pcp/repository": ["packages/repository/index"]
     }
   },
   "exclude": ["node_modules", "tmp"]
