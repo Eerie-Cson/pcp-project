@@ -1,8 +1,7 @@
 import { Module } from '@nestjs/common';
-import { CaseResolver } from './resolvers/case.resolver';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ComponentModule } from '../../features/component/component.module';
+import { UserModule } from '../../features/user/user.module';
 
 @Module({
   imports: [
@@ -15,8 +14,8 @@ import { ComponentModule } from '../../features/component/component.module';
       inject: [ConfigService],
     }),
 
-    ComponentModule,
+    UserModule,
   ],
   providers: [],
 })
-export class ComponentsModule {}
+export class UsersModule {}

@@ -15,4 +15,4 @@ import { UserRepositoryFactory } from './repository/user.repository';
   ],
   exports: [UserService],
 })
-export class ComponentModule {}
+export class UserModule {}
