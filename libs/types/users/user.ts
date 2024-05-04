@@ -7,5 +7,5 @@ export type User = {
   email: string;
   password: string;
   dateTimeCreated: Date;
-  dateTimeUpddated: Date;
+  dateTimeUpdated: Date;
 };

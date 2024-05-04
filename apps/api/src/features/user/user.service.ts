@@ -24,13 +24,13 @@ export class UserService {
     );
   }
 
-  async removeUser(id: string) {
+  async removeUser(id: ObjectId) {
     return this.userRepository.delete({
       id,
     });
   }
 
-  async findUser(params: ObjectId) {
+  async findUser(params: Partial<User>) {
     return this.userRepository.findOne(params);
   }
 

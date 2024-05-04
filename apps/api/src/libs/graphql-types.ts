@@ -92,6 +92,24 @@ export interface DateTimeFilterInput {
   greaterThanOrEqual?: Nullable<DateTime>;
 }
 
+export interface CreateUserInput {
+  username: string;
+  password: string;
+  name: string;
+  email: string;
+  dateTimeCreated: DateTime;
+  dateTimeUpdated: DateTime;
+}
+
+export interface UpdateUserInput {
+  id: ObjectId;
+  username?: Nullable<string>;
+  password?: Nullable<string>;
+  name?: Nullable<string>;
+  email?: Nullable<string>;
+  dateTimeUpdated?: Nullable<DateTime>;
+}
+
 export interface StartLoadGamesSystemJobDataInput {
   provider: Provider;
 }
