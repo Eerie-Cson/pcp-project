@@ -1,18 +1,37 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { UsersService } from './users.service';
+import { Test } from '@nestjs/testing';
+import { getRandomPort } from 'get-port-please';
+import { MongoMemoryReplSet } from 'mongodb-memory-server';
+import { UsersModule } from './users.module';
+import { ConfigService } from '@nestjs/config';
 
-describe('UsersService', () => {
-  let service: UsersService;
+describe('ComponentModule', () => {
+  test.concurrent('initialize module', async () => {
+    const mongo = await MongoMemoryReplSet.create({
+      replSet: {
+        storageEngine: 'ephemeralForTest',
+      },
+      instanceOpts: [
+        {
+          launchTimeout: 30000,
+          port: await getRandomPort(),
+        },
+      ],
+    });
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [UsersService],
-    }).compile();
+    const module = await Test.createTestingModule({
+      imports: [UsersModule],
+    })
+      .overrideProvider(ConfigService)
+      .useValue(
+        new ConfigService({
+          COMPONENT_URI: mongo.getUri('USER_URI'),
+        })
+      )
+      .compile();
 
-    service = module.get<UsersService>(UsersService);
-  });
+    await expect(module.init()).resolves.toBeTruthy();
+    await expect(module.close()).resolves.toBeUndefined();
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
+    await mongo.stop();
   });
 });

@@ -1,6 +1,6 @@
 import { Connection, Schema } from 'mongoose';
 import { MongooseRepository, Repository } from '@pcp/repository';
-import { Motherboard } from '../../../libs/types/motherboard';
+import { Motherboard } from '@pcp/types';
 
 export type MotherboardRepository = Repository<Motherboard>;
 

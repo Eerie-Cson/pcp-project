@@ -1,34 +1,42 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
-import { UsersService } from './users.service';
-import { CreateUserInput } from './dto/create-user.input';
-import { UpdateUserInput } from './dto/update-user.input';
+import R from 'ramda';
+import { UserService } from '../../../features/user/user.service';
+import { ObjectId } from '@pcp/object-id';
+import { ObjectTypes } from '@pcp/object-type';
+import { CreateUserInput, UpdateUserInput } from '../../../libs/graphql-types';
 
 @Resolver('User')
 export class UsersResolver {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UserService) {}
 
   @Mutation('createUser')
-  create(@Args('createUserInput') createUserInput: CreateUserInput) {
-    return this.usersService.create(createUserInput);
-  }
-
-  @Query('users')
-  findAll() {
-    return this.usersService.findAll();
-  }
-
-  @Query('user')
-  findOne(@Args('id') id: number) {
-    return this.usersService.findOne(id);
+  async create(@Args('createUserInput') createUserInput: CreateUserInput) {
+    const id = await ObjectId.generate(ObjectTypes.USER);
+    await this.usersService.createUser({ id, ...createUserInput });
+    return true;
   }
 
   @Mutation('updateUser')
   update(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
-    return this.usersService.update(updateUserInput.id, updateUserInput);
+    return this.usersService.updateUser({
+      id: updateUserInput.id,
+      data: R.omit(['id'], updateUserInput),
+    });
   }
 
-  @Mutation('removeUser')
-  remove(@Args('id') id: number) {
-    return this.usersService.remove(id);
-  }
+  // @Mutation('removeUser')
+  // async removeUser(@Args('id') id: string) {
+  //   await this.usersService.removeUser(id);
+  //   return true;
+  // }
+
+  // @Query('users')
+  // async getUsers() {
+  //   return this.usersService.findUsers();
+  // }
+
+  // @Query('user')
+  // findOne(@Args('id') id: string) {
+  //   return this.usersService.findUser({ id });
+  // }
 }

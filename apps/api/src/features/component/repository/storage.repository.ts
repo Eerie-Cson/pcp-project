@@ -1,6 +1,6 @@
 import { Connection, Schema } from 'mongoose';
 import { MongooseRepository, Repository } from '@pcp/repository';
-import { Storage } from '../../../libs/types/storage';
+import { Storage } from '@pcp/types';
 
 export type StorageRepository = Repository<Storage>;
 

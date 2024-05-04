@@ -7,13 +7,15 @@ import { MotherboardRepository } from './repository/motherboard.repository';
 import { PowerSupplyRepository } from './repository/power-supply.repository';
 import { StorageRepository } from './repository/storage.repository';
 import { VideoCardRepository } from './repository/video-card.repository';
-import { Case } from '../../libs/types/case';
-import { Cpu } from '../../libs/types/cpu';
-import { Memory } from '../../libs/types/memory';
-import { Motherboard } from '../../libs/types/motherboard';
-import { PowerSupply } from '../../libs/types/power-supply';
-import { VideoCard } from '../../libs/types/video-card';
-import { Storage } from '../../libs/types/storage';
+import {
+  Case,
+  Cpu,
+  Memory,
+  Motherboard,
+  PowerSupply,
+  VideoCard,
+  Storage,
+} from '@pcp/types';
 
 @Injectable()
 export class ComponentService {

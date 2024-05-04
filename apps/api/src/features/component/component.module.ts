@@ -8,6 +8,7 @@ import { MemoryRepositoryFactory } from './repository/memory.repository';
 import { MotherboardRepositoryFactory } from './repository/motherboard.repository';
 import { PowerSupplyRepositoryFactory } from './repository/power-supply.repository';
 import { StorageRepositoryFactory } from './repository/storage.repository';
+import { VideoCardRepositoryFactory } from './repository/video-card.repository';
 
 @Module({
   providers: [
@@ -43,7 +44,7 @@ import { StorageRepositoryFactory } from './repository/storage.repository';
     },
     {
       provide: Tokens.VideoCardRepository,
-      useFactory: StorageRepositoryFactory,
+      useFactory: VideoCardRepositoryFactory,
       inject: [getConnectionToken()],
     },
     ComponentService,
