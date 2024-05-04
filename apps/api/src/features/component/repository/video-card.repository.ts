@@ -1,6 +1,6 @@
 import { Connection, Schema } from 'mongoose';
 import { MongooseRepository, Repository } from '@pcp/repository';
-import { VideoCard } from '../../../libs/types/video-card';
+import { VideoCard } from '@pcp/types';
 
 export type VideoCardRepository = Repository<VideoCard>;
 

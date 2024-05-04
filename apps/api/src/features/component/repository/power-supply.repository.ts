@@ -1,6 +1,6 @@
 import { Connection, Schema } from 'mongoose';
 import { MongooseRepository, Repository } from '@pcp/repository';
-import { PowerSupply } from '../../../libs/types/power-supply';
+import { PowerSupply } from '@pcp/types';
 
 export type PowerSupplyRepository = Repository<PowerSupply>;
 

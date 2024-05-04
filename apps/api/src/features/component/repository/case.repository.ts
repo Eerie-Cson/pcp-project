@@ -1,6 +1,6 @@
 import { Connection, Schema } from 'mongoose';
 import { MongooseRepository, Repository } from '@pcp/repository';
-import { Case } from '../../../libs/types/case';
+import { Case } from '@pcp/types';
 
 export type CaseRepository = Repository<Case>;
 
@@ -28,7 +28,6 @@ export function CaseRepositoryFactory(connection: Connection) {
       type: String,
       required: true,
     },
-    
     type: {
       type: String,
       required: true,
