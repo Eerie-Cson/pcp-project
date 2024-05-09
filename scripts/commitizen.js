@@ -57,7 +57,7 @@ const prompter = (_, commit) => {
         type: 'list',
         name: 'scope',
         message: 'Select the scope:',
-        choices: ['component', 'user', 'others'].map((item) => ({
+        choices: ['component', 'user', 'libs', 'others'].map((item) => ({
           name: item,
           value: item,
         })),
