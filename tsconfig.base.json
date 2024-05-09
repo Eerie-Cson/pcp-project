@@ -15,10 +15,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@pcp/object-id": ["packages/object-id/index"],
+      "@pcp/object-id": ["packages/object-id/index.ts"],
       "@pcp/object-type": ["packages/object-id/lib/object-type"],
-      "@pcp/repository": ["packages/repository/index"],
-      "@pcp/types": ["libs/types/index"]
+      "@pcp/repository": ["packages/repository/index.ts"],
+      "@pcp/types": ["packages/types/index"]
     }
   },
   "exclude": ["node_modules", "tmp"]
