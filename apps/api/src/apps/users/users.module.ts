@@ -10,7 +10,7 @@ import { UsersResolver } from './resolvers/users.resolver';
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (config: ConfigService) => ({
-        uri: config.get<string>('USER_URI'),
+        uri: config.get<string>('USERS_URI'),
       }),
       inject: [ConfigService],
     }),

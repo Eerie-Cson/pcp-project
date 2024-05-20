@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 export class ObjectId {
   private readonly _value: string;
 
-  private constructor(value?: string) {
+  private constructor(value: string) {
     this._value = value;
   }
 

@@ -1,7 +1,7 @@
 
 type Memory {
   # image: String
-  id: String!
+  id: ObjectId!
   name: String!
   price: String!
   manufacturer: String!
@@ -16,6 +16,7 @@ type Memory {
 }
 
 input CreateMemoryInput {
+  id: ObjectId!
   name: String!
   price: String!
   manufacturer: String!
@@ -43,11 +44,11 @@ input UpdateMemoryInput {
 
 type Query {
   getMemorys: [Memory]!
-  getMemory(id: String!): Memory
+  getMemory(id: ObjectId!): Memory
 }
 
 type Mutation {
   createMemory(createMemoryInput: CreateMemoryInput!): Boolean
-  updateMemory(id: String!, updateMemoryInput: UpdateMemoryInput!): Boolean
-  deleteMemory(id: String!): Boolean
+  updateMemory(id: ObjectId!, updateMemoryInput: UpdateMemoryInput!): Boolean
+  deleteMemory(id: ObjectId!): Boolean
 }

@@ -5,7 +5,7 @@ enum StorageType {
 
 type Storage {
   # image: String
-  id: String!
+  id: ObjectId!
   name: String!
   price: String!
   manufacturer: String!
@@ -19,6 +19,7 @@ type Storage {
 }
 
 input CreateStorageInput {
+  id: ObjectId!
   name: String!
   price: String!
   manufacturer: String!
@@ -44,11 +45,11 @@ input UpdateStorageInput {
 
 type Query {
   getStorages: [Storage]!
-  getStorage(id: String!): Storage
+  getStorage(id: ObjectId!): Storage
 }
 
 type Mutation {
   createStorage(createStorageInput: CreateStorageInput!): Boolean
-  updateStorage(id: String!, updateStorageInput: UpdateStorageInput!): Boolean
-  deleteStorage(id: String!): Boolean
+  updateStorage(id: ObjectId!, updateStorageInput: UpdateStorageInput!): Boolean
+  deleteStorage(id: ObjectId!): Boolean
 }

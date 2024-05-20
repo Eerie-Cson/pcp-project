@@ -9,7 +9,7 @@ enum SidePanelType {
 
 type Case {
   # image: String
-  id: String!
+  id: ObjectId!
   name: String!
   price: String!
   manufacturer: String!
@@ -24,6 +24,7 @@ type Case {
 }
 
 input CreateCaseInput {
+  id: ObjectId!
   name: String!
   price: String!
   manufacturer: String!
@@ -51,11 +52,11 @@ input UpdateCaseInput {
 
 type Query {
   getCases: [Case]!
-  getCase(id: String!): Case
+  getCase(id: ObjectId!): Case
 }
 
 type Mutation {
   createCase(createCaseInput: CreateCaseInput!): Boolean
-  updateCase(id: String!, updateCaseInput: UpdateCaseInput!): Boolean
-  deleteCase(id: String!): Boolean
+  updateCase(id: ObjectId!, updateCaseInput: UpdateCaseInput!): Boolean
+  deleteCase(id: ObjectId!): Boolean
 }

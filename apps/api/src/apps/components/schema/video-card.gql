@@ -1,6 +1,6 @@
 type VideoCard {
   # image: String
-  id: String!
+  id: ObjectId!
   name: String!
   price: String!
   manufacturer: String!
@@ -20,6 +20,7 @@ type VideoCard {
 }
 
 input CreateVideoCardInput {
+  id: ObjectId!
   name: String!
   price: String!
   manufacturer: String!
@@ -57,11 +58,11 @@ input UpdateVideoCardInput {
 
 type Query {
   getVideoCards: [VideoCard]!
-  getVideoCard(id: String!): VideoCard
+  getVideoCard(id: ObjectId!): VideoCard
 }
 
 type Mutation {
   createVideoCard(createVideoCardInput: CreateVideoCardInput!): Boolean
-  updateVideoCard(id: String!, updateVideoCardInput: UpdateVideoCardInput!): Boolean
-  deleteVideoCard(id: String!): Boolean
+  updateVideoCard(id: ObjectId!, updateVideoCardInput: UpdateVideoCardInput!): Boolean
+  deleteVideoCard(id: ObjectId!): Boolean
 }

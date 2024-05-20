@@ -1,22 +1,62 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
-
-import { Logger } from '@nestjs/common';
+/** build: 70x */
+import 'newrelic';
 import { NestFactory } from '@nestjs/core';
+import { Logger, ShutdownSignal } from '@nestjs/common';
+import { options } from './program';
 
-import { AppModule } from './app/app.module';
+import { UsersModule } from './apps/users/users.module';
+import { ComponentsModule } from './apps/components/components.module';
+
+const SHUTDOWN_SIGNALS = [
+  ShutdownSignal.SIGHUP,
+  ShutdownSignal.SIGINT,
+  ShutdownSignal.SIGTERM,
+];
+
+const { NODE_ENV, PORT } = process.env;
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  const globalPrefix = 'api';
-  app.setGlobalPrefix(globalPrefix);
-  const port = process.env.PORT || 3000;
-  await app.listen(port);
-  Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
-  );
+  Logger.log(`starting in '${options.mode}' mode`);
+
+  if (options.mode === 'users') {
+    const app = await NestFactory.create(UsersModule);
+
+    app.enableShutdownHooks(SHUTDOWN_SIGNALS);
+
+    app.enableCors();
+
+    const port = parseInt(PORT || '4001', 10);
+
+    await app.listen(port);
+
+    Logger.log(
+      `🚀 running in '${options.mode}' mode on: host=http://localhost:${port}/ env=${NODE_ENV}`
+    );
+
+    return;
+  }
+
+  if (options.mode === 'components') {
+    const app = await NestFactory.create(ComponentsModule);
+
+    app.enableShutdownHooks(SHUTDOWN_SIGNALS);
+
+    app.enableCors();
+
+    const port = parseInt(PORT || '4002', 10);
+
+    await app.listen(port);
+
+    Logger.log(
+      `🚀 running in '${options.mode}' mode on: host=http://localhost:${port}/ env=${NODE_ENV}`
+    );
+
+    return;
+  }
 }
 
-bootstrap();
+bootstrap().catch((err) => {
+  Logger.error(err);
+
+  throw err;
+});

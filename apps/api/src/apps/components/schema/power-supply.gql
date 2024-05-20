@@ -1,6 +1,6 @@
 type PowerSupply {
   # image: String
-  id: String!
+  id: ObjectId!
   name: String!
   price: String!
   manufacturer: String!
@@ -16,6 +16,7 @@ type PowerSupply {
 }
 
 input CreatePowerSupplyInput {
+  id: ObjectId!
   name: String!
   price: String!
   manufacturer: String!
@@ -45,11 +46,11 @@ input UpdatePowerSupplyInput {
 
 type Query {
   getPowerSupplys: [PowerSupply]!
-  getPowerSupply(id: String!): PowerSupply
+  getPowerSupply(id: ObjectId!): PowerSupply
 }
 
 type Mutation {
   createPowerSupply(createPowerSupplyInput: CreatePowerSupplyInput!): Boolean
-  updatePowerSupply(id: String!, updatePowerSupplyInput: UpdatePowerSupplyInput!): Boolean
-  deletePowerSupply(id: String!): Boolean
+  updatePowerSupply(id: ObjectId!, updatePowerSupplyInput: UpdatePowerSupplyInput!): Boolean
+  deletePowerSupply(id: ObjectId!): Boolean
 }
