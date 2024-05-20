@@ -5,7 +5,7 @@ enum MemoryType {
 
 type Motherboard {
   # image: String
-  id: String!
+  id: ObjectId!
   name: String!
   price: String!
   manufacturer: String!
@@ -21,6 +21,7 @@ type Motherboard {
 }
 
 input CreateMotherboardInput {
+  id: ObjectId!
   name: String!
   price: String!
   manufacturer: String!
@@ -50,11 +51,11 @@ input UpdateMotherboardInput {
 
 type Query {
   getMotherboards: [Motherboard]!
-  getMotherboard(id: String!): Motherboard
+  getMotherboard(id: ObjectId!): Motherboard
 }
 
 type Mutation {
   createMotherboard(createMotherboardInput: CreateMotherboardInput!): Boolean
-  updateMotherboard(id: String!, updateMotherboardInput: UpdateMotherboardInput!): Boolean
-  deleteMotherboard(id: String!): Boolean
+  updateMotherboard(id: ObjectId!, updateMotherboardInput: UpdateMotherboardInput!): Boolean
+  deleteMotherboard(id: ObjectId!): Boolean
 }
