@@ -1,0 +1,9 @@
+type Component {
+    case: ObjectId!
+    cpu: ObjectId!
+    memory: ObjectId!
+    motherboard: ObjectId!
+    powerSupply: ObjectId!
+    storage: ObjectId!
+    videoCard: ObjectId!
+}

@@ -1,0 +1,35 @@
+type Build {
+  id: ObjectId!
+  name: String!
+  user: ObjectId!
+  description: String!
+  components: [Component!]
+  totalPrice: String!
+  dateCreated: Date!
+  datePublished: Date
+}
+
+input CreateBuildInput {
+  id: ObjectId!
+  name: String!
+  user: ObjectId!
+  description: String!
+  components: [Component!]
+}
+
+input UpdateBuildInput {
+  name: String
+  description: String
+  components: [Component]
+}
+
+type Query {
+  getBuilds: [Build]!
+  getBuild(id: ObjectId!): Build
+}
+
+type Mutation {
+  createBuild(createBuildInput: CreateBuildInput!): Boolean
+  updateBuild(id: ObjectId!, updateBuildInput: UpdateBuildInput!): Boolean
+  deleteBuild(id: ObjectId!): Boolean
+}
