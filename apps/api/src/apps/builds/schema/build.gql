@@ -3,7 +3,7 @@ type Build {
   name: String!
   user: ObjectId!
   description: String!
-  components: [Component!]
+  components: Component!
   totalPrice: String!
   dateCreated: Date!
   datePublished: Date
@@ -14,13 +14,14 @@ input CreateBuildInput {
   name: String!
   user: ObjectId!
   description: String!
-  components: [Component!]
+  components: Component!
 }
 
 input UpdateBuildInput {
+  user: ObjectId!
   name: String
   description: String
-  components: [Component]
+  components: Component
 }
 
 type Query {
