@@ -6,3 +6,4 @@ export * from './src/components/power-supply';
 export * from './src/components/storage';
 export * from './src/components/video-card';
 export * from './src/users/user';
+export * from './src/users/user-build';

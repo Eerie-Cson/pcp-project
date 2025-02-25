@@ -8,7 +8,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ObjectId as _ObjectId } from '@pcp/object-id'
+import { ObjectId as _ObjectId } from '@highoutputventures/opexa-object-id'
 
 export enum CaseType {
     ATX_MID_TOWER = "ATX_MID_TOWER"
@@ -31,6 +31,21 @@ export enum MemoryType {
 export enum StorageType {
     SSD = "SSD",
     HDD = "HDD"
+}
+
+export interface CreateBuildInput {
+    id: ObjectId;
+    name: string;
+    user: ObjectId;
+    description: string;
+    components: Component;
+}
+
+export interface UpdateBuildInput {
+    user: ObjectId;
+    name?: Nullable<string>;
+    description?: Nullable<string>;
+    components?: Nullable<Component>;
 }
 
 export interface CreateCaseInput {
@@ -256,21 +271,20 @@ export interface UpdateUserInput {
     email?: Nullable<string>;
 }
 
-export interface Case {
+export interface Build {
     id: ObjectId;
     name: string;
-    price: string;
-    manufacturer: string;
-    partNumber: string;
-    color: string;
-    type: CaseType;
-    formFactor: string;
-    interface: string;
-    powerSupply: boolean;
-    sidePanel: SidePanelType;
+    user: ObjectId;
+    description: string;
+    components: Component;
+    totalPrice: string;
+    dateCreated: Date;
+    datePublished?: Nullable<Date>;
 }
 
 export interface IQuery {
+    getBuilds(): Nullable<Build>[] | Promise<Nullable<Build>[]>;
+    getBuild(id: ObjectId): Nullable<Build> | Promise<Nullable<Build>>;
     getCases(): Nullable<Case>[] | Promise<Nullable<Case>[]>;
     getCase(id: ObjectId): Nullable<Case> | Promise<Nullable<Case>>;
     getCPUs(): Nullable<CPU>[] | Promise<Nullable<CPU>[]>;
@@ -290,6 +304,9 @@ export interface IQuery {
 }
 
 export interface IMutation {
+    createBuild(createBuildInput: CreateBuildInput): Nullable<boolean> | Promise<Nullable<boolean>>;
+    updateBuild(id: ObjectId, updateBuildInput: UpdateBuildInput): Nullable<boolean> | Promise<Nullable<boolean>>;
+    deleteBuild(id: ObjectId): Nullable<boolean> | Promise<Nullable<boolean>>;
     createCase(createCaseInput: CreateCaseInput): Nullable<boolean> | Promise<Nullable<boolean>>;
     updateCase(id: ObjectId, updateCaseInput: UpdateCaseInput): Nullable<boolean> | Promise<Nullable<boolean>>;
     deleteCase(id: ObjectId): Nullable<boolean> | Promise<Nullable<boolean>>;
@@ -314,6 +331,30 @@ export interface IMutation {
     createUser(createUserInput: CreateUserInput): User | Promise<User>;
     updateUser(id: string, updateUserInput: UpdateUserInput): User | Promise<User>;
     removeUser(id: string): Nullable<User> | Promise<Nullable<User>>;
+}
+
+export interface Component {
+    case: ObjectId;
+    cpu: ObjectId;
+    memory: ObjectId;
+    motherboard: ObjectId;
+    powerSupply: ObjectId;
+    storage: ObjectId;
+    videoCard: ObjectId;
+}
+
+export interface Case {
+    id: ObjectId;
+    name: string;
+    price: string;
+    manufacturer: string;
+    partNumber: string;
+    color: string;
+    type: CaseType;
+    formFactor: string;
+    interface: string;
+    powerSupply: boolean;
+    sidePanel: SidePanelType;
 }
 
 export interface CPU {

@@ -2,8 +2,8 @@ type User {
   id: String!
   username: String!
   email: String!
-  dateTimeCreated: Date!
-  dateTimeUpdated: Date!
+  dateTimeCreated: DateTime!
+  dateTimeUpdated: DateTime!
 }
 
 input CreateUserInput {
