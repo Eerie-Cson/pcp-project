@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UserModule } from '../../features/user/user.module';
+import { BuildModule } from '../../features/build/build.module';
+import { BuildResolver } from './resolvers/builds.resolver';
 
 @Module({
   imports: [
@@ -14,8 +15,8 @@ import { UserModule } from '../../features/user/user.module';
       inject: [ConfigService],
     }),
 
-    UserModule,
+    BuildModule,
   ],
-  providers: [],
+  providers: [BuildResolver],
 })
-export class BuildModule {}
+export class BuildsModule {}
