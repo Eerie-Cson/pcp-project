@@ -16,7 +16,6 @@ definitionsFactory.generate({
     JSON: 'Record<string, any>',
     URL: 'string',
   },
-  additionalHeader:
-    "import { ObjectId as _ObjectId } from '@highoutputventures/opexa-object-id'",
+  additionalHeader: "import { ObjectId as _ObjectId } from '@pcp/object-id'",
   typeDefs: [constraintDirectiveTypeDefs],
 });

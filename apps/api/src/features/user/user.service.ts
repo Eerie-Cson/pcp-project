@@ -3,6 +3,7 @@ import { Tokens } from './libs/tokens';
 import { UserRepository } from './repository/user.repository';
 import { User } from '@pcp/types';
 import { ObjectId } from '@pcp/object-id';
+import R from 'ramda';
 
 @Injectable()
 export class UserService {
@@ -11,11 +12,15 @@ export class UserService {
     private userRepository: UserRepository
   ) {}
 
-  async createUser(data: User) {
-    return this.userRepository.create(data);
+  async createUser(data: Omit<User, 'dateTimeCreated' | 'dateTimeUpdated'>) {
+    return this.userRepository.create({
+      ...data,
+      dateTimeCreated: new Date(),
+      dateTimeUpdated: new Date(),
+    });
   }
 
-  async updateUser(params: { id: ObjectId; data: Partial<Omit<User, 'id'>> }) {
+  async updateUser(params: { id: string; data: Partial<Omit<User, 'id'>> }) {
     return this.userRepository.update(
       {
         id: params.id,
@@ -31,7 +36,7 @@ export class UserService {
   }
 
   async findUser(params: Partial<User>) {
-    return this.userRepository.findOne(params);
+    return this.userRepository.find(params);
   }
 
   async findUsers() {

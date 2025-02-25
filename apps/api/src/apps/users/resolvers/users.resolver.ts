@@ -17,9 +17,12 @@ export class UsersResolver {
   }
 
   @Mutation('updateUser')
-  update(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
+  async update(
+    @Args('id') id: string,
+    @Args('updateUserInput') updateUserInput: UpdateUserInput
+  ) {
     return this.usersService.updateUser({
-      id: updateUserInput.id,
+      id,
       data: R.omit(['id'], updateUserInput),
     });
   }
