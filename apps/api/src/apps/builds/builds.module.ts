@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { BuildModule } from '../../features/builds/build.module';
+import { BuildResolver } from './resolvers/build.resolver';
 
 @Module({
   imports: [
@@ -16,6 +17,6 @@ import { BuildModule } from '../../features/builds/build.module';
 
     BuildModule,
   ],
-  providers: [],
+  providers: [BuildResolver],
 })
 export class BuildsModule {}

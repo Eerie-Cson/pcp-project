@@ -3,11 +3,7 @@ import R from 'ramda';
 import { UserService } from '../../../features/user/user.service';
 import { ObjectId } from '@pcp/object-id';
 import { ObjectTypes } from '@pcp/object-type';
-import {
-  CreateBuildInput,
-  CreateUserInput,
-  UpdateUserInput,
-} from '../../../libs/graphql-types';
+import { CreateUserInput, UpdateUserInput } from '../../../libs/graphql-types';
 
 @Resolver('User')
 export class UsersResolver {
@@ -29,14 +25,6 @@ export class UsersResolver {
       id,
       data: R.omit(['id'], updateUserInput),
     });
-  }
-
-  @Mutation('createBuild')
-  async createBuild(
-    @Args('createBuildInput') createBuildInput: CreateBuildInput
-  ) {
-    //Resolve UserID and all component ids here to OBJECTID
-    return this.usersService.createBuild(createBuildInput);
   }
   // @Mutation('removeUser')
   // async removeUser(@Args('id') id: string) {
