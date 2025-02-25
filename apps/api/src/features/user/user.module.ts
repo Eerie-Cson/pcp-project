@@ -3,7 +3,7 @@ import { getConnectionToken } from '@nestjs/mongoose';
 import { UserService } from './user.service';
 import { Tokens } from './libs/tokens';
 import { UserRepositoryFactory } from './repository/user.repository';
-import { UserBuildRepositoryFactory } from './repository/user-build.repository';
+import { UserBuildRepositoryFactory } from '../builds/repository/user-build.repository';
 
 @Module({
   providers: [
@@ -12,11 +12,7 @@ import { UserBuildRepositoryFactory } from './repository/user-build.repository';
       useFactory: UserRepositoryFactory,
       inject: [getConnectionToken()],
     },
-    {
-      provide: Tokens.UserBuildRepository,
-      useFactory: UserBuildRepositoryFactory,
-      inject: [getConnectionToken()],
-    },
+
     UserService,
   ],
   exports: [UserService],
