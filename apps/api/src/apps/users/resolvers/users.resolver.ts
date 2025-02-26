@@ -1,5 +1,5 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
-import R from 'ramda';
+import * as R from 'ramda';
 import { UserService } from '../../../features/user/user.service';
 import { ObjectId } from '@pcp/object-id';
 import { ObjectTypes } from '@pcp/object-type';

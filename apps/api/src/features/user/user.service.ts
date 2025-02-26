@@ -3,7 +3,6 @@ import { Tokens } from './libs/tokens';
 import { UserRepository } from './repository/user.repository';
 import { User } from '@pcp/types';
 import { ObjectId } from '@pcp/object-id';
-import R from 'ramda';
 
 @Injectable()
 export class UserService {

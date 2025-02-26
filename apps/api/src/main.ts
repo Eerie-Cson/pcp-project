@@ -1,5 +1,4 @@
 /** build: 70x */
-import 'newrelic';
 import { NestFactory } from '@nestjs/core';
 import { Logger, ShutdownSignal } from '@nestjs/common';
 import { options } from './program';
