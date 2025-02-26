@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "./",
     "rootDir": ".",
     "sourceMap": true,
     "declaration": false,
@@ -8,12 +9,13 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2015",
-    "module": "esnext",
-    "lib": ["es2020", "dom"],
+    "target": "es2017",
+    "lib": ["ESNext", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "baseUrl": ".",
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "types": ["node", "jest"],
     "paths": {
       "@pcp/object-id": ["packages/object-id/index.ts"],
       "@pcp/object-type": ["packages/object-id/lib/object-type"],
