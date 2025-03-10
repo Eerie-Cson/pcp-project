@@ -1,8 +1,6 @@
-/** build: 70x */
 import { NestFactory } from '@nestjs/core';
 import { Logger, ShutdownSignal } from '@nestjs/common';
 import { options } from './program';
-
 import { UsersModule } from './apps/users/users.module';
 import { ComponentsModule } from './apps/components/components.module';
 
