@@ -19,7 +19,7 @@ export class UserService {
     });
   }
 
-  async updateUser(params: { id: string; data: Partial<Omit<User, 'id'>> }) {
+  async updateUser(params: { id: ObjectId; data: Partial<Omit<User, 'id'>> }) {
     return this.userRepository.update(
       {
         id: params.id,
@@ -28,7 +28,7 @@ export class UserService {
     );
   }
 
-  async removeUser(id: ObjectId) {
+  async deleteUser(id: ObjectId) {
     return this.userRepository.delete({
       id,
     });
