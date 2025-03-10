@@ -17,7 +17,15 @@ export class ObjectId {
     return new ObjectId(ids.join(''));
   }
 
-  public get value() {
+  public static from(type: string) {
+    return new ObjectId(type);
+  }
+
+  public toString() {
+    return this.value;
+  }
+
+  private get value() {
     return this._value;
   }
 }
