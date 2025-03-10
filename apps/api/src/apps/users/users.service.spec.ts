@@ -8,7 +8,7 @@ describe('ComponentModule', () => {
   test.concurrent('initialize module', async () => {
     const mongo = await MongoMemoryReplSet.create({
       replSet: {
-        storageEngine: 'ephemeralForTest',
+        storageEngine: 'wiredTiger',
       },
       instanceOpts: [
         {
@@ -24,7 +24,7 @@ describe('ComponentModule', () => {
       .overrideProvider(ConfigService)
       .useValue(
         new ConfigService({
-          COMPONENT_URI: mongo.getUri('USER_URI'),
+          USERS_URI: mongo.getUri('USERS_URI'),
         })
       )
       .compile();
