@@ -11,35 +11,37 @@ export class UsersResolver {
 
   @Mutation('createUser')
   async create(@Args('createUserInput') createUserInput: CreateUserInput) {
-    const id = await ObjectId.generate(ObjectTypes.USER);
-    await this.usersService.createUser({ id, ...createUserInput });
+    await this.usersService.createUser({
+      id: ObjectId.from(createUserInput.id),
+      ...R.pick(['name', 'email', 'password', 'username'], createUserInput),
+    });
     return true;
   }
 
   @Mutation('updateUser')
   async update(
     @Args('id') id: string,
-    @Args('updateUserInput') updateUserInput: UpdateUserInput
+    @Args('updateUserInput') updateUserInput: UpdateUserInput,
   ) {
     return this.usersService.updateUser({
-      id,
-      data: R.omit(['id'], updateUserInput),
+      id: ObjectId.from(id),
+      data: updateUserInput,
     });
   }
 
-  // @Mutation('removeUser')
-  // async removeUser(@Args('id') id: string) {
-  //   await this.usersService.removeUser(id);
-  //   return true;
-  // }
+  @Mutation('deleteUser')
+  async deleteUser(@Args('id') id: string) {
+    await this.usersService.deleteUser(ObjectId.from(id));
+    return true;
+  }
 
-  // @Query('users')
-  // async getUsers() {
-  //   return this.usersService.findUsers();
-  // }
+  @Query('users')
+  async getUsers() {
+    return this.usersService.findUsers();
+  }
 
-  // @Query('user')
-  // findOne(@Args('id') id: string) {
-  //   return this.usersService.findUser({ id });
-  // }
+  @Query('user')
+  findOne(@Args('id') id: string) {
+    return this.usersService.findUser({ id: ObjectId.from(id) });
+  }
 }
