@@ -1,0 +1,113 @@
+scalar ObjectId
+scalar DateTime
+scalar Date
+scalar JSON
+scalar EmailAddress
+scalar Cursor
+scalar URL
+scalar Decimal
+scalar Timezone
+scalar Upload
+
+interface Node {
+  id: ObjectId!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  endCursor: Cursor
+}
+
+type Edge {
+  cursor: Cursor!
+  node: Node!
+}
+
+type Connection {
+  totalCount: Int!
+  edges: [Edge!]!
+  pageInfo: PageInfo!
+}
+
+input ObjectIdFilterInput {
+  equal: ObjectId
+  notEqual: ObjectId
+  in: [ObjectId!]
+  notIn: [ObjectId!]
+}
+
+input StringFilterInput {
+  equal: String
+  notEqual: String
+  in: [String!]
+  notIn: [String!]
+  contains: String
+  startsWith: String
+}
+
+input BooleanFilterInput {
+  equal: Boolean
+  notEqual: Boolean
+}
+
+input EmailAddressFilterInput {
+  equal: EmailAddress
+  notEqual: EmailAddress
+  in: [EmailAddress!]
+  notIn: [EmailAddress!]
+  contains: String
+  startsWith: String
+}
+
+input DateFilterInput {
+  equal: Date
+  notEqual: Date
+  in: [Date!]
+  notIn: [Date!]
+  lesserThan: Date
+  lesserThanOrEqual: Date
+  greaterThan: Date
+  greaterThanOrEqual: Date
+}
+
+input DateTimeFilterInput {
+  equal: DateTime
+  notEqual: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lesserThan: DateTime
+  lesserThanOrEqual: DateTime
+  greaterThan: DateTime
+  greaterThanOrEqual: DateTime
+}
+
+input DecimalFilterInput {
+  equal: Decimal
+  notEqual: Decimal
+  in: [Decimal!]
+  notIn: [Decimal!]
+  lesserThan: Decimal
+  lesserThanOrEqual: Decimal
+  greaterThan: Decimal
+  greaterThanOrEqual: Decimal
+}
+
+input IntFilterInput {
+  equal: Int
+  notEqual: Int
+  in: [Int!]
+  notIn: [Int!]
+  lesserThan: Int
+  lesserThanOrEqual: Int
+  greaterThan: Int
+  greaterThanOrEqual: Int
+}
+
+enum SortOrder {
+  ASC
+  DESC
+}
+
+type Query {
+  node(id: ObjectId): Node
+}
