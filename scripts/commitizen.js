@@ -9,11 +9,12 @@
  * git push --set-upstream origin <branch name>
  */
 
-const inquirer = require('inquirer');
+import { createPromptModule } from 'inquirer';
+
+const prompt = createPromptModule();
 
 const prompter = (_, commit) => {
-  inquirer
-    .prompt([
+  prompt([
       {
         type: 'list',
         name: 'type',
@@ -82,4 +83,4 @@ const prompter = (_, commit) => {
     );
 };
 
-module.exports = { prompter };
+export default { prompter };
