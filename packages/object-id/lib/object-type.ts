@@ -1,8 +1,9 @@
 export enum ObjectTypes {
   USER = 'user',
+  COMPONENT = 'component',
+  CASE = 'case',
   // ACCOUNT = 'account',
   // EVENT = 'event',
   // BUILD = 'build',
-  // COMPONENT = 'component',
   // PAYMENT = 'payment',
 }
