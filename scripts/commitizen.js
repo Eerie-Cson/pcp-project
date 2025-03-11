@@ -9,78 +9,80 @@
  * git push --set-upstream origin <branch name>
  */
 
-import { createPromptModule } from 'inquirer';
+// import { createPromptModule } from 'inquirer';
+const { createPromptModule } = require('inquirer');
 
 const prompt = createPromptModule();
 
 const prompter = (_, commit) => {
   prompt([
-      {
-        type: 'list',
-        name: 'type',
-        message: "Select the type of change you're committing:",
-        choices: [
-          {
-            name: 'feat: 🚀 new feature',
-            value: '🚀 feat',
-          },
-          {
-            name: 'fix: 🐞 bug fix',
-            value: '🐞 fix',
-          },
-          {
-            name: 'chore: 🌟 chore changes',
-            value: '🌟 chore',
-          },
-          {
-            name: 'docs: 📄 documentation changes',
-            value: '📄 docs',
-          },
-          {
-            name: 'ref: 🔥 code refactoring',
-            value: '🔥 ref',
-          },
-          {
-            name: 'test: 🔍 test changes',
-            value: '🔍 test',
-          },
-          {
-            name: 'devops: 🔗 DevOps changes',
-            value: '🔗 devops',
-          },
-          {
-            name: 'infra: 🖥️ infrastructure changes',
-            value: '🖥️ infra',
-          },
-        ],
-      },
-      {
-        type: 'list',
-        name: 'scope',
-        message: 'Select the scope:',
-        choices: ['component', 'user', 'builds', 'libs', 'others'].map((item) => ({
+    {
+      type: 'list',
+      name: 'type',
+      message: "Select the type of change you're committing:",
+      choices: [
+        {
+          name: 'feat: 🚀 new feature',
+          value: '🚀 feat',
+        },
+        {
+          name: 'fix: 🐞 bug fix',
+          value: '🐞 fix',
+        },
+        {
+          name: 'chore: 🌟 chore changes',
+          value: '🌟 chore',
+        },
+        {
+          name: 'docs: 📄 documentation changes',
+          value: '📄 docs',
+        },
+        {
+          name: 'ref: 🔥 code refactoring',
+          value: '🔥 ref',
+        },
+        {
+          name: 'test: 🔍 test changes',
+          value: '🔍 test',
+        },
+        {
+          name: 'devops: 🔗 DevOps changes',
+          value: '🔗 devops',
+        },
+        {
+          name: 'infra: 🖥️ infrastructure changes',
+          value: '🖥️ infra',
+        },
+      ],
+    },
+    {
+      type: 'list',
+      name: 'scope',
+      message: 'Select the scope:',
+      choices: ['component', 'user', 'builds', 'libs', 'others'].map(
+        (item) => ({
           name: item,
           value: item,
-        })),
-      },
-      {
-        type: 'input',
-        name: 'message',
-        message: 'Message:\n',
-        validate(input) {
-          if (!input) {
-            throw Error('empty commit message');
-          }
+        }),
+      ),
+    },
+    {
+      type: 'input',
+      name: 'message',
+      message: 'Message:\n',
+      validate(input) {
+        if (!input) {
+          throw Error('empty commit message');
+        }
 
-          return true;
-        },
+        return true;
       },
-    ])
-    .then((answers) =>
-      commit(
-        `${answers.type} (${answers.scope}): ${answers.message}\n\n${answers.references}`
-      )
-    );
+    },
+  ]).then((answers) =>
+    commit(
+      `${answers.type} (${answers.scope}): ${answers.message}\n\n${answers.references}`,
+    ),
+  );
 };
 
-export default { prompter };
+module.exports = { prompter };
