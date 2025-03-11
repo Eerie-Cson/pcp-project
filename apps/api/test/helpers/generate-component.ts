@@ -1,0 +1,98 @@
+import {
+  Component,
+  SidePanelType,
+  MemoryType,
+  CaseType,
+  PackagingType,
+  StorageType,
+  ComponentType,
+} from '@pcp/types';
+
+import * as R from 'ramda';
+import { ObjectId } from '@pcp/object-id';
+import { ObjectTypes } from '@pcp/object-type';
+import { faker } from '@faker-js/faker';
+
+const componentFactories = {
+  [ComponentType.CPU]: () => ({
+    socket: faker.word.noun(),
+    series: faker.word.words(),
+    microarchitecture: faker.string.alpha(),
+    coreFamily: faker.string.alpha(),
+    coreCount: faker.helpers.arrayElement(['1', '2', '4', '8', '16', '32']),
+    coreClock: `${faker.string.alpha()} hz`,
+    tdp: faker.string.alpha(),
+    integratedGraphics: faker.string.alpha(),
+    cooler: faker.datatype.boolean(),
+    packaging: faker.helpers.enumValue(PackagingType),
+  }),
+  [ComponentType.CASE]: () => ({
+    color: faker.color.human(),
+    type: faker.helpers.enumValue(CaseType),
+    formFactor: faker.string.alpha(),
+    interface: faker.string.alpha(),
+    powerSupply: faker.datatype.boolean(),
+    sidePanel: faker.helpers.enumValue(SidePanelType),
+  }),
+  [ComponentType.MOTHERBOARD]: () => ({
+    socket: faker.string.alpha(),
+    formFactor: faker.string.alpha(),
+    chipset: faker.string.alpha(),
+    memoryMax: faker.string.alpha(),
+    memoryType: faker.helpers.enumValue(MemoryType),
+    memorySlots: faker.string.alpha(),
+    color: faker.color.human(),
+  }),
+  [ComponentType.MEMORY]: () => ({
+    speed: faker.string.alpha(),
+    formFactor: faker.string.alpha(),
+    modules: faker.string.alpha(),
+    voltage: faker.string.alpha(),
+    heatSpreader: faker.datatype.boolean(),
+    color: faker.color.human(),
+  }),
+  [ComponentType.STORAGE]: () => ({
+    capacity: faker.string.alpha(),
+    type: faker.helpers.enumValue(StorageType),
+    formFactor: faker.string.alpha(),
+    interface: faker.string.alpha(),
+    NVME: faker.datatype.boolean(),
+  }),
+  [ComponentType.VIDEO_CARD]: () => ({
+    model: faker.string.alpha(),
+    chipset: faker.string.alpha(),
+    memory: faker.string.alpha(),
+    memoryType: faker.string.alpha(),
+    coreClock: faker.string.alpha(),
+    interface: faker.string.alpha(),
+    color: faker.string.alpha(),
+    TDP: faker.string.alpha(),
+    coolingFans: faker.string.alpha(),
+    displayPortOutputs: faker.string.alpha(),
+    HDMIOutputs: faker.string.alpha(),
+  }),
+  [ComponentType.POWER_SUPPLY]: () => ({
+    model: faker.string.alpha(),
+    type: faker.string.alpha(),
+    wattage: faker.string.alpha(),
+    color: faker.string.alpha(),
+    fanless: faker.datatype.boolean(),
+    SATAConnectors: faker.string.alpha(),
+    length: faker.string.alpha(),
+  }),
+};
+
+export async function generateComponent(
+  componentType: ComponentType,
+  n?: number,
+): Promise<Component> {
+  return {
+    ...componentFactories[componentType](),
+    id: ObjectId.generate(ObjectTypes.CASE),
+    name: faker.commerce.productName(),
+    componentType,
+    price: faker.commerce.price(),
+    manufacturer: faker.company.name(),
+    partNumber: faker.string.alpha(7).toUpperCase(),
+  };
+}
