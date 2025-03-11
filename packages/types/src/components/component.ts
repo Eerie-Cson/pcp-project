@@ -16,12 +16,11 @@ export enum ComponentType {
   POWER_SUPPLY = 'POWER_SUPPLY',
 }
 
-export type Component = { componentType: ComponentType } & (
-  | Case
-  | Cpu
-  | Memory
-  | Motherboard
-  | PowerSupply
-  | Storage
-  | VideoCard
-);
+export type Component =
+  | (Case & { componentType: ComponentType.CASE })
+  | (Cpu & { componentType: ComponentType.CPU })
+  | (Memory & { componentType: ComponentType.MEMORY })
+  | (Motherboard & { componentType: ComponentType.MOTHERBOARD })
+  | (PowerSupply & { componentType: ComponentType.POWER_SUPPLY })
+  | (Storage & { componentType: ComponentType.STORAGE })
+  | (VideoCard & { componentType: ComponentType.VIDEO_CARD });
