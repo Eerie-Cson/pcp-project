@@ -1,5 +1,5 @@
-import { setupFixture } from './fixture';
-import { generateUser } from './generate-user';
+import { setupFixture } from '../fixture';
+import { generateUser } from '../helpers/generate-user';
 import { UserRepository } from '../../src/features/user/repository/user.repository';
 import { Tokens as UserTokens } from '../../src/features/user/libs/tokens';
 
