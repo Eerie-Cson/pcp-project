@@ -1,10 +1,10 @@
-import { Component } from './common';
+import { Common } from './common';
 
 export enum CaseType {
   ATX = 'ATX',
   EATX = 'EATX',
-  MicroATX = 'MicroATX',
-  MiniITX = 'MiniITX',
+  MICRO_ATX = 'MICRO_ATX',
+  MINI_ITX = 'MINI_ITX',
   ATX_MID_TOWER = 'ATX_MID_TOWER',
 }
 
@@ -13,7 +13,7 @@ export enum SidePanelType {
   TINTED_TEMPERED_GLASS = 'TINTED_TEMPERED_GLASS',
 }
 
-export type Case = Component & {
+export type Case = Common & {
   color: string;
   type: CaseType;
   formFactor: string;

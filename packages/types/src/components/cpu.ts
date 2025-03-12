@@ -1,10 +1,10 @@
-import { Component } from "./common";
+import { Common } from './common';
 
 export enum PackagingType {
   BOXED = 'BOXED',
 }
 
-export type Cpu = Component & {
+export type Cpu = Common & {
   socket: string;
   series: string;
   microarchitecture: string;

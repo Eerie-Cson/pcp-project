@@ -20,6 +20,10 @@ export function CaseRepositoryFactory(connection: Connection) {
       type: String,
       required: true,
     },
+    componentType: {
+      type: String,
+      required: true,
+    },
     manufacturer: {
       type: String,
       required: true,

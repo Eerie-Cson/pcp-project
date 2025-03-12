@@ -1,6 +1,6 @@
-import { Component } from './common';
+import { Common } from './common';
 
-export type Memory = Component & {
+export type Memory = Common & {
   speed: string;
   formFactor: string;
   modules: string;

@@ -1,6 +1,6 @@
 import { Node } from '../node';
 
-export type Component = Node & {
+export type Common = Node & {
   name: string;
   price: string;
   manufacturer: string;

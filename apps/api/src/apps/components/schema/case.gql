@@ -1,5 +1,9 @@
 enum CaseType {
   ATX_MID_TOWER
+  EATX
+  ATX
+  MICRO_ATX
+  MINI_ITX
 }
 
 enum SidePanelType {
@@ -9,12 +13,13 @@ enum SidePanelType {
 
 type Case {
   # image: String
-  id: ObjectId!
+  id: String!
   name: String!
+  componentType: ComponentType!
   price: String!
   manufacturer: String!
   partNumber: String!
-  
+
   color: String!
   type: CaseType!
   formFactor: String!
@@ -24,8 +29,9 @@ type Case {
 }
 
 input CreateCaseInput {
-  id: ObjectId!
+  id: String!
   name: String!
+  componentType: ComponentType!
   price: String!
   manufacturer: String!
   partNumber: String!

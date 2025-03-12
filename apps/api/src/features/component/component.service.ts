@@ -15,6 +15,8 @@ import {
   PowerSupply,
   VideoCard,
   Storage,
+  Component,
+  ComponentType,
 } from '@pcp/types';
 
 @Injectable()
@@ -33,10 +35,12 @@ export class ComponentService {
     @Inject(Tokens.StorageRepository)
     private storageRepository: StorageRepository,
     @Inject(Tokens.VideoCardRepository)
-    private videoCardRepository: VideoCardRepository
+    private videoCardRepository: VideoCardRepository,
   ) {}
-  async createCase(data: Case) {
-    return this.caseRepository.create(data);
+  async createCase(data: Component) {
+    if (data.componentType === ComponentType.CASE) {
+      return this.caseRepository.create(data);
+    }
   }
 
   async updateCase(params: { id: string; data: Partial<Omit<Case, 'id'>> }) {
@@ -44,7 +48,7 @@ export class ComponentService {
       {
         id: params.id,
       },
-      params.data
+      params.data,
     );
   }
 
@@ -67,7 +71,7 @@ export class ComponentService {
       {
         id: params.id,
       },
-      params.data
+      params.data,
     );
   }
 
@@ -93,7 +97,7 @@ export class ComponentService {
       {
         id: params.id,
       },
-      params.data
+      params.data,
     );
   }
 
@@ -119,7 +123,7 @@ export class ComponentService {
       {
         id: params.id,
       },
-      params.data
+      params.data,
     );
   }
 
@@ -145,7 +149,7 @@ export class ComponentService {
       {
         id: params.id,
       },
-      params.data
+      params.data,
     );
   }
 
@@ -171,7 +175,7 @@ export class ComponentService {
       {
         id: params.id,
       },
-      params.data
+      params.data,
     );
   }
 
@@ -197,7 +201,7 @@ export class ComponentService {
       {
         id: params.id,
       },
-      params.data
+      params.data,
     );
   }
 

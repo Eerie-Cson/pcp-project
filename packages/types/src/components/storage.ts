@@ -1,11 +1,11 @@
-import { Component } from './common';
+import { Common } from './common';
 
 export enum StorageType {
   SSD = 'SSD',
   HDD = 'HDD',
 }
 
-export type Storage = Component & {
+export type Storage = Common & {
   capacity: string;
   type: StorageType;
   formFactor: string;

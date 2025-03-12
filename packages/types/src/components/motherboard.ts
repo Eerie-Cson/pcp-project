@@ -1,4 +1,4 @@
-import { Component } from './common';
+import { Common } from './common';
 
 export enum MemoryType {
   DDR3 = 'DDR3',
@@ -6,7 +6,7 @@ export enum MemoryType {
   DDR5 = 'DDR5',
 }
 
-export type Motherboard = Component & {
+export type Motherboard = Common & {
   socket: string;
   formFactor: string;
   chipset: string;

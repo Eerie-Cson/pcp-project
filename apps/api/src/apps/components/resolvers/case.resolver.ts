@@ -2,6 +2,7 @@ import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { ComponentService } from '../../../features/component/component.service';
 import { ObjectId } from '@pcp/object-id';
 import { CreateCaseInput, UpdateCaseInput } from '../../../libs/graphql-types';
+import { ComponentType } from '@pcp/types';
 
 @Resolver('Case')
 export class CaseResolver {
@@ -9,7 +10,11 @@ export class CaseResolver {
 
   @Mutation('createCase')
   async createCase(@Args('createCaseInput') createCaseInput: CreateCaseInput) {
-    await this.componentService.createCase(createCaseInput);
+    await this.componentService.createCase({
+      ...createCaseInput,
+      componentType: ComponentType.CASE,
+      id: ObjectId.from(createCaseInput.id),
+    });
 
     return true;
   }
@@ -17,7 +22,7 @@ export class CaseResolver {
   @Mutation('updateCase')
   async updateCase(
     @Args('id') id: string,
-    @Args('updateCaseInput') updateCaseInput: UpdateCaseInput
+    @Args('updateCaseInput') updateCaseInput: UpdateCaseInput,
   ) {
     await this.componentService.updateCase({
       id,
@@ -34,12 +39,12 @@ export class CaseResolver {
     return true;
   }
 
-  @Query('Cases')
-  async cases() {
+  @Query('getCases')
+  async getCases() {
     return this.componentService.findCase({});
   }
 
-  @Query('Case')
+  @Query('getCase')
   async getCase(@Args('id') id: ObjectId) {
     return this.componentService.findCase({ id });
   }
