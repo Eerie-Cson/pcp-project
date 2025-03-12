@@ -25,7 +25,7 @@ export class CaseResolver {
     @Args('updateCaseInput') updateCaseInput: UpdateCaseInput,
   ) {
     await this.componentService.updateCase({
-      id,
+      id: ObjectId.from(id),
       data: updateCaseInput,
     });
 

@@ -5,7 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ComponentModule } from '../../features/component/component.module';
 import { GraphQLModule as NestGraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { DateResolver, ObjectIDResolver } from 'graphql-scalars';
+import { DateResolver } from 'graphql-scalars';
 import path from 'path';
 import { constraintDirectiveTypeDefs } from 'graphql-constraint-directive';
 
@@ -28,7 +28,6 @@ import { constraintDirectiveTypeDefs } from 'graphql-constraint-directive';
           introspection: true,
           typePaths: [path.resolve(__dirname, './schema/*.gql')],
           resolvers: {
-            ObjectId: ObjectIDResolver,
             Date: DateResolver,
           },
           typeDefs: [constraintDirectiveTypeDefs],
