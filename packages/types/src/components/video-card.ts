@@ -1,6 +1,6 @@
-import { Component } from './common';
+import { Common } from './common';
 
-export type VideoCard = Component & {
+export type VideoCard = Common & {
   model: string;
   chipset: string;
   memory: string;

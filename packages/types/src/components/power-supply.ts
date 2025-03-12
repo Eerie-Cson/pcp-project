@@ -1,6 +1,6 @@
-import { Component } from './common';
+import { Common } from './common';
 
-export type PowerSupply = Component & {
+export type PowerSupply = Common & {
   model: string;
   type: string;
   wattage: string;
