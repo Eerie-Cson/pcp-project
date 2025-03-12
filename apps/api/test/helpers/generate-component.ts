@@ -13,8 +13,9 @@ import { ObjectId } from '@pcp/object-id';
 import { ObjectTypes } from '@pcp/object-type';
 import { faker } from '@faker-js/faker';
 
-const componentFactories = {
+const componentFactories: Record<ComponentType, () => Partial<Component>> = {
   [ComponentType.CPU]: () => ({
+    componentType: ComponentType.CPU,
     socket: faker.word.noun(),
     series: faker.word.words(),
     microarchitecture: faker.string.alpha(),
@@ -27,14 +28,16 @@ const componentFactories = {
     packaging: faker.helpers.enumValue(PackagingType),
   }),
   [ComponentType.CASE]: () => ({
+    componentType: ComponentType.CASE,
     color: faker.color.human(),
     type: faker.helpers.enumValue(CaseType),
-    formFactor: faker.string.alpha(),
-    interface: faker.string.alpha(),
+    formFactor: faker.word.adjective(),
+    interface: faker.word.noun(),
     powerSupply: faker.datatype.boolean(),
     sidePanel: faker.helpers.enumValue(SidePanelType),
   }),
   [ComponentType.MOTHERBOARD]: () => ({
+    componentType: ComponentType.MOTHERBOARD,
     socket: faker.string.alpha(),
     formFactor: faker.string.alpha(),
     chipset: faker.string.alpha(),
@@ -44,6 +47,7 @@ const componentFactories = {
     color: faker.color.human(),
   }),
   [ComponentType.MEMORY]: () => ({
+    componentType: ComponentType.MEMORY,
     speed: faker.string.alpha(),
     formFactor: faker.string.alpha(),
     modules: faker.string.alpha(),
@@ -52,6 +56,7 @@ const componentFactories = {
     color: faker.color.human(),
   }),
   [ComponentType.STORAGE]: () => ({
+    componentType: ComponentType.STORAGE,
     capacity: faker.string.alpha(),
     type: faker.helpers.enumValue(StorageType),
     formFactor: faker.string.alpha(),
@@ -59,6 +64,7 @@ const componentFactories = {
     NVME: faker.datatype.boolean(),
   }),
   [ComponentType.VIDEO_CARD]: () => ({
+    componentType: ComponentType.VIDEO_CARD,
     model: faker.string.alpha(),
     chipset: faker.string.alpha(),
     memory: faker.string.alpha(),
@@ -72,6 +78,7 @@ const componentFactories = {
     HDMIOutputs: faker.string.alpha(),
   }),
   [ComponentType.POWER_SUPPLY]: () => ({
+    componentType: ComponentType.POWER_SUPPLY,
     model: faker.string.alpha(),
     type: faker.string.alpha(),
     wattage: faker.string.alpha(),
@@ -82,17 +89,16 @@ const componentFactories = {
   }),
 };
 
-export async function generateComponent(
-  componentType: ComponentType,
-  n?: number,
-): Promise<Component> {
+export async function generateComponent<T extends ComponentType>(
+  objectType: ObjectTypes,
+  componentType: T,
+): Promise<Extract<Component, { componentType: T }>> {
   return {
-    ...componentFactories[componentType](),
-    id: ObjectId.generate(ObjectTypes.CASE),
+    id: ObjectId.generate(objectType),
     name: faker.commerce.productName(),
-    componentType,
     price: faker.commerce.price(),
     manufacturer: faker.company.name(),
-    partNumber: faker.string.alpha(7).toUpperCase(),
-  };
+    partNumber: faker.string.alphanumeric(7).toUpperCase(),
+    ...componentFactories[componentType](),
+  } as Extract<Component, { componentType: T }>;
 }
