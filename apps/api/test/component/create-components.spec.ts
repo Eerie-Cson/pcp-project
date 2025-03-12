@@ -2,7 +2,7 @@ import { setupFixture } from '../component-fixture';
 import { CaseRepository } from '../../src/features/component/repository/case.repository';
 import { Tokens as ComponentToken } from '../../src/features/component/libs/tokens';
 import { generateComponent } from '../helpers/generate-component';
-import { Case, ComponentType } from '@pcp/types';
+import { ComponentType } from '@pcp/types';
 import { ObjectTypes } from '@pcp/object-type';
 
 describe('Components', () => {
@@ -13,7 +13,7 @@ describe('Components', () => {
       ComponentToken.CaseRepository,
     );
 
-    const caseComponent = await generateComponent(
+    const caseComponent = generateComponent(
       ObjectTypes.CASE,
       ComponentType.CASE,
     );

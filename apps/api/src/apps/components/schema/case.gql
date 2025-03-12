@@ -58,11 +58,11 @@ input UpdateCaseInput {
 
 type Query {
   getCases: [Case]!
-  getCase(id: ObjectId!): Case
+  getCase(id: String!): Case
 }
 
 type Mutation {
   createCase(createCaseInput: CreateCaseInput!): Boolean
-  updateCase(id: ObjectId!, updateCaseInput: UpdateCaseInput!): Boolean
-  deleteCase(id: ObjectId!): Boolean
+  updateCase(id: String!, updateCaseInput: UpdateCaseInput!): Boolean
+  deleteCase(id: String!): Boolean
 }

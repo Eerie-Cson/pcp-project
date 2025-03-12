@@ -18,6 +18,7 @@ import {
   Component,
   ComponentType,
 } from '@pcp/types';
+import { ObjectId } from '@pcp/object-id';
 
 @Injectable()
 export class ComponentService {
@@ -43,7 +44,7 @@ export class ComponentService {
     }
   }
 
-  async updateCase(params: { id: string; data: Partial<Omit<Case, 'id'>> }) {
+  async updateCase(params: { id: ObjectId; data: Partial<Omit<Case, 'id'>> }) {
     return this.caseRepository.update(
       {
         id: params.id,

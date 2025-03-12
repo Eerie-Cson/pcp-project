@@ -8,10 +8,14 @@ import {
   ComponentType,
 } from '@pcp/types';
 
-import * as R from 'ramda';
 import { ObjectId } from '@pcp/object-id';
 import { ObjectTypes } from '@pcp/object-type';
 import { faker } from '@faker-js/faker';
+
+type ComponentWithType<T extends ComponentType> = Extract<
+  Component,
+  { componentType: T }
+>;
 
 const componentFactories: Record<ComponentType, () => Partial<Component>> = {
   [ComponentType.CPU]: () => ({
@@ -89,10 +93,10 @@ const componentFactories: Record<ComponentType, () => Partial<Component>> = {
   }),
 };
 
-export async function generateComponent<T extends ComponentType>(
+export function generateComponent<T extends ComponentType>(
   objectType: ObjectTypes,
   componentType: T,
-): Promise<Extract<Component, { componentType: T }>> {
+): ComponentWithType<T> {
   return {
     id: ObjectId.generate(objectType),
     name: faker.commerce.productName(),
@@ -100,5 +104,5 @@ export async function generateComponent<T extends ComponentType>(
     manufacturer: faker.company.name(),
     partNumber: faker.string.alphanumeric(7).toUpperCase(),
     ...componentFactories[componentType](),
-  } as Extract<Component, { componentType: T }>;
+  } as ComponentWithType<T>;
 }
