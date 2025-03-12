@@ -12,7 +12,7 @@ export class ObjectId {
 
     const ids = id.split('-');
 
-    ids[0] = type;
+    ids[0] = `${type}_`;
 
     return new ObjectId(ids.join(''));
   }
