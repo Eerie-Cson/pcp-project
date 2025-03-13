@@ -385,7 +385,7 @@ export interface IQuery {
     getBuilds(): Nullable<Build>[] | Promise<Nullable<Build>[]>;
     getBuild(id: ObjectId): Nullable<Build> | Promise<Nullable<Build>>;
     getCases(): Nullable<Case>[] | Promise<Nullable<Case>[]>;
-    getCase(id: ObjectId): Nullable<Case> | Promise<Nullable<Case>>;
+    getCase(id: string): Nullable<Case> | Promise<Nullable<Case>>;
     getCPUs(): Nullable<CPU>[] | Promise<Nullable<CPU>[]>;
     getCPU(id: ObjectId): Nullable<CPU> | Promise<Nullable<CPU>>;
     getMemorys(): Nullable<Memory>[] | Promise<Nullable<Memory>[]>;
@@ -408,8 +408,8 @@ export interface IMutation {
     updateBuild(id: ObjectId, updateBuildInput: UpdateBuildInput): Nullable<boolean> | Promise<Nullable<boolean>>;
     deleteBuild(id: ObjectId): Nullable<boolean> | Promise<Nullable<boolean>>;
     createCase(createCaseInput: CreateCaseInput): Nullable<boolean> | Promise<Nullable<boolean>>;
-    updateCase(id: ObjectId, updateCaseInput: UpdateCaseInput): Nullable<boolean> | Promise<Nullable<boolean>>;
-    deleteCase(id: ObjectId): Nullable<boolean> | Promise<Nullable<boolean>>;
+    updateCase(id: string, updateCaseInput: UpdateCaseInput): Nullable<boolean> | Promise<Nullable<boolean>>;
+    deleteCase(id: string): Nullable<boolean> | Promise<Nullable<boolean>>;
     createCPU(createCPUInput: CreateCPUInput): Nullable<boolean> | Promise<Nullable<boolean>>;
     updateCPU(id: ObjectId, updateCPUInput: UpdateCPUInput): Nullable<boolean> | Promise<Nullable<boolean>>;
     deleteCPU(id: ObjectId): Nullable<boolean> | Promise<Nullable<boolean>>;
@@ -446,6 +446,7 @@ export interface Component {
 export interface Case {
     id: string;
     name: string;
+    componentType: ComponentType;
     price: string;
     manufacturer: string;
     partNumber: string;
@@ -570,9 +571,8 @@ export interface Connection {
 export interface User {
     id: string;
     username: string;
+    name: string;
     email: string;
-    dateTimeCreated: Date;
-    dateTimeUpdated: Date;
 }
 
 export type ObjectId = _ObjectId;
