@@ -4,6 +4,7 @@ import { Tokens as ComponentToken } from '../../src/features/component/libs/toke
 import { generateComponent } from '../helpers/generate-component';
 import { ObjectTypes } from '@pcp/object-type';
 import { Case, ComponentType } from '@pcp/types';
+import { ObjectId } from '@pcp/object-id';
 
 describe('Components.Delete', () => {
   test('Delete Case', async () => {
@@ -31,13 +32,16 @@ describe('Components.Delete', () => {
       },
     });
 
-    const foundCase = (await caseRepository.find({})) as Case[];
+    const foundCase = (await caseRepository.find(
+      ObjectId.from(caseComponent.id.toString()),
+    )) as Case;
+
     await teardown();
 
     expect(response.status).toBe(200);
     expect(response.body).not.toHaveProperty('errors');
     expect(response.body.data.deleteCase).toBeTruthy();
-    expect(foundCase.length).toBe(0);
+    expect(foundCase).toBeNull();
 
     await teardown();
   });
