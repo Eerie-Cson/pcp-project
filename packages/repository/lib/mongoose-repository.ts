@@ -34,7 +34,13 @@ export class MongooseRepository<
   }
 
   public async create(data: TEntity) {
-    await this.model.create(serializeFilter(data));
+    await this.model.create(
+      serializeFilter({
+        ...data,
+        dateTimeCreated: new Date(),
+        dateTimeLastUpdated: new Date(),
+      }),
+    );
   }
 
   public async update(
