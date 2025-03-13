@@ -54,10 +54,10 @@ import { JwtModule } from '@nestjs/jwt';
           },
           typeDefs: [constraintDirectiveTypeDefs],
           context: ({ req, res }) => ({
-            // user: req.user,
-            // claims: req.claims,
-            // permissions: req.permissions,
-            // res,
+            user: req.user,
+            claims: req.claims,
+            permissions: req.permissions,
+            res,
           }),
           // transformSchema: async (schema: GraphQLSchema) => {
           //   let combinedSchemas = schema;
