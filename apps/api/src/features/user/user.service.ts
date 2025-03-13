@@ -8,7 +8,7 @@ import { ObjectId } from '@pcp/object-id';
 export class UserService {
   constructor(
     @Inject(Tokens.UserRepository)
-    private userRepository: UserRepository
+    private userRepository: UserRepository,
   ) {}
 
   async createUser(data: Omit<User, 'dateTimeCreated' | 'dateTimeUpdated'>) {
@@ -24,7 +24,7 @@ export class UserService {
       {
         id: params.id,
       },
-      params.data
+      params.data,
     );
   }
 
@@ -36,9 +36,5 @@ export class UserService {
 
   async findUser(params: Partial<User>) {
     return this.userRepository.find(params);
-  }
-
-  async findUsers() {
-    return this.userRepository.find({});
   }
 }

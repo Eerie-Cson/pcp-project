@@ -2,7 +2,6 @@ import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import * as R from 'ramda';
 import { UserService } from '../../../features/user/user.service';
 import { ObjectId } from '@pcp/object-id';
-import { ObjectTypes } from '@pcp/object-type';
 import { CreateUserInput, UpdateUserInput } from '../../../libs/graphql-types';
 
 @Resolver('User')
@@ -38,12 +37,14 @@ export class UsersResolver {
   }
 
   @Query('users')
-  async getUsers() {
-    return this.usersService.findUsers();
+  async users() {
+    return this.usersService.findUser({});
   }
 
   @Query('user')
-  findOne(@Args('id') id: string) {
-    return this.usersService.findUser({ id: ObjectId.from(id) });
+  async user(@Args('id') id: string) {
+    const users = await this.usersService.findUser({ id: ObjectId.from(id) });
+
+    return users[0];
   }
 }
