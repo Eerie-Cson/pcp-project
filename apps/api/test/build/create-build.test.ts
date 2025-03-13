@@ -16,13 +16,13 @@ describe('Build.Create', () => {
     const response = await request.post('/graphql').send({
       query: `
           mutation(
-            $createUserBuildInput: CreateUserBuildInput!
+            $createBuildInput: CreateBuildInput!
           ) {
-            createUserBuild(createUserBuildInput: $createUserBuildInput)
+            createBuild(createBuildInput: $createBuildInput)
           }
       `,
       variables: {
-        createUserBuildInput: {
+        createBuildInput: {
           ...build,
           id: build.id.toString(),
         },
@@ -31,14 +31,18 @@ describe('Build.Create', () => {
 
     const createdBuild = await userBuildRepository.find(build.id);
 
+    await teardown();
+
     expect(response.status).toBe(200);
     expect(response.body).not.toHaveProperty('errors');
-    expect(response.body.data.createUser).toBeTruthy();
+    expect(response.body.data.createBuild).toBeTruthy();
     expect(createdBuild).toMatchObject({
       id: build.id,
       name: build.name,
       description: build.description,
       components: build.components,
     });
+
+    await teardown();
   });
 });
