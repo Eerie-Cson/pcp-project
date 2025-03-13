@@ -2,8 +2,9 @@ import { setupFixture } from '../build-fixture';
 import { generateBuild } from '../helpers/generate-build';
 import { UserBuildRepository } from '../../src/features/build/repository/user-build.repository';
 import { Tokens as BuildTokens } from '../../src/features/build/libs/tokens';
+import * as R from 'ramda';
 
-describe('Build.Create', () => {
+describe('Build', () => {
   test('Create Build', async () => {
     const { module, request, teardown } = await setupFixture();
 
@@ -23,7 +24,7 @@ describe('Build.Create', () => {
       `,
       variables: {
         createBuildInput: {
-          ...build,
+          ...R.pick(['user', 'components', 'description', 'name'], build),
           id: build.id.toString(),
         },
       },
@@ -37,7 +38,7 @@ describe('Build.Create', () => {
     expect(response.body).not.toHaveProperty('errors');
     expect(response.body.data.createBuild).toBeTruthy();
     expect(createdBuild).toMatchObject({
-      id: build.id,
+      id: build.id.toString(),
       name: build.name,
       description: build.description,
       components: build.components,

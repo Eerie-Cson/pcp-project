@@ -9,7 +9,7 @@ import {
 } from '@pcp/types';
 
 import { ObjectId } from '@pcp/object-id';
-import { ObjectTypes } from '@pcp/object-type';
+import { ObjectTypes } from '@pcp/object-id';
 import { faker } from '@faker-js/faker';
 
 type ComponentWithType<T extends ComponentType> = Extract<
