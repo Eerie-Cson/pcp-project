@@ -3,7 +3,7 @@ import { generateUser } from '../helpers/generate-user';
 import { UserRepository } from '../../src/features/user/repository/user.repository';
 import { Tokens as UserTokens } from '../../src/features/user/libs/tokens';
 
-describe('User', () => {
+describe('User.Create', () => {
   test('create user', async () => {
     const { module, request, teardown } = await setupFixture();
 

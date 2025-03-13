@@ -5,7 +5,7 @@ import { Tokens as ComponentToken } from '../../src/features/component/libs/toke
 import { Case, ComponentType } from '@pcp/types';
 import { ObjectTypes } from '@pcp/object-type';
 
-describe('Create.Components', () => {
+describe('Components.Update', () => {
   test('Update Case', async () => {
     const { module, request, teardown } = await setupFixture();
 

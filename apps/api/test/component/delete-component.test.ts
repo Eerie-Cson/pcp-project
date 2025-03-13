@@ -5,7 +5,7 @@ import { generateComponent } from '../helpers/generate-component';
 import { ObjectTypes } from '@pcp/object-type';
 import { Case, ComponentType } from '@pcp/types';
 
-describe('Delete.Components', () => {
+describe('Components.Delete', () => {
   test('Delete Case', async () => {
     const { module, request, teardown } = await setupFixture();
 

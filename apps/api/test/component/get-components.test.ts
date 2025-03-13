@@ -7,7 +7,7 @@ import { ObjectTypes } from '@pcp/object-type';
 
 import * as R from 'ramda';
 
-describe('Query.Components', () => {
+describe('Components.Query', () => {
   test('Get Cases', async () => {
     const { module, request, teardown } = await setupFixture();
 

@@ -5,7 +5,7 @@ import { generateComponent } from '../helpers/generate-component';
 import { ComponentType } from '@pcp/types';
 import { ObjectTypes } from '@pcp/object-type';
 
-describe('Create.Components', () => {
+describe('Components.Create', () => {
   test('Create Case', async () => {
     const { module, request, teardown } = await setupFixture();
 
