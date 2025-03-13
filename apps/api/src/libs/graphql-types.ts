@@ -52,19 +52,30 @@ export enum SortOrder {
     DESC = "DESC"
 }
 
+export interface ComponentBuildInput {
+    case?: Nullable<string>;
+    cpu?: Nullable<string>;
+    memory?: Nullable<string>;
+    motherboard?: Nullable<string>;
+    powerSupply?: Nullable<string>;
+    storage?: Nullable<string>;
+    videoCard?: Nullable<string>;
+}
+
 export interface CreateBuildInput {
-    id: ObjectId;
+    id: string;
     name: string;
-    user: ObjectId;
-    description: string;
-    components: Component;
+    user: string;
+    description?: Nullable<string>;
+    components: ComponentBuildInput;
+    datePublished?: Nullable<Date>;
 }
 
 export interface UpdateBuildInput {
-    user: ObjectId;
+    user: string;
     name?: Nullable<string>;
     description?: Nullable<string>;
-    components?: Nullable<Component>;
+    components?: Nullable<ComponentBuildInput>;
 }
 
 export interface CreateCaseInput {
@@ -378,6 +389,7 @@ export interface Build {
     components: Component;
     totalPrice: string;
     dateCreated: Date;
+    dateUpdated: Date;
     datePublished?: Nullable<Date>;
 }
 
@@ -434,13 +446,13 @@ export interface IMutation {
 }
 
 export interface Component {
-    case: ObjectId;
-    cpu: ObjectId;
-    memory: ObjectId;
-    motherboard: ObjectId;
-    powerSupply: ObjectId;
-    storage: ObjectId;
-    videoCard: ObjectId;
+    case?: Nullable<string>;
+    cpu?: Nullable<string>;
+    memory?: Nullable<string>;
+    motherboard?: Nullable<string>;
+    powerSupply?: Nullable<string>;
+    storage?: Nullable<string>;
+    videoCard?: Nullable<string>;
 }
 
 export interface Case {

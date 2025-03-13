@@ -1,20 +1,21 @@
 import { Node } from '../node';
-import { ObjectId } from '@pcp/object-id';
+//import { ObjectId } from '@pcp/object-id';
 
 export type Components = {
-  cpu?: ObjectId;
-  motherboard?: ObjectId;
-  memory?: ObjectId;
-  storage?: ObjectId;
-  videoCard?: ObjectId;
-  powerSupply?: ObjectId;
-  case?: ObjectId;
+  cpu?: string;
+  motherboard?: string;
+  memory?: string;
+  storage?: string;
+  videoCard?: string;
+  powerSupply?: string;
+  case?: string;
 };
 export type UserBuild = Node & {
-  user: ObjectId;
+  user: string;
+  name: string;
   components: Components;
-  description: string;
-  dateTimeCreated: Date;
-  dateTimeUpdated: Date;
+  description?: string;
+  dateTimeCreated?: Date;
+  dateTimeUpdated?: Date;
   datePublished?: Date;
 };

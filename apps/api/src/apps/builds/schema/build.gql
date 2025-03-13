@@ -6,22 +6,34 @@ type Build {
   components: Component!
   totalPrice: String!
   dateCreated: Date!
+  dateUpdated: Date!
   datePublished: Date
 }
 
+input ComponentBuildInput {
+  case: String
+  cpu: String
+  memory: String
+  motherboard: String
+  powerSupply: String
+  storage: String
+  videoCard: String
+}
+
 input CreateBuildInput {
-  id: ObjectId!
+  id: String!
   name: String!
-  user: ObjectId!
-  description: String!
-  components: Component!
+  user: String!
+  description: String
+  components: ComponentBuildInput!
+  datePublished: Date
 }
 
 input UpdateBuildInput {
-  user: ObjectId!
+  user: String!
   name: String
   description: String
-  components: Component
+  components: ComponentBuildInput
 }
 
 type Query {

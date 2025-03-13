@@ -7,15 +7,9 @@ import { UserBuild } from '@pcp/types';
 export class BuildService {
   constructor(
     @Inject(Tokens.UserBuildRepository)
-    private userBuildRepository: UserBuildRepository
+    private userBuildRepository: UserBuildRepository,
   ) {}
-  public async createBuild(
-    data: Omit<UserBuild, 'dateTimeCreated' | 'dateTimeUpdated'>
-  ) {
-    return this.userBuildRepository.create({
-      ...data,
-      dateTimeCreated: new Date(),
-      dateTimeUpdated: new Date(),
-    });
+  public async createBuild(data: UserBuild) {
+    return this.userBuildRepository.create(data);
   }
 }
