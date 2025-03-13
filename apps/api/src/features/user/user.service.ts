@@ -11,11 +11,11 @@ export class UserService {
     private userRepository: UserRepository,
   ) {}
 
-  async createUser(data: Omit<User, 'dateTimeCreated' | 'dateTimeUpdated'>) {
+  async createUser(data: Omit<User, 'dateTimeCreated' | 'dateTimeLastUpdated'>) {
     return this.userRepository.create({
       ...data,
       dateTimeCreated: new Date(),
-      dateTimeUpdated: new Date(),
+      dateTimeLastUpdated: new Date(),
     });
   }
 
