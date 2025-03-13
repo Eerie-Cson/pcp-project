@@ -1,4 +1,9 @@
-import { Module } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from '../../features/user/user.module';
@@ -15,6 +20,8 @@ import {
 } from 'graphql-scalars';
 import path from 'path';
 import { constraintDirectiveTypeDefs } from 'graphql-constraint-directive';
+import { AuthMiddleware } from '@pcp/auth-middleware';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -75,8 +82,23 @@ import { constraintDirectiveTypeDefs } from 'graphql-constraint-directive';
         return options;
       },
     }),
+    JwtModule.registerAsync({
+      inject: [ConfigService],
+      useFactory: async (config: ConfigService) => {
+        const secret = await config.get('JWT_SECRET_KEY');
+        return {
+          secret,
+        };
+      },
+    }),
     UserModule,
   ],
   providers: [UsersResolver],
 })
-export class UsersModule {}
+export class UsersModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(AuthMiddleware)
+      .forRoutes({ method: RequestMethod.ALL, path: '*' });
+  }
+}
