@@ -8,7 +8,19 @@ export function UserBuildRepositoryFactory(
   connection: Connection
 ): UserBuildRepository {
   const schema = new Schema({
+    id: {
+      type: String,
+      required: true,
+    },
     user: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    name: {
       type: String,
       required: true,
     },
