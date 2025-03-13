@@ -1,51 +1,43 @@
 import { setupFixture } from '../component-fixture';
-import { generateComponent } from '../helpers/generate-component';
 import { CaseRepository } from '../../src/features/component/repository/case.repository';
 import { Tokens as ComponentToken } from '../../src/features/component/libs/tokens';
-import { Case, ComponentType } from '@pcp/types';
+import { generateComponent } from '../helpers/generate-component';
 import { ObjectTypes } from '@pcp/object-type';
+import { Case, ComponentType } from '@pcp/types';
 
-describe('Create.Components', () => {
-  test('Update Case', async () => {
+describe('Delete.Components', () => {
+  test('Delete Case', async () => {
     const { module, request, teardown } = await setupFixture();
 
     const caseRepository = module.get<CaseRepository>(
       ComponentToken.CaseRepository,
     );
 
-    const caseComponent = await generateComponent(
+    const caseComponent = generateComponent(
       ObjectTypes.CASE,
       ComponentType.CASE,
     );
-
-    const updateInput = {
-      name: 'Updated Case',
-    };
 
     await caseRepository.create(caseComponent);
 
     const response = await request.post('/graphql').send({
       query: `
-          mutation(
-            $id: String!
-            $updateCaseInput: UpdateCaseInput!
-          ) {
-            updateCase(id: $id, updateCaseInput: $updateCaseInput)
-          }
+        mutation($id: String!) {
+          deleteCase(id: $id)
+        }
       `,
       variables: {
         id: caseComponent.id.toString(),
-        updateCaseInput: updateInput,
       },
     });
 
-    const updatedCase = (await caseRepository.find(caseComponent.id)) as Case;
-
+    const foundCase = (await caseRepository.find({})) as Case[];
     await teardown();
+
     expect(response.status).toBe(200);
     expect(response.body).not.toHaveProperty('errors');
-    expect(response.body.data.updateCase).toBeTruthy();
-    expect(updatedCase.name).toBe(updateInput.name);
+    expect(response.body.data.deleteCase).toBeTruthy();
+    expect(foundCase.length).toBe(0);
 
     await teardown();
   });
