@@ -18,9 +18,7 @@ describe('User.Delete', () => {
 
     const response = await request.post('/graphql').send({
       query: `
-          mutation(
-            $id: String!
-          ){
+          mutation($id: String!){
             deleteUser(id: $id)
           }
       `,
