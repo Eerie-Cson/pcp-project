@@ -25,9 +25,10 @@ import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     MongooseModule.forRootAsync({
-      imports: [ConfigModule],
       useFactory: (config: ConfigService) => ({
         uri: config.get<string>('USERS_URI'),
       }),
