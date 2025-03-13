@@ -5,5 +5,5 @@ export type User = Node & {
   email: string;
   password: string;
   dateTimeCreated: Date;
-  dateTimeUpdated: Date;
+  dateTimeLastUpdated: Date;
 };
