@@ -4,7 +4,7 @@ import { ObjectId } from '@pcp/object-id';
 import { ObjectTypes } from '@pcp/object-type';
 import { faker } from '@faker-js/faker';
 
-export async function generateUser(n?: number): Promise<User> {
+export function generateUser(n?: number): User {
   return {
     id: ObjectId.generate(ObjectTypes.USER),
     username: faker.internet.username(),

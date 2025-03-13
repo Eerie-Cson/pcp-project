@@ -23,10 +23,12 @@ export class UsersResolver {
     @Args('id') id: string,
     @Args('updateUserInput') updateUserInput: UpdateUserInput,
   ) {
-    return this.usersService.updateUser({
+    await this.usersService.updateUser({
       id: ObjectId.from(id),
       data: updateUserInput,
     });
+
+    return true;
   }
 
   @Mutation('deleteUser')
