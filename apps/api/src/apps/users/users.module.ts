@@ -20,7 +20,7 @@ import {
 } from 'graphql-scalars';
 import path from 'path';
 import { constraintDirectiveTypeDefs } from 'graphql-constraint-directive';
-import { AuthMiddleware } from '@pcp/auth-middleware';
+import { AuthMiddleware } from '@pcp/auth';
 import { JwtModule } from '@nestjs/jwt';
 
 @Module({
