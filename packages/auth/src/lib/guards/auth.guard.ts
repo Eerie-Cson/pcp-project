@@ -1,7 +1,7 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { CanActivate, ExecutionContext } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
-import { Roles } from '@pcp/decorators';
+import { Roles } from '@pcp/auth';
 import { Reflector } from '@nestjs/core';
 @Injectable()
 export class AuthGuard implements CanActivate {
