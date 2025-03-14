@@ -1,10 +1,10 @@
 export default {
-  displayName: 'guards',
+  displayName: 'auth',
   preset: '../../jest.preset.js',
   testEnvironment: 'node',
   transform: {
     '^.+\\.[tj]s$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }],
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/packages/guards',
+  coverageDirectory: '../../coverage/packages/auth',
 };
