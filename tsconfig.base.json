@@ -17,11 +17,10 @@
     "module": "commonjs",
     "types": ["node", "jest"],
     "paths": {
-      "@pcp/auth-middleware": ["packages/auth-middleware/index.ts"],
-      "@pcp/object-id": ["packages/object-id/index.ts"],
-      "@pcp/object-type": ["packages/object-id/lib/object-type"],
-      "@pcp/repository": ["packages/repository/index.ts"],
-      "@pcp/types": ["packages/types/index"]
+      "@pcp/auth-middleware": ["packages/auth-middleware/src/index.ts"],
+      "@pcp/object-id": ["packages/object-id/src/index.ts"],
+      "@pcp/repository": ["packages/repository/src/index.ts"],
+      "@pcp/types": ["packages/types/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
