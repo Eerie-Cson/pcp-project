@@ -17,6 +17,7 @@
     "module": "commonjs",
     "types": ["node", "jest"],
     "paths": {
+      "@pcp/guards": ["packages/guards/src/index.ts"],
       "@pcp/auth-middleware": ["packages/auth-middleware/src/index.ts"],
       "@pcp/object-id": ["packages/object-id/src/index.ts"],
       "@pcp/repository": ["packages/repository/src/index.ts"],
