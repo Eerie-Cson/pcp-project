@@ -1,7 +1,6 @@
 import { User } from '@pcp/types';
+import { ObjectId, ObjectTypes } from '@pcp/object-id';
 import * as R from 'ramda';
-import { ObjectId } from '@pcp/object-id';
-import { ObjectTypes } from '@pcp/object-type';
 import { faker } from '@faker-js/faker';
 
 export function generateUser(n?: number): User {
@@ -12,6 +11,6 @@ export function generateUser(n?: number): User {
     email: faker.internet.email(),
     password: faker.internet.password(),
     dateTimeCreated: new Date(),
-    dateTimeUpdated: new Date(),
+    dateTimeLastUpdated: new Date(),
   };
 }
