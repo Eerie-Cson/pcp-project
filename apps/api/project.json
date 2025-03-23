@@ -51,7 +51,8 @@
       },
       "configurations": {
         "development": {
-          "buildTarget": "api:build:development"
+          "buildTarget": "api:build:development",
+          "args": ["-m", "users"]
         },
         "production": {
           "buildTarget": "api:build:production"
