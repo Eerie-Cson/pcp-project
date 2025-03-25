@@ -96,10 +96,11 @@ import { JwtModule } from '@nestjs/jwt';
   ],
   providers: [UsersResolver],
 })
-export class UsersModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(AuthMiddleware)
-      .forRoutes({ method: RequestMethod.ALL, path: '*' });
-  }
+export class UsersModule {
+  // implements NestModule {
+  // configure(consumer: MiddlewareConsumer) {
+  //   consumer
+  //     .apply(AuthMiddleware)
+  //     .forRoutes({ method: RequestMethod.ALL, path: '*' });
+  // }
 }
