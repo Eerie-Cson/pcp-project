@@ -83,6 +83,16 @@ export class MongooseRepository<
       return this.model.findOne({ id: filter.toString() });
     }
 
+    return this.model.findOne(
+      (serializeFilter(filter) as FilterQuery<TEntity>) || {},
+    );
+  }
+
+  public async list(filter?: FilterQuery<TEntity>) {
+    if (filter instanceof ObjectId) {
+      return this.model.find({ id: filter.toString() });
+    }
+
     return this.model.find(
       (serializeFilter(filter) as FilterQuery<TEntity>) || {},
     );
