@@ -44,6 +44,9 @@ importers:
       graphql-scalars:
         specifier: ^1.24.1
         version: 1.24.1(graphql@16.10.0)
+      luxon:
+        specifier: ^3.6.0
+        version: 3.6.0
       mongoose:
         specifier: ^8.12.1
         version: 8.12.1
@@ -6043,8 +6046,8 @@ packages:
     resolution: {integrity: sha512-jumlc0BIUrS3qJGgIkWZsyfAM7NCWiBcCDhnd+3NNM5KbBmLTgHVfWBcg6W+rLUsIpzpERPsvwUP7CckAQSOoA==}
     engines: {node: '>=12'}
 
-  luxon@3.5.0:
-    resolution: {integrity: sha512-rh+Zjr6DNfUYR3bPwJEnuwDdqMbxZW7LOQfUN4B54+Cl+0o5zaU9RJ6bcidfDtC1cWCZXQ+nvX8bf6bAji37QQ==}
+  luxon@3.6.0:
+    resolution: {integrity: sha512-WE7p0p7W1xji9qxkLYsvcIxZyfP48GuFrWIBQZIsbjCyf65dG1rv4n83HcOyEyhvzxJCrUoObCRNFgRNIQ5KNA==}
     engines: {node: '>=12'}
 
   lz-string@1.5.0:
@@ -13012,7 +13015,7 @@ snapshots:
 
   cron-parser@4.9.0:
     dependencies:
-      luxon: 3.5.0
+      luxon: 3.6.0
 
   cross-inspect@1.0.1:
     dependencies:
@@ -15502,7 +15505,7 @@ snapshots:
 
   lru-cache@7.18.3: {}
 
-  luxon@3.5.0: {}
+  luxon@3.6.0: {}
 
   lz-string@1.5.0: {}
 

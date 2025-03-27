@@ -6,7 +6,8 @@ export * from './lib/components/power-supply';
 export * from './lib/components/storage';
 export * from './lib/components/video-card';
 export * from './lib/components/component';
-export * from './lib/components/common'
+export * from './lib/components/common';
 export * from './lib/users/user';
 export * from './lib/builds/user-build';
 export * from './lib/node';
+export * from './lib/auth/auth';
