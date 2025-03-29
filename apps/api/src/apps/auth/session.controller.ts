@@ -21,7 +21,6 @@ import { TokenType, AuthRequest } from './libs/types';
 import { Session } from '@pcp/types';
 import { SessionService } from '../../features/auth/session.service';
 
-
 @Controller()
 export class SessionController {
   constructor(
@@ -39,7 +38,7 @@ export class SessionController {
     const { user } = request;
 
     try {
-      if (user.role === AccountType.Member) {
+      if (user.role === AccountType.MEMBER) {
         await this.session.deleteSession({
           user: user.id,
         });

@@ -10,11 +10,9 @@ const UserCreationModal = () => {
     password: '',
     name: '',
     email: '',
-    role: '',
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  // Apollo useMutation hook
   const [createUser, { loading, error }] = useMutation(CREATE_USER, {
     onCompleted: () => {
       alert('✅ User created successfully!');
@@ -22,29 +20,24 @@ const UserCreationModal = () => {
     },
   });
 
-  // Open modal
   const openModal = () => setIsModalOpen(true);
 
-  // Close modal & reset form
   const closeModal = () => {
     setIsModalOpen(false);
-    setFormData({ username: '', password: '', name: '', email: '', role: '' });
+    setFormData({ username: '', password: '', name: '', email: '' });
     setErrors({});
   };
 
-  // Validation function
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
     if (!formData.username) newErrors.username = 'Username is required';
     if (!formData.password) newErrors.password = 'Password is required';
     if (!formData.name) newErrors.name = 'Name is required';
     if (!formData.email) newErrors.email = 'Email is required';
-    if (!formData.role) newErrors.role = 'Role is required';
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  // Handle input changes
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
@@ -54,12 +47,10 @@ const UserCreationModal = () => {
     }));
   };
 
-  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    // Generate a unique ID for the user
     const id = uuidv4();
     const ids = id.split('-');
     ids[0] = 'USER_';
@@ -74,7 +65,6 @@ const UserCreationModal = () => {
 
   return (
     <div>
-      {/* Button to open modal */}
       <button
         onClick={openModal}
         className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300"
@@ -82,11 +72,9 @@ const UserCreationModal = () => {
         Click Here to Create Account
       </button>
 
-      {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md relative">
-            {/* Close button */}
             <button
               onClick={closeModal}
               className="absolute top-4 right-4 text-gray-600 hover:text-gray-900"
@@ -121,28 +109,6 @@ const UserCreationModal = () => {
                 </div>
               ))}
 
-              {/* Role Select */}
-              <div>
-                <label htmlFor="role" className="block mb-2">
-                  Role
-                </label>
-                <select
-                  id="role"
-                  name="role"
-                  value={formData.role}
-                  onChange={handleChange}
-                  className={`w-full p-2 border rounded ${errors.role ? 'border-red-500' : 'border-gray-300'}`}
-                >
-                  <option value="">Select a role</option>
-                  <option value="ADMIN">Admin</option>
-                  <option value="MEMBER">User</option>
-                </select>
-                {errors.role && (
-                  <p className="text-red-500 text-sm mt-1">{errors.role}</p>
-                )}
-              </div>
-
-              {/* Submit Button */}
               <button
                 type="submit"
                 disabled={loading}
