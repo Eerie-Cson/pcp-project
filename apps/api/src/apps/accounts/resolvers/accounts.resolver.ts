@@ -6,7 +6,6 @@ import {
   CreateAccountInput,
   UpdateAccountInput,
 } from '../../../libs/graphql-types';
-import { AccountType } from '@pcp/types';
 import { Logger } from '@nestjs/common';
 
 @Resolver('Account')

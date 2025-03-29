@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { v4 as uuidv4 } from 'uuid';
 import { CREATE_USER } from '../graphql/mutation/create-user.mutation'; // Import your mutation
+import { ObjectId, ObjectTypes } from '@pcp/object-id';
+import { AccountType } from '../types/graphql';
 
 const UserCreationModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -51,13 +52,12 @@ const UserCreationModal = () => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    const id = uuidv4();
-    const ids = id.split('-');
-    ids[0] = 'USER_';
-    const generatedId = ids.join('');
+    const generatedId = ObjectId.generate(ObjectTypes.ACCOUNT).toString();
 
     try {
-      await createUser({ variables: { id: generatedId, ...formData } });
+      await createUser({
+        variables: { id: generatedId, role: AccountType.Member, ...formData },
+      });
     } catch (err) {
       console.error('Error creating user:', err);
     }
