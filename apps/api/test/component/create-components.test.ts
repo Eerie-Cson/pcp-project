@@ -3,7 +3,7 @@ import { CaseRepository } from '../../src/features/component/repository/case.rep
 import { Tokens as ComponentToken } from '../../src/features/component/libs/tokens';
 import { generateComponent } from '../helpers/generate-component';
 import { ComponentType } from '@pcp/types';
-import { ObjectTypes } from '@pcp/object-type';
+import { ObjectTypes } from '@pcp/object-id';
 
 describe('Components.Create', () => {
   test('Create Case', async () => {

@@ -108,6 +108,11 @@ enum SortOrder {
   DESC
 }
 
+enum Account {
+  MEMBER
+  ADMIN
+}
+
 type Query {
   node(id: ObjectId): Node
 }

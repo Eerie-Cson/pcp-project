@@ -52,6 +52,11 @@ export enum SortOrder {
     DESC = "DESC"
 }
 
+export enum Accont {
+    USER = "USER",
+    ADMIN = "ADMIN"
+}
+
 export interface ComponentBuildInput {
     case?: Nullable<string>;
     cpu?: Nullable<string>;
@@ -368,6 +373,7 @@ export interface CreateUserInput {
     password: string;
     name: string;
     email: string;
+    role: Accont;
 }
 
 export interface UpdateUserInput {
@@ -446,13 +452,13 @@ export interface IMutation {
 }
 
 export interface Component {
-    case?: Nullable<string>;
-    cpu?: Nullable<string>;
-    memory?: Nullable<string>;
-    motherboard?: Nullable<string>;
-    powerSupply?: Nullable<string>;
-    storage?: Nullable<string>;
-    videoCard?: Nullable<string>;
+    case: ObjectId;
+    cpu: ObjectId;
+    memory: ObjectId;
+    motherboard: ObjectId;
+    powerSupply: ObjectId;
+    storage: ObjectId;
+    videoCard: ObjectId;
 }
 
 export interface Case {

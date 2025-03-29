@@ -1,4 +1,4 @@
-import { AccountType } from '@pcp/types';
+import { AccountType, User as Account, Session } from '@pcp/types';
 import { Request } from 'express';
 
 export enum TokenType {

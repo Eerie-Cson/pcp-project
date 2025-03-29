@@ -3,6 +3,8 @@ import * as R from 'ramda';
 import { UserService } from '../../../features/user/user.service';
 import { ObjectId } from '@pcp/object-id';
 import { CreateUserInput, UpdateUserInput } from '../../../libs/graphql-types';
+import { AccountType } from '@pcp/types';
+import { Logger } from '@nestjs/common';
 
 @Resolver('User')
 export class UsersResolver {
@@ -13,6 +15,7 @@ export class UsersResolver {
     await this.usersService.createUser({
       id: ObjectId.from(createUserInput.id),
       ...R.pick(['name', 'email', 'password', 'username'], createUserInput),
+      role: AccountType.Member,
     });
     return true;
   }
@@ -38,7 +41,8 @@ export class UsersResolver {
 
   @Query('users')
   async users() {
-    return this.usersService.findUser({});
+    Logger.log('users: ', await this.usersService.findUsers({}));
+    return this.usersService.findUsers({});
   }
 
   @Query('user')

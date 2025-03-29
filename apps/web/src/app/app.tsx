@@ -1,5 +1,6 @@
 import Users from '../components/Users';
-import { Route, Routes, Link } from 'react-router-dom';
+import CreateUserForm from '../components/UserForm';
+// import { Route, Routes, Link } from 'react-router-dom';
 
 export function App() {
   return (
@@ -7,8 +8,9 @@ export function App() {
       <div className="p-4">
         <h1 className="text-2xl font-bold mb-4">GraphQL Users List</h1>
         <Users />
+        <CreateUserForm />
       </div>
-      <Routes>
+      {/* <Routes>
         <Route
           path="/"
           element={
@@ -26,7 +28,7 @@ export function App() {
             </div>
           }
         />
-      </Routes>
+      </Routes> */}
     </div>
   );
 }
