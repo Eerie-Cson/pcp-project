@@ -59,12 +59,18 @@ const prompter = (_, commit) => {
       type: 'list',
       name: 'scope',
       message: 'Select the scope:',
-      choices: ['component', 'user', 'builds', 'packages', 'auth', 'others'].map(
-        (item) => ({
-          name: item,
-          value: item,
-        }),
-      ),
+      choices: [
+        'component',
+        'user',
+        'builds',
+        'packages',
+        'auth',
+        'web',
+        'others',
+      ].map((item) => ({
+        name: item,
+        value: item,
+      })),
     },
     {
       type: 'input',
