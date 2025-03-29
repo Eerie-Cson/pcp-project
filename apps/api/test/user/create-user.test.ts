@@ -2,6 +2,7 @@ import { setupFixture } from '../user-fixture';
 import { generateUser } from '../helpers/generate-user';
 import { UserRepository } from '../../src/features/user/repository/user.repository';
 import { Tokens as UserTokens } from '../../src/features/user/libs/tokens';
+import { AccountType } from '@pcp/types';
 
 describe('User.Create', () => {
   test('create user', async () => {
@@ -21,6 +22,7 @@ describe('User.Create', () => {
             $password: String!
             $name: String!
             $email: String!
+            $role: Account!
           ) {
             createUser(createUserInput: {
               id: $id
@@ -28,6 +30,7 @@ describe('User.Create', () => {
               password: $password
               name: $name
               email: $email
+              role: $role
             })
           }
         `,
@@ -37,6 +40,7 @@ describe('User.Create', () => {
         password: user.password,
         name: user.name,
         email: user.email,
+        role: AccountType.Member,
       },
     });
 
@@ -44,6 +48,7 @@ describe('User.Create', () => {
 
     await teardown();
 
+    console.log(response.text);
     expect(response.status).toBe(200);
     expect(response.body).not.toHaveProperty('errors');
     expect(response.body.data.createUser).toBeTruthy();

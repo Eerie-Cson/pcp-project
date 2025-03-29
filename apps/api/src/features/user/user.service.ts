@@ -11,7 +11,9 @@ export class UserService {
     private userRepository: UserRepository,
   ) {}
 
-  async createUser(data: Omit<User, 'dateTimeCreated' | 'dateTimeLastUpdated'>) {
+  async createUser(
+    data: Omit<User, 'dateTimeCreated' | 'dateTimeLastUpdated'>,
+  ) {
     return this.userRepository.create({
       ...data,
       dateTimeCreated: new Date(),
@@ -35,6 +37,10 @@ export class UserService {
   }
 
   async findUser(params: Partial<User>) {
-    return this.userRepository.find(params);
+    return this.userRepository.find({ id: params.id });
+  }
+
+  async findUsers(params: Partial<User>) {
+    return this.userRepository.list(params);
   }
 }
