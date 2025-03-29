@@ -1,0 +1,33 @@
+type Account {
+  id: String!
+  username: String!
+  name: String!
+  email: String!
+}
+
+input CreateAccountInput {
+  id: String!
+  username: String!
+  password: String!
+  name: String!
+  email: String!
+  role: AccountType!
+}
+
+input UpdateAccountInput {
+  name: String
+  username: String
+  password: String
+  email: String
+}
+
+type Query {
+  accounts: [Account]!
+  account(id: String!): Account
+}
+
+type Mutation {
+  createAccount(createAccountInput: CreateAccountInput!): Boolean
+  updateAccount(id: String!, updateAccountInput: UpdateAccountInput!): Boolean
+  deleteAccount(id: String!): Boolean
+}

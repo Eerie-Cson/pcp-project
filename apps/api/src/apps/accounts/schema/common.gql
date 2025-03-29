@@ -108,9 +108,9 @@ enum SortOrder {
   DESC
 }
 
-enum Account {
+enum AccountType {
   MEMBER
-  ADMIN
+  SUPER_ADMIN
 }
 
 type Query {

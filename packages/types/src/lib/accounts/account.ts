@@ -1,6 +1,6 @@
 import { AccountType } from '../auth/auth';
 import { Node } from '../node';
-export type User = Node & {
+export type Account = Node & {
   username: string;
   name: string;
   role: AccountType;

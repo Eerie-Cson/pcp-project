@@ -23,7 +23,7 @@
             "output": "."
           },
           {
-            "input": "apps/api/src/apps/users/schema",
+            "input": "apps/api/src/apps/accounts/schema",
             "glob": "*.gql",
             "output": "./schema"
           }

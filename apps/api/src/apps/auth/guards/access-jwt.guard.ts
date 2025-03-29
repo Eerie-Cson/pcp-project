@@ -9,7 +9,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Claims, TokenType } from '../libs/types';
 import { AccountType } from '@pcp/types';
 import { ObjectId } from '@pcp/object-id';
-import { UserService } from '../../../features/user/user.service';
+import { AccountService } from '../../../features/account/account.service';
 
 const JWT_REGEX =
   /Bearer\s*([A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$)/i;
@@ -18,7 +18,7 @@ const JWT_REGEX =
 export class AccessJwtGuard implements CanActivate {
   constructor(
     private readonly jwt: JwtService,
-    private readonly userService: UserService,
+    private readonly accountService: AccountService,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -35,10 +35,10 @@ export class AccessJwtGuard implements CanActivate {
 
       if (claims.type !== TokenType.Access) throw new ForbiddenException();
 
-      if (claims.role === AccountType.Member) {
-        const account = await this.userService.findUser({
+      if (claims.role === AccountType.MEMBER) {
+        const account = await this.accountService.findAccount({
           id: ObjectId.from(claims.sub),
-          role: AccountType.Member,
+          role: AccountType.MEMBER,
         });
 
         if (!account) {

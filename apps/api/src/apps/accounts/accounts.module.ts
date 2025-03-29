@@ -6,8 +6,8 @@ import {
 } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UserModule } from '../../features/user/user.module';
-import { UsersResolver } from './resolvers/users.resolver';
+import { AccountModule } from '../../features/account/account.module';
+import { AccountsResolver } from './resolvers/accounts.resolver';
 import { GraphQLModule as NestGraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import {
@@ -30,7 +30,7 @@ import { JwtModule } from '@nestjs/jwt';
     }),
     MongooseModule.forRootAsync({
       useFactory: (config: ConfigService) => ({
-        uri: config.get<string>('USERS_URI'),
+        uri: config.get<string>('ACCOUNTS_URI'),
       }),
       inject: [ConfigService],
     }),
@@ -92,11 +92,11 @@ import { JwtModule } from '@nestjs/jwt';
         };
       },
     }),
-    UserModule,
+    AccountModule,
   ],
-  providers: [UsersResolver],
+  providers: [AccountsResolver],
 })
-export class UsersModule {
+export class AccountsModule {
   // implements NestModule {
   // configure(consumer: MiddlewareConsumer) {
   //   consumer

@@ -61,7 +61,7 @@ const prompter = (_, commit) => {
       message: 'Select the scope:',
       choices: [
         'component',
-        'user',
+        'account',
         'builds',
         'packages',
         'auth',
