@@ -10,6 +10,16 @@
 
 import { ObjectId as _ObjectId } from '@pcp/object-id'
 
+export enum SortOrder {
+    ASC = "ASC",
+    DESC = "DESC"
+}
+
+export enum AccountType {
+    MEMBER = "MEMBER",
+    SUPER_ADMIN = "SUPER_ADMIN"
+}
+
 export enum CaseType {
     ATX_MID_TOWER = "ATX_MID_TOWER",
     EATX = "EATX",
@@ -47,14 +57,94 @@ export enum StorageType {
     HDD = "HDD"
 }
 
-export enum SortOrder {
-    ASC = "ASC",
-    DESC = "DESC"
+export interface CreateAccountInput {
+    id: string;
+    username: string;
+    password: string;
+    name: string;
+    email: string;
+    role: AccountType;
 }
 
-export enum Accont {
-    USER = "USER",
-    ADMIN = "ADMIN"
+export interface UpdateAccountInput {
+    name?: Nullable<string>;
+    username?: Nullable<string>;
+    password?: Nullable<string>;
+    email?: Nullable<string>;
+}
+
+export interface ObjectIdFilterInput {
+    equal?: Nullable<ObjectId>;
+    notEqual?: Nullable<ObjectId>;
+    in?: Nullable<ObjectId[]>;
+    notIn?: Nullable<ObjectId[]>;
+}
+
+export interface StringFilterInput {
+    equal?: Nullable<string>;
+    notEqual?: Nullable<string>;
+    in?: Nullable<string[]>;
+    notIn?: Nullable<string[]>;
+    contains?: Nullable<string>;
+    startsWith?: Nullable<string>;
+}
+
+export interface BooleanFilterInput {
+    equal?: Nullable<boolean>;
+    notEqual?: Nullable<boolean>;
+}
+
+export interface EmailAddressFilterInput {
+    equal?: Nullable<EmailAddress>;
+    notEqual?: Nullable<EmailAddress>;
+    in?: Nullable<EmailAddress[]>;
+    notIn?: Nullable<EmailAddress[]>;
+    contains?: Nullable<string>;
+    startsWith?: Nullable<string>;
+}
+
+export interface DateFilterInput {
+    equal?: Nullable<Date>;
+    notEqual?: Nullable<Date>;
+    in?: Nullable<Date[]>;
+    notIn?: Nullable<Date[]>;
+    lesserThan?: Nullable<Date>;
+    lesserThanOrEqual?: Nullable<Date>;
+    greaterThan?: Nullable<Date>;
+    greaterThanOrEqual?: Nullable<Date>;
+}
+
+export interface DateTimeFilterInput {
+    equal?: Nullable<DateTime>;
+    notEqual?: Nullable<DateTime>;
+    in?: Nullable<DateTime[]>;
+    notIn?: Nullable<DateTime[]>;
+    lesserThan?: Nullable<DateTime>;
+    lesserThanOrEqual?: Nullable<DateTime>;
+    greaterThan?: Nullable<DateTime>;
+    greaterThanOrEqual?: Nullable<DateTime>;
+}
+
+export interface DecimalFilterInput {
+    equal?: Nullable<Decimal>;
+    notEqual?: Nullable<Decimal>;
+    in?: Nullable<Decimal[]>;
+    notIn?: Nullable<Decimal[]>;
+    lesserThan?: Nullable<Decimal>;
+    lesserThanOrEqual?: Nullable<Decimal>;
+    greaterThan?: Nullable<Decimal>;
+    greaterThanOrEqual?: Nullable<Decimal>;
+}
+
+export interface IntFilterInput {
+    equal?: Nullable<number>;
+    notEqual?: Nullable<number>;
+    in?: Nullable<number[]>;
+    notIn?: Nullable<number[]>;
+    lesserThan?: Nullable<number>;
+    lesserThanOrEqual?: Nullable<number>;
+    greaterThan?: Nullable<number>;
+    greaterThanOrEqual?: Nullable<number>;
 }
 
 export interface ComponentBuildInput {
@@ -293,113 +383,21 @@ export interface UpdateVideoCardInput {
     HDMIOutputs?: Nullable<string>;
 }
 
-export interface ObjectIdFilterInput {
-    equal?: Nullable<ObjectId>;
-    notEqual?: Nullable<ObjectId>;
-    in?: Nullable<ObjectId[]>;
-    notIn?: Nullable<ObjectId[]>;
-}
-
-export interface StringFilterInput {
-    equal?: Nullable<string>;
-    notEqual?: Nullable<string>;
-    in?: Nullable<string[]>;
-    notIn?: Nullable<string[]>;
-    contains?: Nullable<string>;
-    startsWith?: Nullable<string>;
-}
-
-export interface BooleanFilterInput {
-    equal?: Nullable<boolean>;
-    notEqual?: Nullable<boolean>;
-}
-
-export interface EmailAddressFilterInput {
-    equal?: Nullable<EmailAddress>;
-    notEqual?: Nullable<EmailAddress>;
-    in?: Nullable<EmailAddress[]>;
-    notIn?: Nullable<EmailAddress[]>;
-    contains?: Nullable<string>;
-    startsWith?: Nullable<string>;
-}
-
-export interface DateFilterInput {
-    equal?: Nullable<Date>;
-    notEqual?: Nullable<Date>;
-    in?: Nullable<Date[]>;
-    notIn?: Nullable<Date[]>;
-    lesserThan?: Nullable<Date>;
-    lesserThanOrEqual?: Nullable<Date>;
-    greaterThan?: Nullable<Date>;
-    greaterThanOrEqual?: Nullable<Date>;
-}
-
-export interface DateTimeFilterInput {
-    equal?: Nullable<DateTime>;
-    notEqual?: Nullable<DateTime>;
-    in?: Nullable<DateTime[]>;
-    notIn?: Nullable<DateTime[]>;
-    lesserThan?: Nullable<DateTime>;
-    lesserThanOrEqual?: Nullable<DateTime>;
-    greaterThan?: Nullable<DateTime>;
-    greaterThanOrEqual?: Nullable<DateTime>;
-}
-
-export interface DecimalFilterInput {
-    equal?: Nullable<Decimal>;
-    notEqual?: Nullable<Decimal>;
-    in?: Nullable<Decimal[]>;
-    notIn?: Nullable<Decimal[]>;
-    lesserThan?: Nullable<Decimal>;
-    lesserThanOrEqual?: Nullable<Decimal>;
-    greaterThan?: Nullable<Decimal>;
-    greaterThanOrEqual?: Nullable<Decimal>;
-}
-
-export interface IntFilterInput {
-    equal?: Nullable<number>;
-    notEqual?: Nullable<number>;
-    in?: Nullable<number[]>;
-    notIn?: Nullable<number[]>;
-    lesserThan?: Nullable<number>;
-    lesserThanOrEqual?: Nullable<number>;
-    greaterThan?: Nullable<number>;
-    greaterThanOrEqual?: Nullable<number>;
-}
-
-export interface CreateUserInput {
-    id: string;
-    username: string;
-    password: string;
-    name: string;
-    email: string;
-    role: Accont;
-}
-
-export interface UpdateUserInput {
-    name?: Nullable<string>;
-    username?: Nullable<string>;
-    password?: Nullable<string>;
-    email?: Nullable<string>;
-}
-
 export interface Node {
     id: ObjectId;
 }
 
-export interface Build {
-    id: ObjectId;
+export interface Account {
+    id: string;
+    username: string;
     name: string;
-    user: ObjectId;
-    description: string;
-    components: Component;
-    totalPrice: string;
-    dateCreated: Date;
-    dateUpdated: Date;
-    datePublished?: Nullable<Date>;
+    email: string;
 }
 
 export interface IQuery {
+    accounts(): Nullable<Account>[] | Promise<Nullable<Account>[]>;
+    account(id: string): Nullable<Account> | Promise<Nullable<Account>>;
+    node(id?: Nullable<ObjectId>): Nullable<Node> | Promise<Nullable<Node>>;
     getBuilds(): Nullable<Build>[] | Promise<Nullable<Build>[]>;
     getBuild(id: ObjectId): Nullable<Build> | Promise<Nullable<Build>>;
     getCases(): Nullable<Case>[] | Promise<Nullable<Case>[]>;
@@ -416,12 +414,12 @@ export interface IQuery {
     getStorage(id: ObjectId): Nullable<Storage> | Promise<Nullable<Storage>>;
     getVideoCards(): Nullable<VideoCard>[] | Promise<Nullable<VideoCard>[]>;
     getVideoCard(id: ObjectId): Nullable<VideoCard> | Promise<Nullable<VideoCard>>;
-    node(id?: Nullable<ObjectId>): Nullable<Node> | Promise<Nullable<Node>>;
-    users(): Nullable<User>[] | Promise<Nullable<User>[]>;
-    user(id: string): Nullable<User> | Promise<Nullable<User>>;
 }
 
 export interface IMutation {
+    createAccount(createAccountInput: CreateAccountInput): Nullable<boolean> | Promise<Nullable<boolean>>;
+    updateAccount(id: string, updateAccountInput: UpdateAccountInput): Nullable<boolean> | Promise<Nullable<boolean>>;
+    deleteAccount(id: string): Nullable<boolean> | Promise<Nullable<boolean>>;
     createBuild(createBuildInput: CreateBuildInput): Nullable<boolean> | Promise<Nullable<boolean>>;
     updateBuild(id: ObjectId, updateBuildInput: UpdateBuildInput): Nullable<boolean> | Promise<Nullable<boolean>>;
     deleteBuild(id: ObjectId): Nullable<boolean> | Promise<Nullable<boolean>>;
@@ -446,9 +444,34 @@ export interface IMutation {
     createVideoCard(createVideoCardInput: CreateVideoCardInput): Nullable<boolean> | Promise<Nullable<boolean>>;
     updateVideoCard(id: ObjectId, updateVideoCardInput: UpdateVideoCardInput): Nullable<boolean> | Promise<Nullable<boolean>>;
     deleteVideoCard(id: ObjectId): Nullable<boolean> | Promise<Nullable<boolean>>;
-    createUser(createUserInput: CreateUserInput): Nullable<boolean> | Promise<Nullable<boolean>>;
-    updateUser(id: string, updateUserInput: UpdateUserInput): Nullable<boolean> | Promise<Nullable<boolean>>;
-    deleteUser(id: string): Nullable<boolean> | Promise<Nullable<boolean>>;
+}
+
+export interface PageInfo {
+    hasNextPage: boolean;
+    endCursor?: Nullable<Cursor>;
+}
+
+export interface Edge {
+    cursor: Cursor;
+    node: Node;
+}
+
+export interface Connection {
+    totalCount: number;
+    edges: Edge[];
+    pageInfo: PageInfo;
+}
+
+export interface Build {
+    id: ObjectId;
+    name: string;
+    user: ObjectId;
+    description: string;
+    components: Component;
+    totalPrice: string;
+    dateCreated: Date;
+    dateUpdated: Date;
+    datePublished?: Nullable<Date>;
 }
 
 export interface Component {
@@ -568,29 +591,6 @@ export interface VideoCard {
     coolingFans: string;
     displayPortOutputs: string;
     HDMIOutputs: string;
-}
-
-export interface PageInfo {
-    hasNextPage: boolean;
-    endCursor?: Nullable<Cursor>;
-}
-
-export interface Edge {
-    cursor: Cursor;
-    node: Node;
-}
-
-export interface Connection {
-    totalCount: number;
-    edges: Edge[];
-    pageInfo: PageInfo;
-}
-
-export interface User {
-    id: string;
-    username: string;
-    name: string;
-    email: string;
 }
 
 export type ObjectId = _ObjectId;

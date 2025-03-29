@@ -1,7 +1,7 @@
 import { Test } from '@nestjs/testing';
 import { getRandomPort } from 'get-port-please';
 import { MongoMemoryReplSet } from 'mongodb-memory-server';
-import { UsersModule } from './users.module';
+import { AccountsModule } from './accounts.module';
 import { ConfigService } from '@nestjs/config';
 
 describe('ComponentModule', () => {
@@ -19,13 +19,13 @@ describe('ComponentModule', () => {
     });
 
     const module = await Test.createTestingModule({
-      imports: [UsersModule],
+      imports: [AccountsModule],
     })
       .overrideProvider(ConfigService)
       .useValue(
         new ConfigService({
           USERS_URI: mongo.getUri('USERS_URI'),
-        })
+        }),
       )
       .compile();
 

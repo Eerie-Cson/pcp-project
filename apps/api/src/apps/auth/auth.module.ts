@@ -4,7 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { JwtModule } from '@nestjs/jwt';
 import { SessionController } from './session.controller';
 import { SessionModule } from '../../features/auth/session.module';
-import { UserModule } from '../../features/user/user.module';
+import { UserModule } from '../../features/account/account.module';
 
 @Module({
   imports: [

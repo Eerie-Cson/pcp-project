@@ -1,7 +1,7 @@
 import { Test } from '@nestjs/testing';
 import { getRandomPort } from 'get-port-please';
 import { MongoMemoryReplSet } from 'mongodb-memory-server';
-import { UsersModule } from '../src/apps/users/users.module';
+import { AccountsModule } from '../src/apps/accounts/accounts.module';
 import { ConfigService } from '@nestjs/config';
 import supertest from 'supertest';
 
@@ -28,12 +28,12 @@ export async function setupFixture(opts?: {
   });
 
   let builder = Test.createTestingModule({
-    imports: [UsersModule],
+    imports: [AccountsModule],
   })
     .overrideProvider(ConfigService)
     .useValue(
       new ConfigService({
-        USERS_URI: mongo.getUri('USERS_URI'),
+        ACCOUNTS_URI: mongo.getUri('ACCOUNTS_URI'),
       }),
     );
 

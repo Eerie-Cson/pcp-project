@@ -2,8 +2,8 @@ import { ObjectId } from '@pcp/object-id';
 import { Node } from '../node';
 
 export enum AccountType {
-  SuperAdmin = 'SUPER_ADMIN',
-  Member = 'MEMBER',
+  SUPER_ADMIN = 'SUPER_ADMIN',
+  MEMBER = 'MEMBER',
 }
 
 export type Session = Node & {

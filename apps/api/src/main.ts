@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { Logger, ShutdownSignal } from '@nestjs/common';
 import { options } from './program';
-import { UsersModule } from './apps/users/users.module';
+import { AccountsModule } from './apps/accounts/accounts.module';
 import { ComponentsModule } from './apps/components/components.module';
 
 const SHUTDOWN_SIGNALS = [
@@ -16,7 +16,7 @@ async function bootstrap() {
   Logger.log(`starting in '${options.mode}' mode`);
 
   if (options.mode === 'users') {
-    const app = await NestFactory.create(UsersModule);
+    const app = await NestFactory.create(AccountsModule);
 
     app.enableShutdownHooks(SHUTDOWN_SIGNALS);
 
@@ -27,7 +27,7 @@ async function bootstrap() {
     await app.listen(port);
 
     Logger.log(
-      `🚀 running in '${options.mode}' mode on: host=http://localhost:${port}/ env=${NODE_ENV}`
+      `🚀 running in '${options.mode}' mode on: host=http://localhost:${port}/ env=${NODE_ENV}`,
     );
 
     return;
@@ -45,7 +45,7 @@ async function bootstrap() {
     await app.listen(port);
 
     Logger.log(
-      `🚀 running in '${options.mode}' mode on: host=http://localhost:${port}/ env=${NODE_ENV}`
+      `🚀 running in '${options.mode}' mode on: host=http://localhost:${port}/ env=${NODE_ENV}`,
     );
 
     return;

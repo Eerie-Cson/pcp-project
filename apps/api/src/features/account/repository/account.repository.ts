@@ -1,10 +1,12 @@
 import { MongooseRepository, Repository } from '@pcp/repository';
-import { User } from '@pcp/types';
+import { Account } from '@pcp/types';
 import { Connection, Schema } from 'mongoose';
 
-export type UserRepository = Repository<User>;
+export type AccountRepository = Repository<Account>;
 
-export function UserRepositoryFactory(connection: Connection): UserRepository {
+export function AccountRepositoryFactory(
+  connection: Connection,
+): AccountRepository {
   const schema = new Schema({
     id: {
       type: String,
@@ -42,5 +44,5 @@ export function UserRepositoryFactory(connection: Connection): UserRepository {
 
   schema.index({ id: 1 }, { unique: true });
 
-  return new MongooseRepository<User>(connection, 'User', schema);
+  return new MongooseRepository<Account>(connection, 'Account', schema);
 }

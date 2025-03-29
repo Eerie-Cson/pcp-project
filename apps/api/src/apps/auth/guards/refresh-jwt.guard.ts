@@ -10,7 +10,7 @@ import { Claims, TokenType } from '../libs/types';
 import { ObjectId } from '@pcp/object-id';
 import { AccountType } from '@pcp/types';
 import { SessionService } from '../../../features/auth/session.service';
-import { UserService } from '../../../features/user/user.service';
+import { AccountService } from '../../../features/account/account.service';
 
 const JWT_REGEX =
   /Bearer\s*([A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$)/i;
@@ -20,7 +20,7 @@ export class RefreshJwtGuard implements CanActivate {
   constructor(
     private readonly jwt: JwtService,
     private readonly sessionService: SessionService,
-    private readonly userService: UserService,
+    private readonly accountService: AccountService,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -46,10 +46,10 @@ export class RefreshJwtGuard implements CanActivate {
           code: 'INVALID_TOKEN',
         });
 
-      if (claims.role === AccountType.Member) {
-        const account = await this.userService.findUser({
+      if (claims.role === AccountType.MEMBER) {
+        const account = await this.accountService.findAccount({
           id: ObjectId.from(claims.sub),
-          role: AccountType.Member,
+          role: AccountType.MEMBER,
         });
 
         if (!account) {
