@@ -4,7 +4,7 @@ import { MongoMemoryReplSet } from 'mongodb-memory-server';
 import { AuthModule } from './auth.module';
 import { ConfigService } from '@nestjs/config';
 
-describe('ComponentModule', () => {
+describe('AuthModule', () => {
   test.concurrent('initialize module', async () => {
     const mongo = await MongoMemoryReplSet.create({
       replSet: {
@@ -24,8 +24,8 @@ describe('ComponentModule', () => {
       .overrideProvider(ConfigService)
       .useValue(
         new ConfigService({
-          USERS_URI: mongo.getUri('USERS_URI'),
-        })
+          AUTH_URI: mongo.getUri('AUTH_URI'),
+        }),
       )
       .compile();
 
