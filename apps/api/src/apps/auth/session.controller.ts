@@ -20,6 +20,7 @@ import { AccountType } from '@pcp/types';
 import { TokenType, AuthRequest } from './libs/types';
 import { Session } from '@pcp/types';
 import { SessionService } from '../../features/auth/session.service';
+import { BasicGuard } from './guards/basic.guard';
 
 @Controller()
 export class SessionController {
@@ -29,6 +30,7 @@ export class SessionController {
   ) {}
 
   @Post('sessions')
+  @UseGuards(BasicGuard)
   @HttpCode(201)
   async createSession(@Request() request: AuthRequest) {
     const timestamp = new Date();
@@ -46,7 +48,7 @@ export class SessionController {
 
       const session: Session = {
         id: ObjectId.generate(ObjectTypes.SESSION),
-        user: user.id,
+        account: user.id,
         jti: randomBytes(12),
         dateTimeCreated: timestamp,
         dateTimeLastRefreshed: timestamp,
@@ -132,7 +134,7 @@ export class SessionController {
     return true;
   }
 
-  @Post('session[:]refresh')
+  @Post('session/refresh')
   @UseGuards(RefreshJwtGuard)
   @HttpCode(200)
   async refreshToken(@Request() request: AuthRequest) {
