@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "nx run api:build"
+    "build": "nx run api:build",
+    "codegen": "graphql-codegen --config codegen.ts"
   },
   "private": true,
   "dependencies": {
@@ -34,6 +35,10 @@
     "@babel/core": "^7.14.5",
     "@babel/preset-react": "^7.14.5",
     "@faker-js/faker": "^9.6.0",
+    "@graphql-codegen/cli": "5.0.5",
+    "@graphql-codegen/typescript": "^4.1.6",
+    "@graphql-codegen/typescript-operations": "^4.6.0",
+    "@graphql-codegen/typescript-react-apollo": "^4.3.2",
     "@nestjs/schematics": "^11.0.2",
     "@nestjs/testing": "^11.0.11",
     "@nx/devkit": "20.5.0",
@@ -100,7 +105,8 @@
     "ts-node": "10.9.2",
     "tslib": "^2.8.1",
     "typescript": "5.8.2",
-    "webpack-cli": "^6.0.1"
+    "webpack-cli": "^6.0.1",
+    "@graphql-codegen/client-preset": "4.8.0"
   },
   "config": {
     "commitizen": {

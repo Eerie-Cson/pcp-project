@@ -3,6 +3,7 @@ type Account {
   username: String!
   name: String!
   email: String!
+  role: AccountType!
 }
 
 input CreateAccountInput {
