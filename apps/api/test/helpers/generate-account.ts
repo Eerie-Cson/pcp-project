@@ -2,7 +2,7 @@ import { AccountType, Account } from '@pcp/types';
 import { ObjectId, ObjectTypes } from '@pcp/object-id';
 import { faker } from '@faker-js/faker';
 
-export function generateAccount(n?: number): Account {
+export function generateAccount(): Account {
   return {
     id: ObjectId.generate(ObjectTypes.ACCOUNT),
     username: faker.internet.username(),
