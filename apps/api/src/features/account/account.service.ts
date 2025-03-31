@@ -48,7 +48,7 @@ export class AccountService {
   }
 
   async findAccount(params: Partial<Account>) {
-    return this.accountRepository.find({ id: params.id });
+    return this.accountRepository.find(params);
   }
 
   async findAccounts(params: Partial<Account>) {
