@@ -12,7 +12,7 @@ export function SessionRepositoryFactory(
       type: String,
       required: true,
     },
-    user: {
+    account: {
       type: String,
       required: true,
     },
