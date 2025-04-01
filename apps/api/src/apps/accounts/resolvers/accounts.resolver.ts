@@ -7,6 +7,7 @@ import {
   UpdateAccountInput,
 } from '../../../libs/graphql-types';
 import { Logger } from '@nestjs/common';
+import bcrypt from 'bcrypt';
 
 @Resolver('Account')
 export class AccountsResolver {
@@ -23,6 +24,7 @@ export class AccountsResolver {
           ['name', 'email', 'password', 'username', 'role'],
           createAccountInput,
         ),
+        password: await bcrypt.hash(createAccountInput.password, 10),
       },
     });
     return true;
