@@ -17,7 +17,6 @@ import { AccountModule } from '../../features/account/account.module';
       }),
       inject: [ConfigService],
     }),
-
     JwtModule.registerAsync({
       inject: [ConfigService],
       useFactory: async (config: ConfigService) => {

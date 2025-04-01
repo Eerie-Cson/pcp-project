@@ -7,7 +7,7 @@ export enum AccountType {
 }
 
 export type Session = Node & {
-  user: ObjectId;
+  account: ObjectId;
   jti: Buffer;
   dateTimeCreated: Date;
   dateTimeLastRefreshed: Date;
