@@ -19,7 +19,6 @@ describe('Account.Query', () => {
     );
 
     const account = accounts[0];
-    console.log(account.id.toString());
 
     const getUserResponse = await request.post('/graphql').send({
       query: `
