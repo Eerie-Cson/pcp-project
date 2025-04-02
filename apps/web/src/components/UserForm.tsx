@@ -3,6 +3,10 @@ import { useMutation } from '@apollo/client';
 import { CREATE_USER } from '../graphql/mutation/create-user.mutation'; // Import your mutation
 import { ObjectId, ObjectTypes } from '@pcp/object-id';
 import { AccountType } from '../types/graphql';
+import { useAuth } from '../context/AuthContext';
+import { Account } from '../types/graphql';
+
+const generatedId = ObjectId.generate(ObjectTypes.ACCOUNT).toString();
 
 const UserCreationModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,6 +24,8 @@ const UserCreationModal = () => {
       closeModal();
     },
   });
+
+  const { login } = useAuth();
 
   const openModal = () => setIsModalOpen(true);
 
@@ -52,11 +58,18 @@ const UserCreationModal = () => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    const generatedId = ObjectId.generate(ObjectTypes.ACCOUNT).toString();
-
     try {
       await createUser({
-        variables: { id: generatedId, role: AccountType.Member, ...formData },
+        variables: { id: generatedId, role: AccountType.MEMBER, ...formData },
+      });
+
+      await login({
+        password: formData.password,
+        id: generatedId,
+        username: formData.username,
+        name: formData.name,
+        email: formData.email,
+        role: AccountType.MEMBER,
       });
     } catch (err) {
       console.error('Error creating user:', err);

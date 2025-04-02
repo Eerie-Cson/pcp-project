@@ -1,14 +1,17 @@
 import Users from '../components/Users';
 import CreateUserForm from '../components/UserForm';
+import { AuthProvider } from '../context/AuthContext';
 // import { Route, Routes, Link } from 'react-router-dom';
 
 export function App() {
   return (
     <div>
       <div className="p-4">
-        <h1 className="text-2xl font-bold mb-4">GraphQL Users List</h1>
-        <Users />
-        <CreateUserForm />
+        <AuthProvider>
+          <h1 className="text-2xl font-bold mb-4">GraphQL Users List</h1>
+          <Users />
+          <CreateUserForm />
+        </AuthProvider>
       </div>
       {/* <Routes>
         <Route

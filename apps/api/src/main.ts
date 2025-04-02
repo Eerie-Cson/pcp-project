@@ -3,6 +3,7 @@ import { Logger, ShutdownSignal } from '@nestjs/common';
 import { options } from './program';
 import { AccountsModule } from './apps/accounts/accounts.module';
 import { ComponentsModule } from './apps/components/components.module';
+import { AuthModule } from './apps/auth/auth.module';
 
 const SHUTDOWN_SIGNALS = [
   ShutdownSignal.SIGHUP,
@@ -41,6 +42,24 @@ async function bootstrap() {
     app.enableCors();
 
     const port = parseInt(PORT || '4002', 10);
+
+    await app.listen(port);
+
+    Logger.log(
+      `🚀 running in '${options.mode}' mode on: host=http://localhost:${port}/ env=${NODE_ENV}`,
+    );
+
+    return;
+  }
+
+  if (options.mode === 'auth') {
+    const app = await NestFactory.create(AuthModule);
+
+    app.enableShutdownHooks(SHUTDOWN_SIGNALS);
+
+    app.enableCors();
+
+    const port = parseInt(PORT || '4003', 10);
 
     await app.listen(port);
 

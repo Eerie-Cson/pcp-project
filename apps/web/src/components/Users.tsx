@@ -5,7 +5,6 @@ import { Account } from '../types/graphql';
 
 const Users: React.FC = () => {
   const { loading, error, data } = useQuery<{ accounts: Account[] }>(USERS);
-  console.log(data);
 
   if (loading) return <p>Loading users...</p>;
   if (error) return <p>Error: {error.message}</p>;

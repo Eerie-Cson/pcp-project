@@ -28,14 +28,13 @@ export class BasicGuard implements CanActivate {
 
     request.scheme = scheme;
 
-    const role = <AccountType>request.headers['role'];
+    const [username, password] = Buffer.from(hash, 'base64')
+      .toString()
+      .split(':');
 
-    const [name, password] = Buffer.from(hash, 'base64').toString().split(':');
+    const params = { username, role: <AccountType>request.headers['role'] };
 
-    const account = await this.accountService.findAccount({
-      role,
-      name,
-    });
+    const account = await this.accountService.findAccount(params);
 
     if (!account || !(await bcrypt.compare(password, account.password))) {
       throw new ForbiddenException();
