@@ -63,7 +63,6 @@ export interface CreateAccountInput {
     password: string;
     name: string;
     email: string;
-    role: AccountType;
 }
 
 export interface UpdateAccountInput {

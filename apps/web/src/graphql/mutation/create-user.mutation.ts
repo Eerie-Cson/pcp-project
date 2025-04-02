@@ -7,7 +7,6 @@ export const CREATE_USER = gql`
     $password: String!
     $name: String!
     $email: String!
-    $role: AccountType!
   ) {
     createAccount(
       createAccountInput: {
@@ -16,7 +15,6 @@ export const CREATE_USER = gql`
         password: $password
         name: $name
         email: $email
-        role: $role
       }
     )
   }

@@ -57,7 +57,6 @@ export type CreateAccountInput = {
   id: Scalars['String']['input'];
   name: Scalars['String']['input'];
   password: Scalars['String']['input'];
-  role: AccountType;
   username: Scalars['String']['input'];
 };
 
@@ -204,7 +203,6 @@ export type CreateAccountMutationVariables = Exact<{
   password: Scalars['String']['input'];
   name: Scalars['String']['input'];
   email: Scalars['String']['input'];
-  role: AccountType;
 }>;
 
 
@@ -217,9 +215,9 @@ export type AccountsQuery = { __typename?: 'Query', accounts: Array<{ __typename
 
 
 export const CreateAccountDocument = gql`
-    mutation CreateAccount($id: String!, $username: String!, $password: String!, $name: String!, $email: String!, $role: AccountType!) {
+    mutation CreateAccount($id: String!, $username: String!, $password: String!, $name: String!, $email: String!) {
   createAccount(
-    createAccountInput: {id: $id, username: $username, password: $password, name: $name, email: $email, role: $role}
+    createAccountInput: {id: $id, username: $username, password: $password, name: $name, email: $email}
   )
 }
     `;
@@ -243,7 +241,6 @@ export type CreateAccountMutationFn = Apollo.MutationFunction<CreateAccountMutat
  *      password: // value for 'password'
  *      name: // value for 'name'
  *      email: // value for 'email'
- *      role: // value for 'role'
  *   },
  * });
  */

@@ -8,6 +8,7 @@ import {
 } from '../../../libs/graphql-types';
 import { Logger } from '@nestjs/common';
 import bcrypt from 'bcrypt';
+import { AccountType } from '@pcp/types';
 
 @Resolver('Account')
 export class AccountsResolver {
@@ -30,9 +31,10 @@ export class AccountsResolver {
       id: ObjectId.from(createAccountInput.id),
       data: {
         ...R.pick(
-          ['name', 'email', 'password', 'username', 'role'],
+          ['name', 'email', 'password', 'username'],
           createAccountInput,
         ),
+        role: AccountType.MEMBER,
         password: await bcrypt.hash(createAccountInput.password, 10),
       },
     });
