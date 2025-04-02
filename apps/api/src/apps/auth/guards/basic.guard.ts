@@ -32,9 +32,7 @@ export class BasicGuard implements CanActivate {
       .toString()
       .split(':');
 
-    const params = { username, role: <AccountType>request.headers['role'] };
-
-    const account = await this.accountService.findAccount(params);
+    const account = await this.accountService.findAccount({ username });
 
     if (!account || !(await bcrypt.compare(password, account.password))) {
       throw new ForbiddenException();

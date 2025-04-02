@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
-import { Account, AccountType } from '../types/graphql';
+import { Account } from '../types/graphql';
 
 type AuthTokens = {
   accessToken: string;
@@ -11,26 +11,27 @@ type AuthTokens = {
 };
 
 type AuthContextType = {
-  tokens: AuthTokens | null;
+  tokens?: AuthTokens | null;
+  user?: Account | null;
   login: (data: Account & { password: string }) => void;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [tokens, setTokens] = useState<AuthTokens | null>(null);
+  const [tokens, setTokens] = useState<AuthTokens | null>();
+  const [user, setUser] = useState<Account | null>();
 
-  const login = async (input: Account & { password: string }) => {
+  const login = async (credentials: { username: string; password: string }) => {
     let data: AuthTokens;
     try {
       const response = await fetch('http://localhost:4003/sessions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          role: AccountType.MEMBER,
-          Authorization: `Basic ${window.btoa(`${input.username}:${input.password}`)}`,
+          Authorization: `Basic ${window.btoa(`${credentials.username}:${credentials.password}`)}`,
         },
-        body: JSON.stringify(input),
+        body: JSON.stringify(credentials),
       });
 
       data = await response.json();
@@ -48,6 +49,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     <AuthContext.Provider
       value={{
         tokens,
+        user,
         login,
       }}
     >

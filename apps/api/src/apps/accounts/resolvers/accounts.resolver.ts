@@ -17,6 +17,15 @@ export class AccountsResolver {
   async create(
     @Args('createAccountInput') createAccountInput: CreateAccountInput,
   ) {
+    const existingUser = await this.accountService.findAccount({
+      username: createAccountInput.username,
+      //adminCode in the future
+    });
+
+    if (existingUser) {
+      throw new Error('User already exists');
+    }
+
     await this.accountService.createAccount({
       id: ObjectId.from(createAccountInput.id),
       data: {

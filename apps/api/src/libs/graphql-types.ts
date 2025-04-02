@@ -392,7 +392,6 @@ export interface Account {
     username: string;
     name: string;
     email: string;
-    role: AccountType;
 }
 
 export interface IQuery {

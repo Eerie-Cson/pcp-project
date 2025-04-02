@@ -60,7 +60,7 @@ const UserCreationModal = () => {
 
     try {
       await createUser({
-        variables: { id: generatedId, role: AccountType.MEMBER, ...formData },
+        variables: { id: generatedId, ...formData },
       });
 
       await login({
@@ -69,7 +69,6 @@ const UserCreationModal = () => {
         username: formData.username,
         name: formData.name,
         email: formData.email,
-        role: AccountType.MEMBER,
       });
     } catch (err) {
       console.error('Error creating user:', err);

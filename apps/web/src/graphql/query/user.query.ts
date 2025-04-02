@@ -7,7 +7,6 @@ export const USERS = gql`
       name
       username
       email
-      role
     }
   }
 `;
