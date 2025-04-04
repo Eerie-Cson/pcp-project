@@ -1,6 +1,17 @@
-import { PcComponent } from './components';
+import { PcComponent, ComponentType } from '../libs/components';
 
-const allComponents: PcComponent[] = [
+export const COMPONENT_TYPES: ComponentType[] = [
+  'CPU',
+  'GPU',
+  'Motherboard',
+  'RAM',
+  'Storage',
+  'PSU',
+  'Case',
+  'Cooling',
+];
+
+export const allComponents: PcComponent[] = [
   {
     id: 'cpu-1',
     name: 'AMD Ryzen 9 7950X',
@@ -42,4 +53,13 @@ const allComponents: PcComponent[] = [
   // Add 10+ more components with similar detail
 ];
 
-export default allComponents;
+export const FEATURED_BRANDS = [
+  'AMD',
+  'Intel',
+  'NVIDIA',
+  'Corsair',
+  'ASUS',
+  'MSI',
+  'Samsung',
+  'Seagate',
+];

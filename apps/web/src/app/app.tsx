@@ -1,7 +1,6 @@
-import Users from '../components/Users';
-import CreateUserForm from '../components/UserForm';
 import { AuthProvider } from '../context/AuthContext';
-import PcBuilder from '../components/Component_main';
+// import PcBuilder from '../components/initialPage/Component_main';
+import PcBuilder from '../pages/PcBuilder';
 // import { Route, Routes, Link } from 'react-router-dom';
 
 export function App() {
