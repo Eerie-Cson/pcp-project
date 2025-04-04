@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Hero() {
+export function Hero() {
   return (
     <section className="bg-gradient-to-r from-gray-900 to-gray-800 text-white p-8 md:p-12 rounded-2xl mb-8 text-center">
       <div>
