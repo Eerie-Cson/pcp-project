@@ -11,12 +11,12 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
   onClose,
   onSubmit,
 }) => {
-  const [activeTab, setActiveTab] = useState('CPU');
+  const [activeTab, setActiveTab] = useState<string>('CPU');
   const [formData, setFormData] = useState<Record<string, any>>({
     name: '',
     brand: '',
     price: '',
-    stock: '',
+    partNumber: '',
     specs: {},
   });
 
@@ -28,7 +28,6 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
     'Storage',
     'PSU',
     'Case',
-    'Cooling',
   ];
 
   // Different spec fields for each component type
@@ -71,14 +70,12 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
       { name: 'modular', label: 'Modular Type' },
     ],
     Case: [
+      { name: 'color', label: 'Color' },
+      { name: 'type', label: 'Case Type' },
       { name: 'formFactor', label: 'Form Factor' },
-      { name: 'fans', label: 'Included Fans' },
-      { name: 'maxGpuLength', label: 'Max GPU Length (mm)' },
-    ],
-    Cooling: [
-      { name: 'type', label: 'Type' },
-      { name: 'tdpRating', label: 'TDP Rating (W)' },
-      { name: 'fanSize', label: 'Fan Size (mm)' },
+      { name: 'interface', label: 'Interface' },
+      { name: 'powerSupply', label: 'Power Supply Included' },
+      { name: 'sidePanel', label: 'Side Panel Type' },
     ],
   };
 
@@ -114,7 +111,7 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
       name: '',
       brand: '',
       price: '',
-      stock: '',
+      partNumber: '',
       specs: {},
     });
     setActiveTab('CPU');
@@ -217,12 +214,12 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Stock Quantity:
+                  Part Number:
                 </label>
                 <input
-                  type="number"
-                  name="stock"
-                  value={formData.stock}
+                  type="string"
+                  name="partNumber"
+                  value={formData.partNumber}
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
                   required

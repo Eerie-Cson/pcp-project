@@ -41,16 +41,14 @@ export class CaseResolver {
 
   @Query('getCases')
   async getCases() {
-    return this.componentService.findCase({});
+    return this.componentService.findCases({});
   }
 
   //TODO: Remove the [0] when querying for one entity is added
   @Query('getCase')
   async getCase(@Args('id') id: string) {
-    const caseResult = await this.componentService.findCase({
+    return this.componentService.findCase({
       id: ObjectId.from(id),
     });
-
-    return caseResult[0];
   }
 }

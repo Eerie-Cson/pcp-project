@@ -1,4 +1,10 @@
+import { useQuery } from '@apollo/client';
 import { PcComponent, ComponentType } from '../libs/components';
+import {
+  Case,
+  ComponentType as ComponentTypeGql,
+} from '../types/components/graphql';
+import { GET_CASES } from '../graphql/component/query/get-components.mutation';
 
 export const COMPONENT_TYPES: ComponentType[] = [
   'CPU',
@@ -10,6 +16,39 @@ export const COMPONENT_TYPES: ComponentType[] = [
   'Case',
   'Cooling',
 ];
+
+export function useCases() {
+  const { data, loading, error } = useQuery<{ getCases: Case[] }>(GET_CASES, {
+    context: { service: 'components' },
+  });
+
+  const transformCase = (caseItem: Case): PcComponent => ({
+    id: caseItem.id,
+    name: caseItem.name,
+    type: 'Case',
+    price: Number(caseItem.price),
+    specs: {
+      Manufacturer: caseItem.manufacturer,
+      PartNumber: caseItem.partNumber,
+      Color: caseItem.color,
+      Type: caseItem.type,
+      FormFactor: caseItem.formFactor,
+      Interface: caseItem.interface,
+      PowerSupply: caseItem.powerSupply ? 'Included' : 'Not Included',
+      SidePanel: caseItem.sidePanel,
+    },
+    brand: caseItem.manufacturer,
+    image: 'https://example.com/case.jpg',
+    compatibility: ['ATX', 'Micro-ATX'],
+    features: ['RGB Lighting', 'Tempered Glass Side Panel'],
+  });
+
+  return {
+    loading,
+    error,
+    cases: data?.getCases?.map(transformCase) || [],
+  };
+}
 
 export const allComponents: PcComponent[] = [
   {
@@ -30,25 +69,6 @@ export const allComponents: PcComponent[] = [
     compatibility: ['AM5'],
     rating: 4.9,
     features: ['Zen 4 Architecture', 'PCIe 5.0 Support', 'DDR5 Memory Support'],
-  },
-  {
-    id: 'gpu-1',
-    name: 'NVIDIA RTX 4090 Founders Edition',
-    type: 'GPU',
-    price: 1599,
-    specs: {
-      'CUDA Cores': '16384',
-      'Boost Clock': '2.52GHz',
-      Memory: '24GB GDDR6X',
-      'Memory Bus': '384-bit',
-      'Power Connectors': '1x 16-pin',
-      TDP: '450W',
-    },
-    brand: 'NVIDIA',
-    image: 'https://example.com/rtx4090.jpg',
-    compatibility: ['PCIe 4.0'],
-    rating: 4.8,
-    features: ['DLSS 3', 'Ray Tracing', 'AV1 Encoding'],
   },
   // Add 10+ more components with similar detail
 ];
