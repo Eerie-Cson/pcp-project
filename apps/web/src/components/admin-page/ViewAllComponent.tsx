@@ -1,13 +1,65 @@
 import React, { useState } from 'react';
 import CreateComponentButton from './CreateComponentButton';
+import { useMutation, useQuery } from '@apollo/client';
+import { CREATE_CASE } from '../../graphql/component/mutation/create-component.mutation';
+import { ObjectId, ObjectTypes } from '@pcp/object-id';
+import {
+  Case,
+  CaseType,
+  ComponentType,
+  SidePanelType,
+} from '../../types/components/graphql';
+import { GET_CASES } from '../../graphql/component/query/get-components.mutation';
 
+type ComponentInput = {
+  name: string;
+  brand: string;
+  price: string;
+  partNumber: string;
+  type: string;
+  specs: Record<string, any>;
+};
 const ComponentListSection = () => {
   const [activeFilter, setActiveFilter] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('name');
   const [sortOrder, setSortOrder] = useState('asc');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [createCase, { loading, error }] = useMutation(CREATE_CASE, {
+    context: { service: 'components' },
+    onCompleted: () => {
+      alert('✅ Component created successfully!');
+    },
+  });
 
+  const {
+    data,
+    loading: loadingData,
+    error: errorData,
+  } = useQuery(GET_CASES, {
+    context: { service: 'components' },
+  });
+
+  if (loadingData) return <p>Loading users...</p>;
+  if (errorData) return <p>Server is down: {errorData.message}</p>;
+
+  const cases = data.getCases.map((item: Case) => ({
+    id: item.id,
+    type: item.componentType,
+    name: item.name,
+    brand: item.manufacturer,
+    price: item.price,
+    stock: 10,
+    specs: {
+      formFactor: item.formFactor,
+      interface: item.interface,
+      color: item.color,
+      partNumber: item.partNumber,
+      powerSupply: item.powerSupply,
+      sidePanel: item.sidePanel,
+    },
+    imageUrl: '/api/placeholder/120/120',
+  }));
   // Sample data - in a real app, this would come from props or an API
   const components = [
     {
@@ -26,82 +78,9 @@ const ComponentListSection = () => {
       },
       imageUrl: '/api/placeholder/120/120',
     },
-    {
-      id: 2,
-      type: 'GPU',
-      name: 'GeForce RTX 4070',
-      brand: 'NVIDIA',
-      price: 599.99,
-      stock: 8,
-      specs: {
-        vram: '12GB GDDR6X',
-        coreClock: '1920 MHz',
-        boostClock: '2610 MHz',
-        interface: 'PCIe 4.0 x16',
-        tdp: '200W',
-      },
-      imageUrl: '/api/placeholder/120/120',
-    },
-    {
-      id: 3,
-      type: 'Motherboard',
-      name: 'ROG Strix B550-F Gaming',
-      brand: 'ASUS',
-      price: 179.99,
-      stock: 12,
-      specs: {
-        socket: 'AM4',
-        chipset: 'B550',
-        formFactor: 'ATX',
-        memorySlots: '4',
-      },
-      imageUrl: '/api/placeholder/120/120',
-    },
-    {
-      id: 4,
-      type: 'RAM',
-      name: 'Vengeance RGB Pro',
-      brand: 'Corsair',
-      price: 89.99,
-      stock: 25,
-      specs: {
-        capacity: '16GB (2x8GB)',
-        speed: '3600 MHz',
-        type: 'DDR4',
-        modules: '2',
-      },
-      imageUrl: '/api/placeholder/120/120',
-    },
-    {
-      id: 5,
-      type: 'Storage',
-      name: '970 EVO Plus',
-      brand: 'Samsung',
-      price: 119.99,
-      stock: 18,
-      specs: {
-        capacity: '1TB',
-        type: 'NVMe SSD',
-        interface: 'M.2',
-        readSpeed: '3500 MB/s',
-      },
-      imageUrl: '/api/placeholder/120/120',
-    },
-    {
-      id: 6,
-      type: 'PSU',
-      name: 'RM850x',
-      brand: 'Corsair',
-      price: 129.99,
-      stock: 10,
-      specs: {
-        wattage: '850W',
-        efficiency: '80+ Gold',
-        modular: 'Fully Modular',
-      },
-      imageUrl: '/api/placeholder/120/120',
-    },
-  ];
+
+    //...
+  ].concat(cases);
   // const components: Record<string, any> = [];
 
   const componentTypes = [
@@ -113,7 +92,6 @@ const ComponentListSection = () => {
     'Storage',
     'PSU',
     'Case',
-    'Cooling',
   ];
 
   // Filter components based on type and search query
@@ -156,8 +134,42 @@ const ComponentListSection = () => {
     }
   };
 
-  const handleAddComponent = (component: Record<string, any>) => {
-    console.log(component);
+  const handleAddComponent = async (component: ComponentInput) => {
+    const componentTypeMap: Record<string, any> = {
+      CPU: ComponentType.Cpu,
+      GPU: ComponentType.VideoCard,
+      Motherboard: ComponentType.Motherboard,
+      RAM: ComponentType.Memory,
+      Storage: ComponentType.Storage,
+      PSU: ComponentType.PowerSupply,
+      Case: ComponentType.Case,
+    };
+
+    const componentTypeParams: string = component.type;
+    console.log(componentTypeParams);
+
+    const componentInput = {
+      id: ObjectId.generate(ObjectTypes.CASE).toString(),
+      name: component.name,
+      price: component.price,
+      manufacturer: component.brand,
+      partNumber: component.partNumber,
+      color: component.specs.color,
+      componentType: componentTypeMap[componentTypeParams],
+      formFactor: component.specs.formFactor,
+      interface: component.specs.interface,
+      powerSupply: true,
+      type: CaseType.AtxMidTower,
+      sidePanel: SidePanelType.TemperedGlass,
+    };
+    console.log(componentInput);
+    try {
+      await createCase({
+        variables: componentInput,
+      });
+    } catch (error) {
+      console.error('Error creating component:', error);
+    }
   };
 
   return (
