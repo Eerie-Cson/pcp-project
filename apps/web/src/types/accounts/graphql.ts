@@ -2,42 +2,29 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>;
-};
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>;
-};
-export type MakeEmpty<
-  T extends { [key: string]: unknown },
-  K extends keyof T,
-> = { [_ in K]?: never };
-export type Incremental<T> =
-  | T
-  | {
-      [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never;
-    };
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string };
-  String: { input: string; output: string };
-  Boolean: { input: boolean; output: boolean };
-  Int: { input: number; output: number };
-  Float: { input: number; output: number };
-  Cursor: { input: any; output: any };
-  Date: { input: any; output: any };
-  DateTime: { input: any; output: any };
-  Decimal: { input: any; output: any };
-  EmailAddress: { input: any; output: any };
-  JSON: { input: any; output: any };
-  ObjectId: { input: any; output: any };
-  TimeZone: { input: any; output: any };
-  URL: { input: any; output: any };
-  Upload: { input: any; output: any };
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+  Cursor: { input: any; output: any; }
+  Date: { input: any; output: any; }
+  DateTime: { input: any; output: any; }
+  Decimal: { input: any; output: any; }
+  EmailAddress: { input: any; output: any; }
+  JSON: { input: any; output: any; }
+  ObjectId: { input: any; output: any; }
+  TimeZone: { input: any; output: any; }
+  URL: { input: any; output: any; }
+  Upload: { input: any; output: any; }
 };
 
 export type Account = {
@@ -50,8 +37,8 @@ export type Account = {
 };
 
 export enum AccountType {
-  MEMBER = 'MEMBER',
-  SUPER_ADMIN = 'SUPER_ADMIN',
+  Member = 'MEMBER',
+  SuperAdmin = 'SUPER_ADMIN'
 }
 
 export type BooleanFilterInput = {
@@ -141,13 +128,16 @@ export type Mutation = {
   updateAccount?: Maybe<Scalars['Boolean']['output']>;
 };
 
+
 export type MutationCreateAccountArgs = {
   createAccountInput: CreateAccountInput;
 };
 
+
 export type MutationDeleteAccountArgs = {
   id: Scalars['String']['input'];
 };
+
 
 export type MutationUpdateAccountArgs = {
   id: Scalars['String']['input'];
@@ -178,9 +168,11 @@ export type Query = {
   node?: Maybe<Node>;
 };
 
+
 export type QueryAccountArgs = {
   id: Scalars['String']['input'];
 };
+
 
 export type QueryNodeArgs = {
   id?: InputMaybe<Scalars['ObjectId']['input']>;
@@ -188,7 +180,7 @@ export type QueryNodeArgs = {
 
 export enum SortOrder {
   Asc = 'ASC',
-  Desc = 'DESC',
+  Desc = 'DESC'
 }
 
 export type StringFilterInput = {
@@ -216,50 +208,23 @@ export type CreateAccountMutationVariables = Exact<{
   role: AccountType;
 }>;
 
-export type CreateAccountMutation = {
-  __typename?: 'Mutation';
-  createAccount?: boolean | null;
-};
 
-export type AccountsQueryVariables = Exact<{ [key: string]: never }>;
+export type CreateAccountMutation = { __typename?: 'Mutation', createAccount?: boolean | null };
 
-export type AccountsQuery = {
-  __typename?: 'Query';
-  accounts: Array<{
-    __typename?: 'Account';
-    id: string;
-    name: string;
-    username: string;
-    email: string;
-    role: AccountType;
-  } | null>;
-};
+export type AccountsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AccountsQuery = { __typename?: 'Query', accounts: Array<{ __typename?: 'Account', id: string, name: string, username: string, email: string, role: AccountType } | null> };
+
 
 export const CreateAccountDocument = gql`
-  mutation CreateAccount(
-    $id: String!
-    $username: String!
-    $password: String!
-    $name: String!
-    $email: String!
-    $role: AccountType!
-  ) {
-    createAccount(
-      createAccountInput: {
-        id: $id
-        username: $username
-        password: $password
-        name: $name
-        email: $email
-        role: $role
-      }
-    )
-  }
-`;
-export type CreateAccountMutationFn = Apollo.MutationFunction<
-  CreateAccountMutation,
-  CreateAccountMutationVariables
->;
+    mutation CreateAccount($id: String!, $username: String!, $password: String!, $name: String!, $email: String!, $role: AccountType!) {
+  createAccount(
+    createAccountInput: {id: $id, username: $username, password: $password, name: $name, email: $email, role: $role}
+  )
+}
+    `;
+export type CreateAccountMutationFn = Apollo.MutationFunction<CreateAccountMutation, CreateAccountMutationVariables>;
 
 /**
  * __useCreateAccountMutation__
@@ -283,38 +248,24 @@ export type CreateAccountMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useCreateAccountMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreateAccountMutation,
-    CreateAccountMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    CreateAccountMutation,
-    CreateAccountMutationVariables
-  >(CreateAccountDocument, options);
-}
-export type CreateAccountMutationHookResult = ReturnType<
-  typeof useCreateAccountMutation
->;
-export type CreateAccountMutationResult =
-  Apollo.MutationResult<CreateAccountMutation>;
-export type CreateAccountMutationOptions = Apollo.BaseMutationOptions<
-  CreateAccountMutation,
-  CreateAccountMutationVariables
->;
+export function useCreateAccountMutation(baseOptions?: Apollo.MutationHookOptions<CreateAccountMutation, CreateAccountMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateAccountMutation, CreateAccountMutationVariables>(CreateAccountDocument, options);
+      }
+export type CreateAccountMutationHookResult = ReturnType<typeof useCreateAccountMutation>;
+export type CreateAccountMutationResult = Apollo.MutationResult<CreateAccountMutation>;
+export type CreateAccountMutationOptions = Apollo.BaseMutationOptions<CreateAccountMutation, CreateAccountMutationVariables>;
 export const AccountsDocument = gql`
-  query Accounts {
-    accounts {
-      id
-      name
-      username
-      email
-      role
-    }
+    query Accounts {
+  accounts {
+    id
+    name
+    username
+    email
+    role
   }
-`;
+}
+    `;
 
 /**
  * __useAccountsQuery__
@@ -331,49 +282,19 @@ export const AccountsDocument = gql`
  *   },
  * });
  */
-export function useAccountsQuery(
-  baseOptions?: Apollo.QueryHookOptions<AccountsQuery, AccountsQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<AccountsQuery, AccountsQueryVariables>(
-    AccountsDocument,
-    options,
-  );
-}
-export function useAccountsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    AccountsQuery,
-    AccountsQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<AccountsQuery, AccountsQueryVariables>(
-    AccountsDocument,
-    options,
-  );
-}
-export function useAccountsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<AccountsQuery, AccountsQueryVariables>,
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<AccountsQuery, AccountsQueryVariables>(
-    AccountsDocument,
-    options,
-  );
-}
+export function useAccountsQuery(baseOptions?: Apollo.QueryHookOptions<AccountsQuery, AccountsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AccountsQuery, AccountsQueryVariables>(AccountsDocument, options);
+      }
+export function useAccountsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AccountsQuery, AccountsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AccountsQuery, AccountsQueryVariables>(AccountsDocument, options);
+        }
+export function useAccountsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<AccountsQuery, AccountsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<AccountsQuery, AccountsQueryVariables>(AccountsDocument, options);
+        }
 export type AccountsQueryHookResult = ReturnType<typeof useAccountsQuery>;
-export type AccountsLazyQueryHookResult = ReturnType<
-  typeof useAccountsLazyQuery
->;
-export type AccountsSuspenseQueryHookResult = ReturnType<
-  typeof useAccountsSuspenseQuery
->;
-export type AccountsQueryResult = Apollo.QueryResult<
-  AccountsQuery,
-  AccountsQueryVariables
->;
+export type AccountsLazyQueryHookResult = ReturnType<typeof useAccountsLazyQuery>;
+export type AccountsSuspenseQueryHookResult = ReturnType<typeof useAccountsSuspenseQuery>;
+export type AccountsQueryResult = Apollo.QueryResult<AccountsQuery, AccountsQueryVariables>;

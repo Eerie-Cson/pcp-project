@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
-import { Account, AccountType } from '../types/graphql';
+import { Account, AccountType } from '../types/accounts/graphql';
 
 type AuthTokens = {
   accessToken: string;
@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          role: AccountType.MEMBER,
+          role: AccountType.Member,
           Authorization: `Basic ${window.btoa(`${input.username}:${input.password}`)}`,
         },
         body: JSON.stringify(input),
