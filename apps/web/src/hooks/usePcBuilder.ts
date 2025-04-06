@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { PcComponent, ComponentType } from '../libs/components';
-import { allComponents } from '../libs/data';
+import { allComponents, useCases } from '../libs/data';
 
 export function usePcBuilder() {
   const [build, setBuild] = useState<PcComponent[]>([]);
@@ -10,9 +10,11 @@ export function usePcBuilder() {
   const [selectedComponent, setSelectedComponent] =
     useState<PcComponent | null>(null);
   const [compatibilityIssues, setCompatibilityIssues] = useState<string[]>([]);
+  const { cases } = useCases();
 
+  const allComponentsWithCase = allComponents.concat(cases);
   // Filter components based on selections
-  const filteredComponents = allComponents.filter(
+  const filteredComponents = allComponentsWithCase.filter(
     (comp) =>
       comp.type === selectedType &&
       comp.price >= priceRange[0] &&
