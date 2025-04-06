@@ -49,7 +49,7 @@ export function CaseRepositoryFactory(connection: Connection) {
       required: true,
     },
     powerSupply: {
-      type: String,
+      type: Boolean,
       required: true,
     },
     sidePanel: {

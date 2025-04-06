@@ -63,6 +63,10 @@ export class ComponentService {
     return this.caseRepository.find(params);
   }
 
+  async findCases(params: Partial<Case>) {
+    return this.caseRepository.list(params);
+  }
+
   async createCpu(data: Cpu) {
     return this.cpuRepository.create(data);
   }
