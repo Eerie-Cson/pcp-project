@@ -57,8 +57,8 @@ input UpdateCaseInput {
 }
 
 type Query {
-  getCases: [Case]!
-  getCase(id: String!): Case
+  cases: [Case]!
+  case(id: String!): Case
 }
 
 type Mutation {

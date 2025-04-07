@@ -3,7 +3,7 @@ import { generateComponent } from '../helpers/generate-component';
 import { ComponentType } from '@pcp/types';
 import { CaseRepository } from '../../src/features/component/repository/case.repository';
 import { Tokens as ComponentToken } from '../../src/features/component/libs/tokens';
-import { ObjectTypes } from '@pcp/object-type';
+import { ObjectTypes } from '@pcp/object-id';
 
 import * as R from 'ramda';
 
@@ -26,7 +26,7 @@ describe('Components.Query', () => {
     const getCaseResponse = await request.post('/graphql').send({
       query: `
         query($id: String!) {
-          getCase(id: $id) {
+          case(id: $id) {
             id
             name
             partNumber
@@ -43,7 +43,7 @@ describe('Components.Query', () => {
     const getCasesResponse = await request.post('/graphql').send({
       query: `
         query {
-          getCases {
+          cases {
             id
             name
             partNumber
@@ -58,8 +58,8 @@ describe('Components.Query', () => {
 
     expect(getCaseResponse.status).toEqual(200);
     expect(getCaseResponse.body).not.toHaveProperty('errors');
-    expect(getCaseResponse.body.data.getCase).toBeTruthy();
-    expect(getCaseResponse.body.data.getCase).toMatchObject({
+    expect(getCaseResponse.body.data.case).toBeTruthy();
+    expect(getCaseResponse.body.data.case).toMatchObject({
       id: cases[0].id.toString(),
       name: cases[0].name,
       partNumber: cases[0].partNumber,
@@ -68,9 +68,9 @@ describe('Components.Query', () => {
     });
 
     expect(getCasesResponse.status).toEqual(200);
-    expect(getCasesResponse.body.data.getCases).toBeTruthy();
+    expect(getCasesResponse.body.data.cases).toBeTruthy();
     expect(getCasesResponse.body).not.toHaveProperty('errors');
-    expect(getCasesResponse.body.data.getCases).toHaveLength(3);
+    expect(getCasesResponse.body.data.cases).toHaveLength(3);
 
     await teardown();
   });
