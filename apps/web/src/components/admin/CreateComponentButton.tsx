@@ -63,12 +63,28 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
       { name: 'modular', label: 'Modular Type' },
     ],
     [ComponentType.Case]: [
-      { name: 'color', label: 'Color' },
-      { name: 'type', label: 'Case Type' },
-      { name: 'formFactor', label: 'Form Factor' },
-      { name: 'interface', label: 'Interface' },
-      { name: 'powerSupply', label: 'Power Supply Included' },
-      { name: 'sidePanel', label: 'Side Panel Type' },
+      {
+        name: 'type',
+        label: 'Case Type',
+        inputType: 'select',
+        options: ['ATX_MID_TOWER', 'EATX', 'ATX', 'MICRO_ATX', 'MINI_ITX'],
+      },
+      {
+        name: 'sidePanel',
+        label: 'Side Panel Type',
+        inputType: 'select',
+        options: ['TEMPERED_GLASS', 'TINTED_TEMPERED_GLASS'],
+      },
+
+      { name: 'formFactor', label: 'Form Factor', inputType: 'text' },
+      { name: 'interface', label: 'Interface', inputType: 'text' },
+      { name: 'color', label: 'Color', inputType: 'color' },
+
+      {
+        name: 'powerSupply',
+        label: 'Power Supply Included',
+        inputType: 'checkbox',
+      },
     ],
   };
 
@@ -82,7 +98,7 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
     });
   };
 
-  const handleSpecChange = (specName: string, value: string) => {
+  const handleSpecChange = (specName: string, value: string | boolean) => {
     setFormData({
       ...formData,
       specs: {
@@ -90,6 +106,20 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
         [specName]: value,
       },
     });
+  };
+
+  const handleSelectChange = (
+    e: React.ChangeEvent<HTMLSelectElement>,
+    specName: string,
+  ) => {
+    handleSpecChange(specName, e.target.value);
+  };
+
+  const handleCheckboxChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    specName: string,
+  ) => {
+    handleSpecChange(specName, e.target.checked);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -221,29 +251,184 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
             </div>
 
             {/* Component-specific specs */}
-            <div className="mb-6">
-              <h3 className="text-lg font-medium mb-3">
+            <div className="mb-8">
+              <h3 className="text-lg font-medium mb-4 border-b pb-2 flex items-center">
+                <span className="text-green-500 mr-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </span>
                 {COMPONENT_TYPES_MAP[activeTab]} Specifications
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {specFields[activeTab].map((spec) => (
-                  <div key={spec.name}>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      {spec.label}:
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.specs[spec.name] || ''}
-                      onChange={(e) =>
-                        handleSpecChange(spec.name, e.target.value)
-                      }
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
-                    />
-                  </div>
-                ))}
+
+              <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+                  {specFields[activeTab].map((spec, index) => (
+                    <div
+                      key={spec.name}
+                      className={`p-5 relative ${
+                        index % 2 === 0 ? 'bg-gray-50' : 'bg-white'
+                      } ${
+                        index < specFields[activeTab].length - 1 &&
+                        (index < specFields[activeTab].length - 2 ||
+                          specFields[activeTab].length % 2 === 0)
+                          ? 'border-b md:border-b-0'
+                          : ''
+                      } ${
+                        index % 2 === 0 &&
+                        index < specFields[activeTab].length - 1
+                          ? 'md:border-r border-gray-200'
+                          : ''
+                      }`}
+                    >
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        {spec.label}
+                        {spec.name === 'tdp' && (
+                          <span className="ml-1 text-xs text-gray-500">
+                            (Thermal Design Power)
+                          </span>
+                        )}
+                      </label>
+
+                      {spec.inputType === 'select' ? (
+                        <div className="relative">
+                          <select
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent bg-white appearance-none pr-10 transition-colors hover:border-green-300"
+                            value={formData.specs[spec.name] || ''}
+                            onChange={(e) => handleSelectChange(e, spec.name)}
+                          >
+                            <option value="">Select {spec.label}</option>
+                            {spec.options?.map((option: string) => (
+                              <option key={option} value={option}>
+                                {option.replace(/_/g, ' ')}
+                              </option>
+                            ))}
+                          </select>
+                          <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                            <svg
+                              className="h-5 w-5 text-green-500"
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          </div>
+                        </div>
+                      ) : spec.inputType === 'checkbox' ? (
+                        <div className="flex items-center">
+                          <label className="inline-flex items-center cursor-pointer">
+                            <div className="relative">
+                              <input
+                                type="checkbox"
+                                id={`checkbox-${spec.name}`}
+                                checked={formData.specs[spec.name] || false}
+                                onChange={(e) =>
+                                  handleCheckboxChange(e, spec.name)
+                                }
+                                className="sr-only"
+                              />
+                              <div
+                                className={`w-10 h-6 rounded-full transition-colors ${formData.specs[spec.name] ? 'bg-green-400 ' : 'bg-gray-200 '}`}
+                              ></div>
+                              <div
+                                className={`absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform transform ${formData.specs[spec.name] ? 'translate-x-4 border-green-500 border-2' : ''}`}
+                              ></div>
+                            </div>
+                            <span className="ml-3 select-none text-sm text-gray-700">
+                              {spec.label}
+                            </span>
+                          </label>
+                        </div>
+                      ) : spec.inputType === 'color' ? (
+                        <div className="flex gap-3 items-center">
+                          <div className="relative">
+                            <input
+                              type="color"
+                              value={formData.specs[spec.name] || '#000000'}
+                              onChange={(e) =>
+                                handleSpecChange(spec.name, e.target.value)
+                              }
+                              className="h-6 w-6 border-0 rounded-lg cursor-pointer"
+                            />
+                            {/* <div className="absolute inset-0 rounded-lg border border-green-300 pointer-events-none"></div> */}
+                          </div>
+                          <input
+                            type="text"
+                            value={formData.specs[spec.name] || ''}
+                            onChange={(e) =>
+                              handleSpecChange(spec.name, e.target.value)
+                            }
+                            placeholder="#000000"
+                            className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent transition-all"
+                          />
+                        </div>
+                      ) : (
+                        <div className="relative">
+                          <div className="flex items-center">
+                            <input
+                              type={spec.inputType || 'text'}
+                              value={formData.specs[spec.name] || ''}
+                              onChange={(e) =>
+                                handleSpecChange(spec.name, e.target.value)
+                              }
+                              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent transition-all"
+                              placeholder={`Enter ${spec.label.toLowerCase()}`}
+                            />
+                            {(spec.name.includes('Clock') ||
+                              spec.name === 'capacity' ||
+                              spec.name === 'wattage') && (
+                              <div className="absolute right-3 bg-gray-100 px-2 py-1 rounded text-xs font-medium text-gray-600">
+                                {spec.name.includes('Clock')
+                                  ? spec.label.includes('GHz')
+                                    ? 'GHz'
+                                    : 'MHz'
+                                  : spec.name === 'capacity'
+                                    ? 'GB'
+                                    : 'W'}
+                              </div>
+                            )}
+                          </div>
+
+                          {spec.name === 'socket' && (
+                            <p className="mt-1 text-xs text-gray-500 flex items-center">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-3 w-3 mr-1"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                />
+                              </svg>
+                              e.g., AM4, LGA1200
+                            </p>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-
             {/* Description */}
             <div className="mb-6">
               <label className="block text-sm font-medium text-gray-700 mb-1">
