@@ -33,6 +33,7 @@ export default function UserPcBuilder() {
     sortBy,
     sortOrder,
     activeFilter,
+    itemsPerPage,
     handleSort,
     resetFilters,
     setActiveFilter,
@@ -74,6 +75,7 @@ export default function UserPcBuilder() {
               currentPage={currentPage}
               totalItems={sortedComponents.length}
               visibleItems={paginatedComponents.length}
+              itemsPerPage={itemsPerPage}
               onPageChange={setCurrentPage}
             />
           )}

@@ -25,6 +25,7 @@ export default function AdminPcBuilder() {
     handleSort,
     resetFilters,
     handleAddComponent,
+    itemsPerPage,
   } = useAdminPcBuilder();
 
   return (
@@ -55,6 +56,7 @@ export default function AdminPcBuilder() {
         <Pagination
           currentPage={currentPage}
           totalItems={sortedComponents.length}
+          itemsPerPage={itemsPerPage}
           visibleItems={paginatedComponents.length}
           onPageChange={setCurrentPage}
         />

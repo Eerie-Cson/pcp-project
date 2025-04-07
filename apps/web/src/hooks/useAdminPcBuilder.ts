@@ -87,6 +87,8 @@ export const useAdminPcBuilder = () => {
     startIndex + itemsPerPage,
   );
 
+  console.log('Paginated Components:', paginatedComponents);
+
   const handleSort = (field: string) => {
     if (sortBy === field) {
       setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
@@ -143,6 +145,7 @@ export const useAdminPcBuilder = () => {
     filteredComponents,
     sortedComponents,
     paginatedComponents,
+    itemsPerPage,
 
     // Actions
     setActiveFilter,

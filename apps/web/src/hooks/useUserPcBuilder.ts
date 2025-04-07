@@ -154,8 +154,9 @@ export function useUserPcBuilder() {
     // Data
     build,
     priceRange,
-    filteredComponents,
     totalPrice,
+    itemsPerPage,
+    filteredComponents,
     sortedComponents,
     paginatedComponents,
     componentTypes,

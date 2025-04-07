@@ -4,6 +4,7 @@ interface PaginationProps {
   currentPage: number;
   totalItems: number;
   visibleItems: number;
+  itemsPerPage: number;
   onPageChange: (page: number) => void;
 }
 
@@ -11,9 +12,10 @@ const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   totalItems,
   visibleItems,
+  itemsPerPage,
   onPageChange,
 }) => {
-  const totalPages = Math.ceil(totalItems / (visibleItems / currentPage));
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   return (
     <div className="mt-6 flex justify-between items-center">
@@ -36,7 +38,7 @@ const Pagination: React.FC<PaginationProps> = ({
           disabled={currentPage === totalPages || totalPages === 0}
           onClick={() => onPageChange(currentPage + 1)}
         >
-          Next
+          Next {totalPages}
         </button>
       </div>
     </div>
