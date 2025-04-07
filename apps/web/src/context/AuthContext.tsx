@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
-import { Account, AccountType } from '../types/accounts/graphql';
+import { Account, AccountType } from '../libs/graphql-types/accounts';
 
 type AuthTokens = {
   accessToken: string;
