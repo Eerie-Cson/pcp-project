@@ -1,13 +1,3 @@
-// export type ComponentType =
-//   | 'CPU'
-//   | 'GPU'
-//   | 'Motherboard'
-//   | 'RAM'
-//   | 'Storage'
-//   | 'PSU'
-//   | 'Case'
-//   | 'Cooling';
-
 import { ComponentType } from '../graphql-types/component';
 
 export type PcComponent<CType extends ComponentType> = {
