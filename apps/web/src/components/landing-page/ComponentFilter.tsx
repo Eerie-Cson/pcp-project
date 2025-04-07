@@ -10,6 +10,7 @@ interface ComponentFiltersProps {
   setSearchQuery: (query: string) => void;
   priceRange: [number, number];
   setPriceRange: (range: [number, number]) => void;
+  componentTypes: ComponentType[];
 }
 
 export function ComponentFilters({
@@ -19,26 +20,24 @@ export function ComponentFilters({
   setSearchQuery,
   priceRange,
   setPriceRange,
+  componentTypes,
 }: ComponentFiltersProps) {
-  const componentTypes = enumToArray<ComponentType>(ComponentType);
-
   return (
     <div className="mb-6">
       <h3 className="text-xl font-semibold mb-4">Select Components</h3>
       <div className="flex flex-col gap-4">
         <div className="flex flex-wrap gap-2">
-          {/* {COMPONENT_TYPES.map((type) => ( */}
           {componentTypes.map((type) => (
             <button
               key={type}
-              className={`py-2 px-4 border rounded ${
+              className={`py-2 px-5 border rounded ${
                 selectedType === type
                   ? 'bg-blue-500 text-white border-blue-500'
                   : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'
               }`}
               onClick={() => setSelectedType(type)}
             >
-              {COMPONENT_TYPES_MAP[type]}
+              {COMPONENT_TYPES_MAP[type] || 'All'}
             </button>
           ))}
         </div>

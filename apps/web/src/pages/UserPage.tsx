@@ -1,4 +1,3 @@
-import React from 'react';
 import { Layout } from '../components/landing-page/Layout';
 import { Hero } from '../components/landing-page/Hero';
 import { ComponentFilters } from '../components/landing-page/ComponentFilter';
@@ -6,26 +5,38 @@ import { ComponentGrid } from '../components/landing-page/ComponentGrid';
 import { BuildPanel } from '../components/landing-page/BuildPanel';
 import { ComponentModal } from '../components/landing-page/ComponentModal';
 import { FeaturedBrands } from '../components/landing-page/FeaturedBrands';
-import { usePcBuilder } from '../hooks/usePcBuilder';
+import { useUserPcBuilder } from '../hooks/useUserPcBuilder';
+import ComponentSorting from '../components/common/ComponentSorting';
+import Pagination from '../components/common/Pagination';
 
-export default function PcBuilder() {
+export default function UserPcBuilder() {
   const {
     build,
-    selectedType,
-    setSelectedType,
+    totalPrice,
     searchQuery,
-    setSearchQuery,
     priceRange,
-    setPriceRange,
     selectedComponent,
-    setSelectedComponent,
     compatibilityIssues,
-    filteredComponents,
+    setSearchQuery,
+    setPriceRange,
+    setSelectedComponent,
     addToBuild,
     removeFromBuild,
     clearBuild,
-    totalPrice,
-  } = usePcBuilder();
+    setCurrentPage,
+
+    //query
+    componentTypes,
+    sortedComponents,
+    paginatedComponents,
+    currentPage,
+    sortBy,
+    sortOrder,
+    activeFilter,
+    handleSort,
+    resetFilters,
+    setActiveFilter,
+  } = useUserPcBuilder();
 
   return (
     <Layout>
@@ -36,19 +47,36 @@ export default function PcBuilder() {
         {/* Component Selection */}
         <div className="lg:col-span-3 bg-white rounded-lg p-6 shadow">
           <ComponentFilters
-            selectedType={selectedType}
-            setSelectedType={setSelectedType}
+            componentTypes={componentTypes}
+            selectedType={activeFilter}
+            setSelectedType={setActiveFilter}
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
             priceRange={priceRange as [number, number]}
             setPriceRange={setPriceRange as (range: [number, number]) => void}
           />
 
+          <ComponentSorting
+            sortBy={sortBy}
+            sortOrder={sortOrder}
+            handleSort={handleSort}
+          />
+
           <ComponentGrid
-            components={filteredComponents}
+            components={paginatedComponents}
             onAddToBuild={addToBuild}
             onSelectComponent={setSelectedComponent}
+            onResetFilters={resetFilters}
           />
+
+          {sortedComponents.length > 0 && (
+            <Pagination
+              currentPage={currentPage}
+              totalItems={sortedComponents.length}
+              visibleItems={paginatedComponents.length}
+              onPageChange={setCurrentPage}
+            />
+          )}
         </div>
 
         {/* Build Panel */}

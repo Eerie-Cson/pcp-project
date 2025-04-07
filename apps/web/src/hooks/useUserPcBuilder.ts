@@ -2,29 +2,84 @@ import { useState, useCallback } from 'react';
 import { PcComponent } from '../libs/types/components';
 import { ComponentType } from '../libs/graphql-types/component';
 import { useCasesQuery } from './useCasesQuery';
+import enumToArray from '../libs/enumToArray';
 
-export function usePcBuilder() {
+export function useUserPcBuilder() {
   const [build, setBuild] = useState<PcComponent<ComponentType>[]>([]);
-  const [selectedType, setSelectedType] = useState<ComponentType>(
-    ComponentType.Case,
+
+  const [activeFilter, setActiveFilter] = useState<ComponentType>(
+    'All' as ComponentType,
   );
   const [searchQuery, setSearchQuery] = useState('');
   const [priceRange, setPriceRange] = useState([0, 5000]);
   const [selectedComponent, setSelectedComponent] =
     useState<PcComponent<ComponentType> | null>(null);
   const [compatibilityIssues, setCompatibilityIssues] = useState<string[]>([]);
+  const [sortBy, setSortBy] = useState<string>('name');
+  const [sortOrder, setSortOrder] = useState<string>('asc');
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const itemsPerPage: number = 3;
+
   const { data: caseData } = useCasesQuery();
 
-  const components: PcComponent<ComponentType>[] = caseData;
+  const components: PcComponent<ComponentType>[] = caseData || [];
 
-  // Filter components based on selections
-  const filteredComponents = components.filter(
-    (comp) =>
-      comp.type === selectedType &&
-      comp.price >= priceRange[0] &&
-      comp.price <= priceRange[1] &&
-      comp.name.toLowerCase().includes(searchQuery.toLowerCase()),
+  const componentTypes = [
+    'All' as ComponentType,
+    ...enumToArray<ComponentType>(ComponentType),
+  ];
+
+  const filteredComponents = components.filter((component) => {
+    const matchesType =
+      activeFilter === ('All' as ComponentType) ||
+      component.type === activeFilter;
+    const matchesSearch =
+      component.price >= priceRange[0] &&
+      component.price <= priceRange[1] &&
+      component.name.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesType && matchesSearch;
+  });
+
+  const sortedComponents = [...filteredComponents].sort(
+    (a: Record<string, any>, b: Record<string, any>) => {
+      let valueA, valueB;
+
+      if (sortBy === 'price' || sortBy === 'stock') {
+        valueA = a[sortBy];
+        valueB = b[sortBy];
+      } else {
+        valueA = a[sortBy]?.toLowerCase?.() || '';
+        valueB = b[sortBy]?.toLowerCase?.() || '';
+      }
+
+      if (sortOrder === 'asc') {
+        return valueA > valueB ? 1 : -1;
+      } else {
+        return valueA < valueB ? 1 : -1;
+      }
+    },
   );
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedComponents = sortedComponents.slice(
+    startIndex,
+    startIndex + itemsPerPage,
+  );
+
+  const handleSort = (field: string) => {
+    if (sortBy === field) {
+      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortBy(field);
+      setSortOrder('asc');
+    }
+  };
+
+  const resetFilters = () => {
+    setActiveFilter('All' as ComponentType);
+    setSearchQuery('');
+    setCurrentPage(1);
+  };
 
   // Check for compatibility issues
   const checkCompatibility = useCallback(
@@ -87,20 +142,34 @@ export function usePcBuilder() {
   const totalPrice = build.reduce((sum, item) => sum + item.price, 0);
 
   return {
-    build,
-    selectedType,
-    setSelectedType,
+    // State
+    activeFilter,
     searchQuery,
-    setSearchQuery,
-    priceRange,
-    setPriceRange,
+    sortOrder,
+    sortBy,
     selectedComponent,
-    setSelectedComponent,
+    currentPage,
     compatibilityIssues,
+
+    // Data
+    build,
+    priceRange,
     filteredComponents,
-    addToBuild,
-    removeFromBuild,
-    clearBuild,
     totalPrice,
+    sortedComponents,
+    paginatedComponents,
+    componentTypes,
+
+    // Actions
+    removeFromBuild,
+    addToBuild,
+    setPriceRange,
+    setSelectedComponent,
+    clearBuild,
+    setSearchQuery,
+    setCurrentPage,
+    handleSort,
+    resetFilters,
+    setActiveFilter,
   };
 }
