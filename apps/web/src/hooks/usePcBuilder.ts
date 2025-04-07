@@ -1,20 +1,24 @@
 import { useState, useCallback } from 'react';
-import { PcComponent, ComponentType } from '../libs/components';
-import { allComponents, useCases } from '../libs/data';
+import { PcComponent } from '../libs/types/components';
+import { ComponentType } from '../libs/graphql-types/component';
+import { useCasesQuery } from './useCasesQuery';
 
 export function usePcBuilder() {
-  const [build, setBuild] = useState<PcComponent[]>([]);
-  const [selectedType, setSelectedType] = useState<ComponentType>('CPU');
+  const [build, setBuild] = useState<PcComponent<ComponentType>[]>([]);
+  const [selectedType, setSelectedType] = useState<ComponentType>(
+    ComponentType.Case,
+  );
   const [searchQuery, setSearchQuery] = useState('');
   const [priceRange, setPriceRange] = useState([0, 5000]);
   const [selectedComponent, setSelectedComponent] =
-    useState<PcComponent | null>(null);
+    useState<PcComponent<ComponentType> | null>(null);
   const [compatibilityIssues, setCompatibilityIssues] = useState<string[]>([]);
-  const { cases } = useCases();
+  const { data: caseData } = useCasesQuery();
 
-  const allComponentsWithCase = allComponents.concat(cases);
+  const components: PcComponent<ComponentType>[] = caseData;
+
   // Filter components based on selections
-  const filteredComponents = allComponentsWithCase.filter(
+  const filteredComponents = components.filter(
     (comp) =>
       comp.type === selectedType &&
       comp.price >= priceRange[0] &&
@@ -23,30 +27,37 @@ export function usePcBuilder() {
   );
 
   // Check for compatibility issues
-  const checkCompatibility = useCallback((currentBuild: PcComponent[]) => {
-    const issues: string[] = [];
+  const checkCompatibility = useCallback(
+    (currentBuild: PcComponent<ComponentType>[]) => {
+      const issues: string[] = [];
 
-    // Example checks
-    const hasCPU = currentBuild.some((c) => c.type === 'CPU');
-    const hasMB = currentBuild.some((c) => c.type === 'Motherboard');
+      // Example checks
+      const hasCPU = currentBuild.some((c) => c.type === ComponentType.Cpu);
+      const hasMB = currentBuild.some(
+        (c) => c.type === ComponentType.Motherboard,
+      );
 
-    if (hasCPU && hasMB) {
-      const cpu = currentBuild.find((c) => c.type === 'CPU')!;
-      const mb = currentBuild.find((c) => c.type === 'Motherboard')!;
+      if (hasCPU && hasMB) {
+        const cpu = currentBuild.find((c) => c.type === ComponentType.Cpu)!;
+        const mb = currentBuild.find(
+          (c) => c.type === ComponentType.Motherboard,
+        )!;
 
-      if (!mb.compatibility.includes(cpu.specs['Socket'] as string)) {
-        issues.push(
-          `CPU socket (${cpu.specs['Socket']}) doesn't match motherboard (${mb.compatibility[0]})`,
-        );
+        if (!mb.compatibility.includes(cpu.specs['Socket'] as string)) {
+          issues.push(
+            `CPU socket (${cpu.specs['Socket']}) doesn't match motherboard (${mb.compatibility[0]})`,
+          );
+        }
       }
-    }
 
-    setCompatibilityIssues(issues);
-  }, []);
+      setCompatibilityIssues(issues);
+    },
+    [],
+  );
 
   // Add component to build
   const addToBuild = useCallback(
-    (component: PcComponent) => {
+    (component: PcComponent<ComponentType>) => {
       if (!build.some((item) => item.id === component.id)) {
         const newBuild = [...build, component];
         setBuild(newBuild);

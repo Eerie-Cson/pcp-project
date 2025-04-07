@@ -2,21 +2,34 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
-export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
+export type MakeEmpty<
+  T extends { [key: string]: unknown },
+  K extends keyof T,
+> = { [_ in K]?: never };
+export type Incremental<T> =
+  | T
+  | {
+      [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never;
+    };
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string; }
-  String: { input: string; output: string; }
-  Boolean: { input: boolean; output: boolean; }
-  Int: { input: number; output: number; }
-  Float: { input: number; output: number; }
-  Date: { input: any; output: any; }
-  ObjectId: { input: any; output: any; }
+  ID: { input: string; output: string };
+  String: { input: string; output: string };
+  Boolean: { input: boolean; output: boolean };
+  Int: { input: number; output: number };
+  Float: { input: number; output: number };
+  Date: { input: any; output: any };
+  ObjectId: { input: any; output: any };
 };
 
 export type Cpu = {
@@ -59,7 +72,7 @@ export enum CaseType {
   AtxMidTower = 'ATX_MID_TOWER',
   Eatx = 'EATX',
   MicroAtx = 'MICRO_ATX',
-  MiniItx = 'MINI_ITX'
+  MiniItx = 'MINI_ITX',
 }
 
 export enum ComponentType {
@@ -69,7 +82,7 @@ export enum ComponentType {
   Motherboard = 'MOTHERBOARD',
   PowerSupply = 'POWER_SUPPLY',
   Storage = 'STORAGE',
-  VideoCard = 'VIDEO_CARD'
+  VideoCard = 'VIDEO_CARD',
 }
 
 export type CreateCpuInput = {
@@ -198,7 +211,7 @@ export type Memory = {
 
 export enum MemoryType {
   Ddr4 = 'DDR4',
-  Ddr5 = 'DDR5'
+  Ddr5 = 'DDR5',
 }
 
 export type Motherboard = {
@@ -242,112 +255,91 @@ export type Mutation = {
   updateVideoCard?: Maybe<Scalars['Boolean']['output']>;
 };
 
-
 export type MutationCreateCpuArgs = {
   createCPUInput: CreateCpuInput;
 };
-
 
 export type MutationCreateCaseArgs = {
   createCaseInput: CreateCaseInput;
 };
 
-
 export type MutationCreateMemoryArgs = {
   createMemoryInput: CreateMemoryInput;
 };
-
 
 export type MutationCreateMotherboardArgs = {
   createMotherboardInput: CreateMotherboardInput;
 };
 
-
 export type MutationCreatePowerSupplyArgs = {
   createPowerSupplyInput: CreatePowerSupplyInput;
 };
-
 
 export type MutationCreateStorageArgs = {
   createStorageInput: CreateStorageInput;
 };
 
-
 export type MutationCreateVideoCardArgs = {
   createVideoCardInput: CreateVideoCardInput;
 };
-
 
 export type MutationDeleteCpuArgs = {
   id: Scalars['ObjectId']['input'];
 };
 
-
 export type MutationDeleteCaseArgs = {
   id: Scalars['String']['input'];
 };
-
 
 export type MutationDeleteMemoryArgs = {
   id: Scalars['ObjectId']['input'];
 };
 
-
 export type MutationDeleteMotherboardArgs = {
   id: Scalars['ObjectId']['input'];
 };
-
 
 export type MutationDeletePowerSupplyArgs = {
   id: Scalars['ObjectId']['input'];
 };
 
-
 export type MutationDeleteStorageArgs = {
   id: Scalars['ObjectId']['input'];
 };
 
-
 export type MutationDeleteVideoCardArgs = {
   id: Scalars['ObjectId']['input'];
 };
-
 
 export type MutationUpdateCpuArgs = {
   id: Scalars['ObjectId']['input'];
   updateCPUInput: UpdateCpuInput;
 };
 
-
 export type MutationUpdateCaseArgs = {
   id: Scalars['String']['input'];
   updateCaseInput: UpdateCaseInput;
 };
-
 
 export type MutationUpdateMemoryArgs = {
   id: Scalars['ObjectId']['input'];
   updateMemoryInput: UpdateMemoryInput;
 };
 
-
 export type MutationUpdateMotherboardArgs = {
   id: Scalars['ObjectId']['input'];
   updateMotherboardInput: UpdateMotherboardInput;
 };
-
 
 export type MutationUpdatePowerSupplyArgs = {
   id: Scalars['ObjectId']['input'];
   updatePowerSupplyInput: UpdatePowerSupplyInput;
 };
 
-
 export type MutationUpdateStorageArgs = {
   id: Scalars['ObjectId']['input'];
   updateStorageInput: UpdateStorageInput;
 };
-
 
 export type MutationUpdateVideoCardArgs = {
   id: Scalars['ObjectId']['input'];
@@ -355,7 +347,7 @@ export type MutationUpdateVideoCardArgs = {
 };
 
 export enum PackagingType {
-  Boxed = 'BOXED'
+  Boxed = 'BOXED',
 }
 
 export type PowerSupply = {
@@ -376,10 +368,10 @@ export type PowerSupply = {
 
 export type Query = {
   __typename?: 'Query';
+  case?: Maybe<Case>;
+  cases: Array<Maybe<Case>>;
   getCPU?: Maybe<Cpu>;
   getCPUs: Array<Maybe<Cpu>>;
-  getCase?: Maybe<Case>;
-  getCases: Array<Maybe<Case>>;
   getMemory?: Maybe<Memory>;
   getMemorys: Array<Maybe<Memory>>;
   getMotherboard?: Maybe<Motherboard>;
@@ -392,36 +384,29 @@ export type Query = {
   getVideoCards: Array<Maybe<VideoCard>>;
 };
 
+export type QueryCaseArgs = {
+  id: Scalars['String']['input'];
+};
 
 export type QueryGetCpuArgs = {
   id: Scalars['ObjectId']['input'];
 };
 
-
-export type QueryGetCaseArgs = {
-  id: Scalars['String']['input'];
-};
-
-
 export type QueryGetMemoryArgs = {
   id: Scalars['ObjectId']['input'];
 };
-
 
 export type QueryGetMotherboardArgs = {
   id: Scalars['ObjectId']['input'];
 };
 
-
 export type QueryGetPowerSupplyArgs = {
   id: Scalars['ObjectId']['input'];
 };
 
-
 export type QueryGetStorageArgs = {
   id: Scalars['ObjectId']['input'];
 };
-
 
 export type QueryGetVideoCardArgs = {
   id: Scalars['ObjectId']['input'];
@@ -429,7 +414,7 @@ export type QueryGetVideoCardArgs = {
 
 export enum SidePanelType {
   TemperedGlass = 'TEMPERED_GLASS',
-  TintedTemperedGlass = 'TINTED_TEMPERED_GLASS'
+  TintedTemperedGlass = 'TINTED_TEMPERED_GLASS',
 }
 
 export type Storage = {
@@ -448,7 +433,7 @@ export type Storage = {
 
 export enum StorageType {
   Hdd = 'HDD',
-  Ssd = 'SSD'
+  Ssd = 'SSD',
 }
 
 export type UpdateCpuInput = {
@@ -587,23 +572,69 @@ export type Create_CaseMutationVariables = Exact<{
   sidePanel: SidePanelType;
 }>;
 
+export type Create_CaseMutation = {
+  __typename?: 'Mutation';
+  createCase?: boolean | null;
+};
 
-export type Create_CaseMutation = { __typename?: 'Mutation', createCase?: boolean | null };
+export type CasesQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetCasesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetCasesQuery = { __typename?: 'Query', getCases: Array<{ __typename?: 'Case', id: string, name: string, componentType: ComponentType, price: string, manufacturer: string, partNumber: string, color: string, type: CaseType, formFactor: string, interface: string, powerSupply: boolean, sidePanel: SidePanelType } | null> };
-
+export type CasesQuery = {
+  __typename?: 'Query';
+  cases: Array<{
+    __typename?: 'Case';
+    id: string;
+    name: string;
+    componentType: ComponentType;
+    price: string;
+    manufacturer: string;
+    partNumber: string;
+    color: string;
+    type: CaseType;
+    formFactor: string;
+    interface: string;
+    powerSupply: boolean;
+    sidePanel: SidePanelType;
+  } | null>;
+};
 
 export const Create_CaseDocument = gql`
-    mutation CREATE_CASE($id: String!, $name: String!, $componentType: ComponentType!, $price: String!, $manufacturer: String!, $partNumber: String!, $color: String!, $type: CaseType!, $formFactor: String!, $interface: String!, $powerSupply: Boolean!, $sidePanel: SidePanelType!) {
-  createCase(
-    createCaseInput: {id: $id, name: $name, componentType: $componentType, price: $price, manufacturer: $manufacturer, partNumber: $partNumber, color: $color, type: $type, formFactor: $formFactor, interface: $interface, powerSupply: $powerSupply, sidePanel: $sidePanel}
-  )
-}
-    `;
-export type Create_CaseMutationFn = Apollo.MutationFunction<Create_CaseMutation, Create_CaseMutationVariables>;
+  mutation CREATE_CASE(
+    $id: String!
+    $name: String!
+    $componentType: ComponentType!
+    $price: String!
+    $manufacturer: String!
+    $partNumber: String!
+    $color: String!
+    $type: CaseType!
+    $formFactor: String!
+    $interface: String!
+    $powerSupply: Boolean!
+    $sidePanel: SidePanelType!
+  ) {
+    createCase(
+      createCaseInput: {
+        id: $id
+        name: $name
+        componentType: $componentType
+        price: $price
+        manufacturer: $manufacturer
+        partNumber: $partNumber
+        color: $color
+        type: $type
+        formFactor: $formFactor
+        interface: $interface
+        powerSupply: $powerSupply
+        sidePanel: $sidePanel
+      }
+    )
+  }
+`;
+export type Create_CaseMutationFn = Apollo.MutationFunction<
+  Create_CaseMutation,
+  Create_CaseMutationVariables
+>;
 
 /**
  * __useCreate_CaseMutation__
@@ -633,60 +664,99 @@ export type Create_CaseMutationFn = Apollo.MutationFunction<Create_CaseMutation,
  *   },
  * });
  */
-export function useCreate_CaseMutation(baseOptions?: Apollo.MutationHookOptions<Create_CaseMutation, Create_CaseMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Create_CaseMutation, Create_CaseMutationVariables>(Create_CaseDocument, options);
-      }
-export type Create_CaseMutationHookResult = ReturnType<typeof useCreate_CaseMutation>;
-export type Create_CaseMutationResult = Apollo.MutationResult<Create_CaseMutation>;
-export type Create_CaseMutationOptions = Apollo.BaseMutationOptions<Create_CaseMutation, Create_CaseMutationVariables>;
-export const GetCasesDocument = gql`
-    query GetCases {
-  getCases {
-    id
-    name
-    componentType
-    price
-    manufacturer
-    partNumber
-    color
-    type
-    formFactor
-    interface
-    powerSupply
-    sidePanel
-  }
+export function useCreate_CaseMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Create_CaseMutation,
+    Create_CaseMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<Create_CaseMutation, Create_CaseMutationVariables>(
+    Create_CaseDocument,
+    options,
+  );
 }
-    `;
+export type Create_CaseMutationHookResult = ReturnType<
+  typeof useCreate_CaseMutation
+>;
+export type Create_CaseMutationResult =
+  Apollo.MutationResult<Create_CaseMutation>;
+export type Create_CaseMutationOptions = Apollo.BaseMutationOptions<
+  Create_CaseMutation,
+  Create_CaseMutationVariables
+>;
+export const CasesDocument = gql`
+  query cases {
+    cases {
+      id
+      name
+      componentType
+      price
+      manufacturer
+      partNumber
+      color
+      type
+      formFactor
+      interface
+      powerSupply
+      sidePanel
+    }
+  }
+`;
 
 /**
- * __useGetCasesQuery__
+ * __useCasesQuery__
  *
- * To run a query within a React component, call `useGetCasesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetCasesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useCasesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCasesQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetCasesQuery({
+ * const { data, loading, error } = useCasesQuery({
  *   variables: {
  *   },
  * });
  */
-export function useGetCasesQuery(baseOptions?: Apollo.QueryHookOptions<GetCasesQuery, GetCasesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetCasesQuery, GetCasesQueryVariables>(GetCasesDocument, options);
-      }
-export function useGetCasesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCasesQuery, GetCasesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetCasesQuery, GetCasesQueryVariables>(GetCasesDocument, options);
-        }
-export function useGetCasesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetCasesQuery, GetCasesQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetCasesQuery, GetCasesQueryVariables>(GetCasesDocument, options);
-        }
-export type GetCasesQueryHookResult = ReturnType<typeof useGetCasesQuery>;
-export type GetCasesLazyQueryHookResult = ReturnType<typeof useGetCasesLazyQuery>;
-export type GetCasesSuspenseQueryHookResult = ReturnType<typeof useGetCasesSuspenseQuery>;
-export type GetCasesQueryResult = Apollo.QueryResult<GetCasesQuery, GetCasesQueryVariables>;
+export function useCasesQuery(
+  baseOptions?: Apollo.QueryHookOptions<CasesQuery, CasesQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<CasesQuery, CasesQueryVariables>(
+    CasesDocument,
+    options,
+  );
+}
+export function useCasesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<CasesQuery, CasesQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<CasesQuery, CasesQueryVariables>(
+    CasesDocument,
+    options,
+  );
+}
+export function useCasesSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<CasesQuery, CasesQueryVariables>,
+) {
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<CasesQuery, CasesQueryVariables>(
+    CasesDocument,
+    options,
+  );
+}
+export type CasesQueryHookResult = ReturnType<typeof useCasesQuery>;
+export type CasesLazyQueryHookResult = ReturnType<typeof useCasesLazyQuery>;
+export type CasesSuspenseQueryHookResult = ReturnType<
+  typeof useCasesSuspenseQuery
+>;
+export type CasesQueryResult = Apollo.QueryResult<
+  CasesQuery,
+  CasesQueryVariables
+>;

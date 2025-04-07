@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import CreateComponentButton from './CreateComponentButton';
 import { useMutation, useQuery } from '@apollo/client';
 import { CREATE_CASE } from '../../graphql/component/mutation/create-component.mutation';
 import { ObjectId, ObjectTypes } from '@pcp/object-id';
 import {
-  Case,
   CaseType,
   ComponentType,
   SidePanelType,
-} from '../../types/components/graphql';
-import { GET_CASES } from '../../graphql/component/query/get-components.mutation';
+} from '../../libs/graphql-types/component';
+import { useCasesQuery } from '../../hooks/useCasesQuery';
+import { PcComponent, COMPONENT_TYPES_MAP } from '../../libs/types/components';
+import enumToArray from '../../libs/enumToArray';
 
 type ComponentInput = {
   name: string;
@@ -25,73 +26,21 @@ const ComponentListSection = () => {
   const [sortBy, setSortBy] = useState('name');
   const [sortOrder, setSortOrder] = useState('asc');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [createCase, { loading, error }] = useMutation(CREATE_CASE, {
+  const [createCase] = useMutation(CREATE_CASE, {
     context: { service: 'components' },
     onCompleted: () => {
       alert('✅ Component created successfully!');
+      window.location.reload();
     },
   });
 
-  const {
-    data,
-    loading: loadingData,
-    error: errorData,
-  } = useQuery(GET_CASES, {
-    context: { service: 'components' },
-  });
+  const { data: caseData } = useCasesQuery();
 
-  if (loadingData) return <p>Loading users...</p>;
-  if (errorData) return <p>Server is down: {errorData.message}</p>;
-
-  const cases = data.getCases.map((item: Case) => ({
-    id: item.id,
-    type: item.componentType,
-    name: item.name,
-    brand: item.manufacturer,
-    price: item.price,
-    stock: 10,
-    specs: {
-      formFactor: item.formFactor,
-      interface: item.interface,
-      color: item.color,
-      partNumber: item.partNumber,
-      powerSupply: item.powerSupply,
-      sidePanel: item.sidePanel,
-    },
-    imageUrl: '/api/placeholder/120/120',
-  }));
-  // Sample data - in a real app, this would come from props or an API
-  const components = [
-    {
-      id: 1,
-      type: 'CPU',
-      name: 'Ryzen 7 5800X',
-      brand: 'AMD',
-      price: 299.99,
-      stock: 15,
-      specs: {
-        cores: '8 cores / 16 threads',
-        baseClock: '3.8 GHz',
-        boostClock: '4.7 GHz',
-        socket: 'AM4',
-        tdp: '105W',
-      },
-      imageUrl: '/api/placeholder/120/120',
-    },
-
-    //...
-  ].concat(cases);
-  // const components: Record<string, any> = [];
+  const components: PcComponent<ComponentType>[] = caseData;
 
   const componentTypes = [
-    'All',
-    'CPU',
-    'GPU',
-    'Motherboard',
-    'RAM',
-    'Storage',
-    'PSU',
-    'Case',
+    'All' as ComponentType,
+    ...enumToArray<ComponentType>(ComponentType),
   ];
 
   // Filter components based on type and search query
@@ -146,7 +95,6 @@ const ComponentListSection = () => {
     };
 
     const componentTypeParams: string = component.type;
-    console.log(componentTypeParams);
 
     const componentInput = {
       id: ObjectId.generate(ObjectTypes.CASE).toString(),
@@ -162,7 +110,7 @@ const ComponentListSection = () => {
       type: CaseType.AtxMidTower,
       sidePanel: SidePanelType.TemperedGlass,
     };
-    console.log(componentInput);
+
     try {
       await createCase({
         variables: componentInput,
@@ -237,7 +185,7 @@ const ComponentListSection = () => {
               }`}
               onClick={() => setActiveFilter(type)}
             >
-              {type}
+              {COMPONENT_TYPES_MAP[type] || 'All'}
             </button>
           ))}
         </div>

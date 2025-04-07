@@ -1,10 +1,10 @@
-import React from 'react';
-import { PcComponent } from '../../libs/components';
+import { PcComponent } from '../../libs/types/components';
+import { ComponentType } from '../../libs/graphql-types/component';
 
 interface ComponentModalProps {
-  component: PcComponent;
+  component: PcComponent<ComponentType>;
   onClose: () => void;
-  onAddToBuild: (component: PcComponent) => void;
+  onAddToBuild: (component: PcComponent<ComponentType>) => void;
 }
 
 export function ComponentModal({

@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const GET_CASES = gql`
-  query GetCases {
-    getCases {
+  query cases {
+    cases {
       id
       name
       componentType
