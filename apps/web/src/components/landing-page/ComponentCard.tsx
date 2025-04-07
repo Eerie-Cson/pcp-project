@@ -1,10 +1,10 @@
-import React from 'react';
-import { PcComponent } from '../../libs/components';
+import { PcComponent } from '../../libs/types/components';
+import { ComponentType } from '../../libs/graphql-types/component';
 
 interface ComponentCardProps {
-  component: PcComponent;
-  onAddToBuild: (component: PcComponent) => void;
-  onSelect: (component: PcComponent) => void;
+  component: PcComponent<ComponentType>;
+  onAddToBuild: (component: PcComponent<ComponentType>) => void;
+  onSelect: (component: PcComponent<ComponentType>) => void;
 }
 
 export function ComponentCard({

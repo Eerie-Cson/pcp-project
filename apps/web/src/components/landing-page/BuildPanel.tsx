@@ -1,8 +1,8 @@
-import React from 'react';
-import { PcComponent } from '../../libs/components';
+import { PcComponent } from '../../libs/types/components';
+import { ComponentType } from '../../libs/graphql-types/component';
 
 interface BuildPanelProps {
-  build: PcComponent[];
+  build: PcComponent<ComponentType>[];
   totalPrice: number;
   compatibilityIssues: string[];
   onRemoveComponent: (id: string) => void;

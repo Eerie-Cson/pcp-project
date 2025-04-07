@@ -1,11 +1,11 @@
-import React from 'react';
-import { PcComponent } from '../../libs/components';
+import { PcComponent } from '../../libs/types/components';
 import { ComponentCard } from './ComponentCard';
+import { ComponentType } from '../../libs/graphql-types/component';
 
 interface ComponentGridProps {
-  components: PcComponent[];
-  onAddToBuild: (component: PcComponent) => void;
-  onSelectComponent: (component: PcComponent) => void;
+  components: PcComponent<ComponentType>[];
+  onAddToBuild: (component: PcComponent<ComponentType>) => void;
+  onSelectComponent: (component: PcComponent<ComponentType>) => void;
 }
 
 export function ComponentGrid({
