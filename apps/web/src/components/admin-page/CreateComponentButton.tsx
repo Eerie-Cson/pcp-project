@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import enumToArray from '../../libs/enumToArray';
+import { ComponentType } from '../../libs/graphql-types/component';
+import { COMPONENT_TYPES_MAP } from '../../libs/types/components';
 
 interface ComponentAddModalProps {
   isOpen: boolean;
@@ -11,7 +14,7 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
   onClose,
   onSubmit,
 }) => {
-  const [activeTab, setActiveTab] = useState<string>('CPU');
+  const [activeTab, setActiveTab] = useState<ComponentType>(ComponentType.Case);
   const [formData, setFormData] = useState<Record<string, any>>({
     name: '',
     brand: '',
@@ -20,56 +23,46 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
     specs: {},
   });
 
-  const componentTypes = [
-    'CPU',
-    'GPU',
-    'Motherboard',
-    'RAM',
-    'Storage',
-    'PSU',
-    'Case',
-  ];
-
-  // Different spec fields for each component type
+  const componentTypes = enumToArray<ComponentType>(ComponentType);
   const specFields: Record<string, Record<string, any>[]> = {
-    CPU: [
+    [ComponentType.Cpu]: [
       { name: 'cores', label: 'Cores/Threads' },
       { name: 'baseClock', label: 'Base Clock (GHz)' },
       { name: 'boostClock', label: 'Boost Clock (GHz)' },
       { name: 'socket', label: 'Socket' },
       { name: 'tdp', label: 'TDP (W)' },
     ],
-    GPU: [
+    [ComponentType.VideoCard]: [
       { name: 'vram', label: 'VRAM (GB)' },
       { name: 'coreClock', label: 'Core Clock (MHz)' },
       { name: 'boostClock', label: 'Boost Clock (MHz)' },
       { name: 'interface', label: 'Interface' },
       { name: 'tdp', label: 'TDP (W)' },
     ],
-    Motherboard: [
+    [ComponentType.Motherboard]: [
       { name: 'socket', label: 'Socket' },
       { name: 'chipset', label: 'Chipset' },
       { name: 'formFactor', label: 'Form Factor' },
       { name: 'memorySlots', label: 'Memory Slots' },
     ],
-    RAM: [
+    [ComponentType.Memory]: [
       { name: 'capacity', label: 'Capacity (GB)' },
       { name: 'speed', label: 'Speed (MHz)' },
       { name: 'type', label: 'Type' },
       { name: 'modules', label: 'Modules' },
     ],
-    Storage: [
+    [ComponentType.Storage]: [
       { name: 'capacity', label: 'Capacity' },
       { name: 'type', label: 'Type' },
       { name: 'interface', label: 'Interface' },
       { name: 'readSpeed', label: 'Read Speed' },
     ],
-    PSU: [
+    [ComponentType.PowerSupply]: [
       { name: 'wattage', label: 'Wattage' },
       { name: 'efficiency', label: 'Efficiency Rating' },
       { name: 'modular', label: 'Modular Type' },
     ],
-    Case: [
+    [ComponentType.Case]: [
       { name: 'color', label: 'Color' },
       { name: 'type', label: 'Case Type' },
       { name: 'formFactor', label: 'Form Factor' },
@@ -114,7 +107,7 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
       partNumber: '',
       specs: {},
     });
-    setActiveTab('CPU');
+    setActiveTab(ComponentType.Case);
   };
 
   if (!isOpen) return null;
@@ -162,7 +155,7 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
                 onClick={() => setActiveTab(type)}
                 type="button"
               >
-                {type}
+                {COMPONENT_TYPES_MAP[type]}
               </button>
             ))}
           </div>
@@ -230,7 +223,7 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
             {/* Component-specific specs */}
             <div className="mb-6">
               <h3 className="text-lg font-medium mb-3">
-                {activeTab} Specifications
+                {COMPONENT_TYPES_MAP[activeTab]} Specifications
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {specFields[activeTab].map((spec) => (

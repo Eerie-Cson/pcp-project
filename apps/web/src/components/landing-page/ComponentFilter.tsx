@@ -1,6 +1,7 @@
 import React from 'react';
-import { ComponentType } from '../../libs/components';
-import { COMPONENT_TYPES } from '../../libs/data';
+import { ComponentType } from '../../libs/graphql-types/component';
+import enumToArray from '../../libs/enumToArray';
+import { COMPONENT_TYPES_MAP } from '../../libs/types/components';
 
 interface ComponentFiltersProps {
   selectedType: ComponentType;
@@ -19,12 +20,15 @@ export function ComponentFilters({
   priceRange,
   setPriceRange,
 }: ComponentFiltersProps) {
+  const componentTypes = enumToArray<ComponentType>(ComponentType);
+
   return (
     <div className="mb-6">
       <h3 className="text-xl font-semibold mb-4">Select Components</h3>
       <div className="flex flex-col gap-4">
         <div className="flex flex-wrap gap-2">
-          {COMPONENT_TYPES.map((type) => (
+          {/* {COMPONENT_TYPES.map((type) => ( */}
+          {componentTypes.map((type) => (
             <button
               key={type}
               className={`py-2 px-4 border rounded ${
@@ -34,7 +38,7 @@ export function ComponentFilters({
               }`}
               onClick={() => setSelectedType(type)}
             >
-              {type}
+              {COMPONENT_TYPES_MAP[type]}
             </button>
           ))}
         </div>
