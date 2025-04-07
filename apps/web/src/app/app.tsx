@@ -1,7 +1,6 @@
 import { AuthProvider } from '../context/AuthContext';
 import AdminPage from '../pages/AdminPage';
-// import PcBuilder from '../components/initialPage/Component_main';
-import PcBuilder from '../pages/PcBuilder';
+import PcBuilder from '../pages/UserPage';
 import { Route, Routes, Link } from 'react-router-dom';
 
 export function App() {
