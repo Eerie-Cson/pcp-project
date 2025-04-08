@@ -309,7 +309,10 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
                             <option value="">Select {spec.label}</option>
                             {spec.options?.map((option: string) => (
                               <option key={option} value={option}>
-                                {option.replace(/_/g, ' ')}
+                                {option
+                                  .replace(/_/g, ' ')
+                                  .toLowerCase()
+                                  .replace(/^\w/, (c) => c.toUpperCase())}
                               </option>
                             ))}
                           </select>
