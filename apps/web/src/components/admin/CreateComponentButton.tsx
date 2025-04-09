@@ -124,7 +124,17 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit({ type: activeTab, ...formData });
+    const updatedSpecs = { ...formData.specs };
+
+    specFields[activeTab].forEach((spec) => {
+      if (updatedSpecs[spec.name] === undefined) {
+        if (spec.inputType === 'checkbox') updatedSpecs[spec.name] = false;
+        else if (spec.inputType === 'color')
+          updatedSpecs[spec.name] = '#000000';
+      }
+    });
+
+    onSubmit({ type: activeTab, ...formData, specs: updatedSpecs });
     resetForm();
     onClose();
   };
@@ -305,6 +315,7 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
                             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent bg-white appearance-none pr-10 transition-colors hover:border-green-300"
                             value={formData.specs[spec.name] || ''}
                             onChange={(e) => handleSelectChange(e, spec.name)}
+                            required
                           >
                             <option value="">Select {spec.label}</option>
                             {spec.options?.map((option: string) => (
@@ -367,14 +378,15 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
                               }
                               className="h-6 w-6 border-0 rounded-lg cursor-pointer"
                             />
-                            {/* <div className="absolute inset-0 rounded-lg border border-green-300 pointer-events-none"></div> */}
+                            <div className="absolute inset-0 rounded-lg border border-green-300 pointer-events-none"></div>
                           </div>
                           <input
                             type="text"
-                            value={formData.specs[spec.name] || ''}
+                            value={formData.specs[spec.name] || '#000000'}
                             onChange={(e) =>
                               handleSpecChange(spec.name, e.target.value)
                             }
+                            disabled={true}
                             placeholder="#000000"
                             className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent transition-all"
                           />
@@ -383,6 +395,7 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
                         <div className="relative">
                           <div className="flex items-center">
                             <input
+                              required={true}
                               type={spec.inputType || 'text'}
                               value={formData.specs[spec.name] || ''}
                               onChange={(e) =>
