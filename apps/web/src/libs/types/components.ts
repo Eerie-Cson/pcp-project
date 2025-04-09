@@ -6,7 +6,9 @@ export type PcComponent<CType extends ComponentType> = {
   type: CType;
   stock?: number;
   price: number;
-  specs: Record<string, string | number>;
+  specs: {
+    [key: string]: any;
+  };
   brand: string;
   image: string;
   compatibility: string[];
