@@ -67,8 +67,10 @@ export class ComponentService {
     return this.caseRepository.list(params);
   }
 
-  async createCpu(data: Cpu) {
-    return this.cpuRepository.create(data);
+  async createCpu(data: Component) {
+    if (data.componentType === ComponentType.CPU) {
+      return this.cpuRepository.create(data);
+    }
   }
 
   async updateCpu(params: { id: string; data: Partial<Omit<Cpu, 'id'>> }) {
@@ -88,6 +90,10 @@ export class ComponentService {
 
   async findCpu(params: Partial<Cpu>) {
     return this.cpuRepository.find(params);
+  }
+
+  async findCpus(params: Partial<Case>) {
+    return this.cpuRepository.list(params);
   }
 
   async createMemory(data: Memory) {
