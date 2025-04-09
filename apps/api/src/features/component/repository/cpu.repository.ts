@@ -65,7 +65,7 @@ export function CpuRepositoryFactory(connection: Connection) {
       required: true,
     },
     cooler: {
-      type: String,
+      type: Boolean,
       required: true,
     },
     packaging: {
