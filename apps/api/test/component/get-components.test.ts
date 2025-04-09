@@ -2,6 +2,7 @@ import { setupFixture } from '../component-fixture';
 import { generateComponent } from '../helpers/generate-component';
 import { ComponentType } from '@pcp/types';
 import { CaseRepository } from '../../src/features/component/repository/case.repository';
+import { CpuRepository } from '../../src/features/component/repository/cpu.repository';
 import { Tokens as ComponentToken } from '../../src/features/component/libs/tokens';
 import { ObjectTypes } from '@pcp/object-id';
 
@@ -11,16 +12,17 @@ describe('Components.Query', () => {
   test('Get Cases', async () => {
     const { module, request, teardown } = await setupFixture();
 
-    const componentRepository = module.get<CaseRepository>(
+    const caseRepository = module.get<CaseRepository>(
       ComponentToken.CaseRepository,
     );
 
-    const cases = R.times(() =>
-      generateComponent(ObjectTypes.CASE, ComponentType.CASE),
-    )(3);
+    const cases = R.times(() => ({
+      ...generateComponent(ObjectTypes.CASE, ComponentType.CASE),
+      componentType: ComponentType.CASE,
+    }))(3);
 
     await Promise.all(
-      cases.map((component) => componentRepository.create(component)),
+      cases.map((component) => caseRepository.create(component)),
     );
 
     const getCaseResponse = await request.post('/graphql').send({
@@ -71,6 +73,75 @@ describe('Components.Query', () => {
     expect(getCasesResponse.body.data.cases).toBeTruthy();
     expect(getCasesResponse.body).not.toHaveProperty('errors');
     expect(getCasesResponse.body.data.cases).toHaveLength(3);
+
+    await teardown();
+  });
+
+  test('Get CPUs', async () => {
+    const { module, request, teardown } = await setupFixture();
+
+    const cpuRepository = module.get<CpuRepository>(
+      ComponentToken.CpuRepository,
+    );
+
+    const cpus = R.times(() => ({
+      ...generateComponent(ObjectTypes.CPU, ComponentType.CPU),
+      componentType: ComponentType.CPU,
+    }))(3);
+
+    await Promise.all(cpus.map((component) => cpuRepository.create(component)));
+
+    const getCpuResponse = await request.post('/graphql').send({
+      query: `
+        query($id: String!) {
+          CPU(id: $id) {
+            id
+            name
+            partNumber
+            componentType
+            price
+          }
+        }
+      `,
+      variables: {
+        id: cpus[0].id.toString(),
+      },
+    });
+
+    const getCpusResponse = await request.post('/graphql').send({
+      query: `
+        query {
+          CPUs {
+            id
+            name
+            partNumber
+            componentType
+            price
+          }
+        }
+      `,
+    });
+
+    await teardown();
+
+    console.log(getCpusResponse.text);
+    console.log(getCpuResponse.text);
+
+    expect(getCpuResponse.status).toEqual(200);
+    expect(getCpuResponse.body).not.toHaveProperty('errors');
+    expect(getCpuResponse.body.data.CPU).toBeTruthy();
+    expect(getCpuResponse.body.data.CPU).toMatchObject({
+      id: cpus[0].id.toString(),
+      name: cpus[0].name,
+      partNumber: cpus[0].partNumber,
+      componentType: ComponentType.CPU,
+      price: cpus[0].price,
+    });
+
+    expect(getCpusResponse.status).toEqual(200);
+    expect(getCpusResponse.body.data.CPUs).toBeTruthy();
+    expect(getCpusResponse.body).not.toHaveProperty('errors');
+    expect(getCpusResponse.body.data.CPUs).toHaveLength(3);
 
     await teardown();
   });
