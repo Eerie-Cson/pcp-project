@@ -19,7 +19,6 @@ type ComponentWithType<T extends ComponentType> = Extract<
 
 const componentFactories: Record<ComponentType, () => Partial<Component>> = {
   [ComponentType.CPU]: () => ({
-    componentType: ComponentType.CPU,
     socket: faker.word.noun(),
     series: faker.word.words(),
     microarchitecture: faker.string.alpha(),
@@ -32,7 +31,6 @@ const componentFactories: Record<ComponentType, () => Partial<Component>> = {
     packaging: faker.helpers.enumValue(PackagingType),
   }),
   [ComponentType.CASE]: () => ({
-    componentType: ComponentType.CASE,
     color: faker.color.human(),
     type: faker.helpers.enumValue(CaseType),
     formFactor: faker.word.adjective(),
@@ -41,7 +39,6 @@ const componentFactories: Record<ComponentType, () => Partial<Component>> = {
     sidePanel: faker.helpers.enumValue(SidePanelType),
   }),
   [ComponentType.MOTHERBOARD]: () => ({
-    componentType: ComponentType.MOTHERBOARD,
     socket: faker.string.alpha(),
     formFactor: faker.string.alpha(),
     chipset: faker.string.alpha(),
@@ -51,7 +48,6 @@ const componentFactories: Record<ComponentType, () => Partial<Component>> = {
     color: faker.color.human(),
   }),
   [ComponentType.MEMORY]: () => ({
-    componentType: ComponentType.MEMORY,
     speed: faker.string.alpha(),
     formFactor: faker.string.alpha(),
     modules: faker.string.alpha(),
@@ -60,7 +56,6 @@ const componentFactories: Record<ComponentType, () => Partial<Component>> = {
     color: faker.color.human(),
   }),
   [ComponentType.STORAGE]: () => ({
-    componentType: ComponentType.STORAGE,
     capacity: faker.string.alpha(),
     type: faker.helpers.enumValue(StorageType),
     formFactor: faker.string.alpha(),
@@ -68,7 +63,6 @@ const componentFactories: Record<ComponentType, () => Partial<Component>> = {
     NVME: faker.datatype.boolean(),
   }),
   [ComponentType.VIDEO_CARD]: () => ({
-    componentType: ComponentType.VIDEO_CARD,
     model: faker.string.alpha(),
     chipset: faker.string.alpha(),
     memory: faker.string.alpha(),
@@ -82,7 +76,6 @@ const componentFactories: Record<ComponentType, () => Partial<Component>> = {
     HDMIOutputs: faker.string.alpha(),
   }),
   [ComponentType.POWER_SUPPLY]: () => ({
-    componentType: ComponentType.POWER_SUPPLY,
     model: faker.string.alpha(),
     type: faker.string.alpha(),
     wattage: faker.string.alpha(),
