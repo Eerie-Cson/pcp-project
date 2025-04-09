@@ -205,6 +205,7 @@ export interface CreateCPUInput {
     id: ObjectId;
     name: string;
     price: string;
+    componentType: ComponentType;
     manufacturer: string;
     partNumber: string;
     series: string;
@@ -401,8 +402,8 @@ export interface IQuery {
     node(id?: Nullable<ObjectId>): Nullable<Node> | Promise<Nullable<Node>>;
     getBuilds(): Nullable<Build>[] | Promise<Nullable<Build>[]>;
     getBuild(id: ObjectId): Nullable<Build> | Promise<Nullable<Build>>;
-    getCases(): Nullable<Case>[] | Promise<Nullable<Case>[]>;
-    getCase(id: string): Nullable<Case> | Promise<Nullable<Case>>;
+    cases(): Nullable<Case>[] | Promise<Nullable<Case>[]>;
+    case(id: string): Nullable<Case> | Promise<Nullable<Case>>;
     getCPUs(): Nullable<CPU>[] | Promise<Nullable<CPU>[]>;
     getCPU(id: ObjectId): Nullable<CPU> | Promise<Nullable<CPU>>;
     getMemorys(): Nullable<Memory>[] | Promise<Nullable<Memory>[]>;
@@ -506,6 +507,7 @@ export interface CPU {
     price: string;
     manufacturer: string;
     partNumber: string;
+    componentType: ComponentType;
     socket: string;
     series: string;
     microarchitecture: string;

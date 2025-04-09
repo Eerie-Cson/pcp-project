@@ -9,7 +9,8 @@ type CPU {
   price: String!
   manufacturer: String!
   partNumber: String!
-  
+  componentType: ComponentType!
+
   socket: String!
   series: String!
   microarchitecture: String!
@@ -26,6 +27,7 @@ input CreateCPUInput {
   id: ObjectId!
   name: String!
   price: String!
+  componentType: ComponentType!
   manufacturer: String!
   partNumber: String!
   series: String!
