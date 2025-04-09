@@ -124,9 +124,6 @@ describe('Components.Query', () => {
 
     await teardown();
 
-    console.log(getCpusResponse.text);
-    console.log(getCpuResponse.text);
-
     expect(getCpuResponse.status).toEqual(200);
     expect(getCpuResponse.body).not.toHaveProperty('errors');
     expect(getCpuResponse.body.data.CPU).toBeTruthy();
