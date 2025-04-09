@@ -378,10 +378,10 @@ export type PowerSupply = {
 
 export type Query = {
   __typename?: 'Query';
+  CPU?: Maybe<Cpu>;
+  CPUs: Array<Maybe<Cpu>>;
   case?: Maybe<Case>;
   cases: Array<Maybe<Case>>;
-  getCPU?: Maybe<Cpu>;
-  getCPUs: Array<Maybe<Cpu>>;
   getMemory?: Maybe<Memory>;
   getMemorys: Array<Maybe<Memory>>;
   getMotherboard?: Maybe<Motherboard>;
@@ -395,13 +395,13 @@ export type Query = {
 };
 
 
-export type QueryCaseArgs = {
-  id: Scalars['String']['input'];
+export type QueryCpuArgs = {
+  id: Scalars['ObjectId']['input'];
 };
 
 
-export type QueryGetCpuArgs = {
-  id: Scalars['ObjectId']['input'];
+export type QueryCaseArgs = {
+  id: Scalars['String']['input'];
 };
 
 

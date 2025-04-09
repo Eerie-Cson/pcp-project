@@ -404,8 +404,8 @@ export interface IQuery {
     getBuild(id: ObjectId): Nullable<Build> | Promise<Nullable<Build>>;
     cases(): Nullable<Case>[] | Promise<Nullable<Case>[]>;
     case(id: string): Nullable<Case> | Promise<Nullable<Case>>;
-    getCPUs(): Nullable<CPU>[] | Promise<Nullable<CPU>[]>;
-    getCPU(id: ObjectId): Nullable<CPU> | Promise<Nullable<CPU>>;
+    CPUs(): Nullable<CPU>[] | Promise<Nullable<CPU>[]>;
+    CPU(id: ObjectId): Nullable<CPU> | Promise<Nullable<CPU>>;
     getMemorys(): Nullable<Memory>[] | Promise<Nullable<Memory>[]>;
     getMemory(id: ObjectId): Nullable<Memory> | Promise<Nullable<Memory>>;
     getMotherboards(): Nullable<Motherboard>[] | Promise<Nullable<Motherboard>[]>;

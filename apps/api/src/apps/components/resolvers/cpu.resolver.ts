@@ -18,4 +18,18 @@ export class CpuResolver {
 
     return true;
   }
+
+  @Query('CPU')
+  async getCpu(@Args('id') id: string) {
+    const cpu = await this.componentService.findCpu({
+      id: ObjectId.from(id),
+    });
+
+    return cpu;
+  }
+
+  @Query('CPUs')
+  async getCpus() {
+    return this.componentService.findCpus({});
+  }
 }
