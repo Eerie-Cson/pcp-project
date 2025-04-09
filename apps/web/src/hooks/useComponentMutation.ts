@@ -1,28 +1,8 @@
 import { DocumentNode, useMutation } from '@apollo/client';
-import { CREATE_CASE } from '../graphql/component/mutation/create-component.mutation';
-import { ObjectId, ObjectTypes } from '@pcp/object-id';
-import {
-  Case,
-  CaseType,
-  ComponentType,
-  SidePanelType,
-} from '../libs/graphql-types/component';
+import { useEffect } from 'react';
 
-type CreateCaseInput = {
-  name: string;
-  brand: string;
-  price: string;
-  partNumber: string;
-  specs: {
-    color: string;
-    formFactor: string;
-    interface: string;
-    [key: string]: any;
-  };
-};
-
-type CreateCaseResponse = {
-  createCase: (component: CreateCaseInput) => Promise<void>;
+type createComponentReturnType<Component> = {
+  createComponent: (component: Component) => Promise<any>;
   loading: boolean;
   error: any;
 };
@@ -34,19 +14,30 @@ type CreateCaseResponse = {
  * @returns An object containing the createCase function, loading state, and error
  */
 // useComponentMutation.ts
-export const useCreateComponent = (mutation: DocumentNode) => {
-  const [mutateComponent, { loading, error }] = useMutation(mutation, {
-    context: { service: 'components' },
-    onCompleted: () => {
-      alert('✅ Component created!');
-      window.location.reload();
-    },
-  });
 
-  const createComponent = (variables: any) => {
-    console.log(variables);
-    return mutateComponent(variables);
+export function useCreateComponent<Component>(
+  mutation: DocumentNode,
+): createComponentReturnType<Component> {
+  const [mutateComponent, { loading, error }] = useMutation<Boolean, Component>(
+    mutation,
+    {
+      context: { service: 'components' },
+      onCompleted: () => {
+        alert('✅ Component created!');
+        window.location.reload();
+      },
+    },
+  );
+
+  useEffect(() => {
+    if (error) {
+      alert(`Server connection issue: ${error.message}`);
+    }
+  }, [error]);
+
+  const createComponent = (variables: Component) => {
+    return mutateComponent({ variables });
   };
 
   return { createComponent, loading, error };
-};
+}
