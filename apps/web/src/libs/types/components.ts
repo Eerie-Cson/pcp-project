@@ -2,14 +2,15 @@ import { ComponentType } from '../graphql-types/component';
 
 export type PcComponent<CType extends ComponentType> = {
   id: string;
-  name: string;
   type: CType;
-  stock?: number;
+  name: string;
   price: number;
+  partNumber: string;
+  brand: string;
   specs: {
     [key: string]: any;
   };
-  brand: string;
+  stock?: number;
   image: string;
   compatibility: string[];
   rating?: number;

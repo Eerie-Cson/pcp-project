@@ -11,18 +11,19 @@ export const useCreateCase = () => {
   const handleAddCase = async (
     component: Partial<PcComponent<ComponentType.Case>>,
   ) => {
+    //TODO Create a transform library for this
     const variables = {
       id: ObjectId.generate(ObjectTypes.CASE).toString(),
       name: component.name,
       componentType: component.type,
       price: component.price,
       manufacturer: component.brand,
-      partNumber: component.specs?.partNumber,
+      partNumber: component.partNumber,
       color: component.specs?.color,
       type: component.specs?.type,
       formFactor: component.specs?.formFactor,
       interface: component.specs?.interface,
-      powerSupply: component.specs?.sidePanel,
+      powerSupply: component.specs?.powerSupply,
       sidePanel: component.specs?.sidePanel,
     };
 
