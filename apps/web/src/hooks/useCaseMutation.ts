@@ -1,22 +1,20 @@
 import { ObjectId, ObjectTypes } from '@pcp/object-id';
-import { ComponentType } from '../libs/graphql-types/component';
+import { Case, ComponentType } from '../libs/graphql-types/component';
 import { useCreateComponent } from './useComponentMutation';
 import { PcComponent } from '../libs/types/components';
-import { ComponentTransformer } from '../libs/transform';
 import { CREATE_CASE } from '../graphql/component/mutation/create-component.mutation';
 
-export const useCreateCase = () => {
-  const { createComponent, loading, error } = useCreateComponent(CREATE_CASE);
+export function useCreateCase() {
+  const { createComponent, loading, error } =
+    useCreateComponent<Case>(CREATE_CASE);
 
-  const handleAddCase = async (
-    component: Partial<PcComponent<ComponentType.Case>>,
-  ) => {
+  const handleAddCase = async (component: PcComponent<ComponentType.Case>) => {
     //TODO Create a transform library for this
-    const variables = {
+    const variables: Case = {
       id: ObjectId.generate(ObjectTypes.CASE).toString(),
       name: component.name,
       componentType: component.type,
-      price: component.price,
+      price: component.price.toString(),
       manufacturer: component.brand,
       partNumber: component.partNumber,
       color: component.specs?.color,
@@ -28,9 +26,7 @@ export const useCreateCase = () => {
     };
 
     try {
-      await createComponent({
-        variables,
-      });
+      await createComponent(variables);
     } catch (err) {
       console.error('Error creating case component:', err);
     }
@@ -41,4 +37,4 @@ export const useCreateCase = () => {
     loading,
     error,
   };
-};
+}
