@@ -11,15 +11,7 @@ import {
 import { useCasesQuery } from '../hooks/useCasesQuery';
 import { PcComponent } from '../libs/types/components';
 import enumToArray from '../libs/enumToArray';
-
-type ComponentInput = {
-  name: string;
-  brand: string;
-  price: string;
-  partNumber: string;
-  type: string;
-  specs: Record<string, any>;
-};
+import { useCreateCase } from './useCaseMutation';
 
 export const useAdminPcBuilder = () => {
   const [activeFilter, setActiveFilter] = useState<ComponentType>(
@@ -32,16 +24,17 @@ export const useAdminPcBuilder = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage: number = 6;
 
-  const [createCase] = useMutation<Case>(CREATE_CASE, {
-    context: { service: 'components' },
-    onCompleted: () => {
-      alert('✅ Component created successfully!');
-      window.location.reload();
-    },
-  });
-
   const { data: caseData } = useCasesQuery();
   const components: PcComponent<ComponentType>[] = caseData || [];
+
+  //TODO: Move this to a separate hook
+  const { handleAddCase } = useCreateCase();
+
+  const handleAddComponent = async (component: any) => {
+    if (component.type === ComponentType.Case) {
+      await handleAddCase(component);
+    }
+  };
 
   const componentTypes = [
     'All' as ComponentType,
@@ -87,8 +80,6 @@ export const useAdminPcBuilder = () => {
     startIndex + itemsPerPage,
   );
 
-  console.log('Paginated Components:', paginatedComponents);
-
   const handleSort = (field: string) => {
     if (sortBy === field) {
       setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
@@ -102,32 +93,6 @@ export const useAdminPcBuilder = () => {
     setActiveFilter('All' as ComponentType);
     setSearchQuery('');
     setCurrentPage(1);
-  };
-
-  const handleAddComponent = async (component: ComponentInput) => {
-    const componentInput = {
-      id: ObjectId.generate(ObjectTypes.CASE).toString(),
-      name: component.name,
-      price: component.price,
-      manufacturer: component.brand,
-      partNumber: component.partNumber,
-      color: component.specs.color,
-      componentType: ComponentType.Case,
-      formFactor: component.specs.formFactor,
-      interface: component.specs.interface,
-      powerSupply: true,
-      type: CaseType.AtxMidTower,
-      sidePanel: SidePanelType.TemperedGlass,
-    };
-
-    try {
-      await createCase({
-        variables: componentInput,
-      });
-    } catch (error) {
-      console.error('Error creating component:', error);
-      // Handle error state here if needed
-    }
   };
 
   return {
@@ -157,5 +122,6 @@ export const useAdminPcBuilder = () => {
     handleSort,
     resetFilters,
     handleAddComponent,
+    // handleFunction,
   };
 };
