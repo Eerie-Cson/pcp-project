@@ -202,7 +202,7 @@ export interface UpdateCaseInput {
 }
 
 export interface CreateCPUInput {
-    id: ObjectId;
+    id: string;
     name: string;
     price: string;
     componentType: ComponentType;
@@ -502,7 +502,7 @@ export interface Case {
 }
 
 export interface CPU {
-    id: ObjectId;
+    id: string;
     name: string;
     price: string;
     manufacturer: string;

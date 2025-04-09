@@ -26,7 +26,7 @@ export type Cpu = {
   coreClock: Scalars['String']['output'];
   coreCount: Scalars['String']['output'];
   coreFamily: Scalars['String']['output'];
-  id: Scalars['ObjectId']['output'];
+  id: Scalars['String']['output'];
   integratedGraphics: Scalars['String']['output'];
   manufacturer: Scalars['String']['output'];
   microarchitecture: Scalars['String']['output'];
@@ -79,7 +79,7 @@ export type CreateCpuInput = {
   coreClock: Scalars['String']['input'];
   coreCount: Scalars['String']['input'];
   coreFamily: Scalars['String']['input'];
-  id: Scalars['ObjectId']['input'];
+  id: Scalars['String']['input'];
   integratedGraphics: Scalars['String']['input'];
   manufacturer: Scalars['String']['input'];
   microarchitecture: Scalars['String']['input'];
@@ -593,7 +593,7 @@ export type Create_CaseMutationVariables = Exact<{
 export type Create_CaseMutation = { __typename?: 'Mutation', createCase?: boolean | null };
 
 export type Create_CpuMutationVariables = Exact<{
-  id: Scalars['ObjectId']['input'];
+  id: Scalars['String']['input'];
   name: Scalars['String']['input'];
   price: Scalars['String']['input'];
   componentType: ComponentType;
@@ -665,7 +665,7 @@ export type Create_CaseMutationHookResult = ReturnType<typeof useCreate_CaseMuta
 export type Create_CaseMutationResult = Apollo.MutationResult<Create_CaseMutation>;
 export type Create_CaseMutationOptions = Apollo.BaseMutationOptions<Create_CaseMutation, Create_CaseMutationVariables>;
 export const Create_CpuDocument = gql`
-    mutation CREATE_CPU($id: ObjectId!, $name: String!, $price: String!, $componentType: ComponentType!, $manufacturer: String!, $partNumber: String!, $series: String!, $microarchitecture: String!, $coreFamily: String!, $socket: String!, $coreCount: String!, $coreClock: String!, $tdp: String!, $integratedGraphics: String!, $cooler: Boolean!, $packaging: PackagingType!) {
+    mutation CREATE_CPU($id: String!, $name: String!, $price: String!, $componentType: ComponentType!, $manufacturer: String!, $partNumber: String!, $series: String!, $microarchitecture: String!, $coreFamily: String!, $socket: String!, $coreCount: String!, $coreClock: String!, $tdp: String!, $integratedGraphics: String!, $cooler: Boolean!, $packaging: PackagingType!) {
   createCPU(
     createCPUInput: {id: $id, name: $name, price: $price, componentType: $componentType, manufacturer: $manufacturer, partNumber: $partNumber, series: $series, microarchitecture: $microarchitecture, coreFamily: $coreFamily, socket: $socket, coreCount: $coreCount, coreClock: $coreClock, tdp: $tdp, integratedGraphics: $integratedGraphics, cooler: $cooler, packaging: $packaging}
   )

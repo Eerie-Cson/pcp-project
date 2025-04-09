@@ -4,7 +4,7 @@ enum PackagingType {
 
 type CPU {
   # image: String
-  id: ObjectId!
+  id: String!
   name: String!
   price: String!
   manufacturer: String!
@@ -24,7 +24,7 @@ type CPU {
 }
 
 input CreateCPUInput {
-  id: ObjectId!
+  id: String!
   name: String!
   price: String!
   componentType: ComponentType!

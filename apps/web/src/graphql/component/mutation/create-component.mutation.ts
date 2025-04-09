@@ -36,7 +36,7 @@ export const CREATE_CASE = gql`
 
 export const CREATE_CPU = gql`
   mutation CREATE_CPU(
-    $id: ObjectId!
+    $id: String!
     $name: String!
     $price: String!
     $componentType: ComponentType!
