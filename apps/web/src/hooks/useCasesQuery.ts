@@ -3,6 +3,7 @@ import { Case, ComponentType } from '../libs/graphql-types/component';
 import { PcComponent } from '../libs/types/components';
 import { useComponentQuery } from './useComponentQuery';
 import { UseComponentQueryReturnType } from '../libs/types/queryHooks';
+import { toPascalCase } from '../libs/toPascalCase';
 
 export function useCasesQuery(): UseComponentQueryReturnType<
   PcComponent<ComponentType.Case>
@@ -15,15 +16,15 @@ export function useCasesQuery(): UseComponentQueryReturnType<
       name: caseItem.name,
       type: ComponentType.Case,
       price: Number(caseItem.price),
+      partNumber: caseItem.partNumber,
       specs: {
         Manufacturer: caseItem.manufacturer,
-        PartNumber: caseItem.partNumber,
-        Color: caseItem.color,
-        Type: caseItem.type,
-        FormFactor: caseItem.formFactor,
         Interface: caseItem.interface,
+        Type: toPascalCase(caseItem.type),
+        FormFactor: caseItem.formFactor,
         PowerSupply: caseItem.powerSupply ? 'Included' : 'Not Included',
-        SidePanel: caseItem.sidePanel,
+        Color: caseItem.color,
+        SidePanel: toPascalCase(caseItem.sidePanel),
       },
       brand: caseItem.manufacturer,
       image: 'https://example.com/case.jpg',
