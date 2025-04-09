@@ -1,14 +1,8 @@
 import { useEffect } from 'react';
-import { useQuery, ApolloError, DocumentNode } from '@apollo/client';
+import { useQuery, DocumentNode } from '@apollo/client';
 import { ComponentType } from '../libs/graphql-types/component';
 import { PcComponent } from '../libs/types/components';
-import * as R from 'ramda';
-
-export interface UseComponentQueryReturn<R> {
-  data: R[];
-  loading: boolean;
-  error: ApolloError | undefined;
-}
+import { UseComponentQueryReturnType } from '../libs/types/queryHooks';
 
 /**
  * A generic hook to query components and transform each result.
@@ -20,17 +14,20 @@ export interface UseComponentQueryReturn<R> {
  */
 export function useComponentQuery<DataType, CType extends ComponentType>(
   query: DocumentNode,
-  endpoint: string,
+  gqlQueryEndpoint: string,
   transform: (item: DataType) => PcComponent<CType>,
-): UseComponentQueryReturn<PcComponent<CType>> {
+): UseComponentQueryReturnType<PcComponent<CType>> {
   const service: string = 'components';
 
-  const { data, loading, error } = useQuery<{ [endpoint]: DataType[] }>(query, {
-    context: { service },
-    errorPolicy: 'all',
-  });
+  const { data, loading, error } = useQuery<{ [gqlQueryEndpoint]: DataType[] }>(
+    query,
+    {
+      context: { service },
+      errorPolicy: 'all',
+    },
+  );
 
-  const componentData = data ? data[endpoint] : [];
+  const componentData = data ? data[gqlQueryEndpoint] : [];
 
   useEffect(() => {
     if (error) {

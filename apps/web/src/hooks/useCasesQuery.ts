@@ -1,12 +1,10 @@
 import { GET_CASES } from '../graphql/component/query/get-components.mutation';
 import { Case, ComponentType } from '../libs/graphql-types/component';
 import { PcComponent } from '../libs/types/components';
-import {
-  useComponentQuery,
-  UseComponentQueryReturn,
-} from './useComponentQuery';
+import { useComponentQuery } from './useComponentQuery';
+import { UseComponentQueryReturnType } from '../libs/types/queryHooks';
 
-export function useCasesQuery(): UseComponentQueryReturn<
+export function useCasesQuery(): UseComponentQueryReturnType<
   PcComponent<ComponentType.Case>
 > {
   return useComponentQuery<Case, ComponentType.Case>(
