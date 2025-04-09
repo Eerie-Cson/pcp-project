@@ -14,10 +14,10 @@ describe('Components.Create', () => {
       ComponentToken.CaseRepository,
     );
 
-    const caseComponent = generateComponent(
-      ObjectTypes.CASE,
-      ComponentType.CASE,
-    );
+    const caseComponent = {
+      ...generateComponent(ObjectTypes.CASE, ComponentType.CASE),
+      componentType: ComponentType.CASE,
+    };
 
     const response = await request.post('/graphql').send({
       query: `
@@ -60,7 +60,10 @@ describe('Components.Create', () => {
       ComponentToken.CpuRepository,
     );
 
-    const cpuComponent = generateComponent(ObjectTypes.CPU, ComponentType.CPU);
+    const cpuComponent = {
+      ...generateComponent(ObjectTypes.CPU, ComponentType.CPU),
+      componentType: ComponentType.CPU,
+    };
 
     const response = await request.post('/graphql').send({
       query: `
