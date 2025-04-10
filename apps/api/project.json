@@ -23,8 +23,8 @@
             "output": "."
           },
           {
-            "input": "apps/api/src/apps/components/schema",
-            "glob": "*.gql",
+            "input": "apps/api/src/apps/",
+            "glob": "**/*.gql",
             "output": "./schema"
           }
         ],
@@ -43,15 +43,63 @@
         }
       }
     },
-    "serve": {
+    "serve:account": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "api:build"
+        "buildTarget": "api:build:account"
       },
       "configurations": {
         "development": {
-          "buildTarget": "api:build:development",
+          "buildTarget": "api:build:account:development",
+          "args": ["-m", "accounts"]
+        },
+        "production": {
+          "buildTarget": "api:build:production"
+        }
+      }
+    },
+    "serve:auth": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "api:build:auth"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "api:build:auth:development",
+          "args": ["-m", "auth"]
+        },
+        "production": {
+          "buildTarget": "api:build:production"
+        }
+      }
+    },
+    "serve:builds": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "api:build:builds"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "api:build:builds:development",
+          "args": ["-m", "builds"]
+        },
+        "production": {
+          "buildTarget": "api:build:production"
+        }
+      }
+    },
+    "serve:component": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "api:build:component"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "api:build:component:development",
           "args": ["-m", "components"]
         },
         "production": {
