@@ -1,9 +1,10 @@
-import { useState, useCallback } from 'react';
-import { PcComponent } from '../libs/types/components';
+import { useCallback, useState } from 'react';
+import enumToArray from '../libs/enumToArray';
 import { ComponentType } from '../libs/graphql-types/component';
+import { PcComponent } from '../libs/types/components';
 import { useCasesQuery } from './useCasesQuery';
 import { useCpusQuery } from './useCpuQuery';
-import enumToArray from '../libs/enumToArray';
+import { useMemorysQuery } from './useMemoryQuery';
 
 export function useUserPcBuilder() {
   const [build, setBuild] = useState<PcComponent<ComponentType>[]>([]);
@@ -23,10 +24,12 @@ export function useUserPcBuilder() {
 
   const { data: caseData } = useCasesQuery();
   const { data: cpuData } = useCpusQuery();
+  const { data: memoryData } = useMemorysQuery();
 
   const components: PcComponent<ComponentType>[] = [
     ...(caseData || []),
     ...(cpuData || []),
+    ...(memoryData || []),
   ];
 
   const componentTypes = [

@@ -1,12 +1,12 @@
-
 type Memory {
   # image: String
-  id: ObjectId!
+  id: String!
   name: String!
   price: String!
   manufacturer: String!
   partNumber: String!
-  
+  componentType: ComponentType!
+
   speed: String!
   formFactor: String!
   modules: String!
@@ -16,16 +16,18 @@ type Memory {
 }
 
 input CreateMemoryInput {
-  id: ObjectId!
+  id: String!
   name: String!
   price: String!
   manufacturer: String!
   partNumber: String!
+  componentType: ComponentType!
+
   speed: String!
   formFactor: String!
   modules: String!
   voltage: String!
-  heatSpreader: Boolean! 
+  heatSpreader: Boolean!
   color: String!
 }
 
@@ -43,8 +45,8 @@ input UpdateMemoryInput {
 }
 
 type Query {
-  getMemorys: [Memory]!
-  getMemory(id: ObjectId!): Memory
+  memorys: [Memory]!
+  memory(id: String!): Memory
 }
 
 type Mutation {

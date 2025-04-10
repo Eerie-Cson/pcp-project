@@ -1,4 +1,16 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { ObjectId } from '@pcp/object-id';
+import {
+  Case,
+  Component,
+  ComponentType,
+  Cpu,
+  Memory,
+  Motherboard,
+  PowerSupply,
+  Storage,
+  VideoCard,
+} from '@pcp/types';
 import { Tokens } from './libs/tokens';
 import { CaseRepository } from './repository/case.repository';
 import { CpuRepository } from './repository/cpu.repository';
@@ -7,18 +19,6 @@ import { MotherboardRepository } from './repository/motherboard.repository';
 import { PowerSupplyRepository } from './repository/power-supply.repository';
 import { StorageRepository } from './repository/storage.repository';
 import { VideoCardRepository } from './repository/video-card.repository';
-import {
-  Case,
-  Cpu,
-  Memory,
-  Motherboard,
-  PowerSupply,
-  VideoCard,
-  Storage,
-  Component,
-  ComponentType,
-} from '@pcp/types';
-import { ObjectId } from '@pcp/object-id';
 
 @Injectable()
 export class ComponentService {
@@ -96,8 +96,10 @@ export class ComponentService {
     return this.cpuRepository.list(params);
   }
 
-  async createMemory(data: Memory) {
-    return this.memoryRepository.create(data);
+  async createMemory(data: Component) {
+    if (data.componentType === ComponentType.MEMORY) {
+      return this.memoryRepository.create(data);
+    }
   }
 
   async updateMemory(params: {
@@ -120,6 +122,10 @@ export class ComponentService {
 
   async findMemory(params: Partial<Memory>) {
     return this.memoryRepository.find(params);
+  }
+
+  async findMemorys(params: Partial<Case>) {
+    return this.memoryRepository.list(params);
   }
 
   async createMotherboard(data: Motherboard) {

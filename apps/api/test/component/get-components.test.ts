@@ -1,12 +1,12 @@
-import { setupFixture } from '../component-fixture';
-import { generateComponent } from '../helpers/generate-component';
+import { ObjectTypes } from '@pcp/object-id';
 import { ComponentType } from '@pcp/types';
+import * as R from 'ramda';
+import { Tokens as ComponentToken } from '../../src/features/component/libs/tokens';
 import { CaseRepository } from '../../src/features/component/repository/case.repository';
 import { CpuRepository } from '../../src/features/component/repository/cpu.repository';
-import { Tokens as ComponentToken } from '../../src/features/component/libs/tokens';
-import { ObjectTypes } from '@pcp/object-id';
-
-import * as R from 'ramda';
+import { MemoryRepository } from '../../src/features/component/repository/memory.repository';
+import { setupFixture } from '../component-fixture';
+import { generateComponent } from '../helpers/generate-component';
 
 describe('Components.Query', () => {
   test('Get Cases', async () => {
@@ -139,6 +139,74 @@ describe('Components.Query', () => {
     expect(getCpusResponse.body.data.CPUs).toBeTruthy();
     expect(getCpusResponse.body).not.toHaveProperty('errors');
     expect(getCpusResponse.body.data.CPUs).toHaveLength(3);
+
+    await teardown();
+  });
+
+  test('Get Memories', async () => {
+    const { module, request, teardown } = await setupFixture();
+
+    const memoryRepository = module.get<MemoryRepository>(
+      ComponentToken.MemoryRepository,
+    );
+
+    const memorys = R.times(() => ({
+      ...generateComponent(ObjectTypes.MEMORY, ComponentType.MEMORY),
+      componentType: ComponentType.MEMORY,
+    }))(3);
+
+    await Promise.all(
+      memorys.map((component) => memoryRepository.create(component)),
+    );
+
+    const getMemoryResponse = await request.post('/graphql').send({
+      query: `
+        query($id: String!) {
+          memory(id: $id) {
+            id
+            name
+            partNumber
+            componentType
+            price
+          }
+        }
+      `,
+      variables: {
+        id: memorys[0].id.toString(),
+      },
+    });
+
+    const getMemorysResponse = await request.post('/graphql').send({
+      query: `
+        query {
+          memorys {
+            id
+            name
+            partNumber
+            componentType
+            price
+          }
+        }
+      `,
+    });
+
+    await teardown();
+
+    expect(getMemoryResponse.status).toEqual(200);
+    expect(getMemoryResponse.body).not.toHaveProperty('errors');
+    expect(getMemoryResponse.body.data.memory).toBeTruthy();
+    expect(getMemoryResponse.body.data.memory).toMatchObject({
+      id: memorys[0].id.toString(),
+      name: memorys[0].name,
+      partNumber: memorys[0].partNumber,
+      componentType: ComponentType.MEMORY,
+      price: memorys[0].price,
+    });
+
+    expect(getMemorysResponse.status).toEqual(200);
+    expect(getMemorysResponse.body.data.memorys).toBeTruthy();
+    expect(getMemorysResponse.body).not.toHaveProperty('errors');
+    expect(getMemorysResponse.body.data.memorys).toHaveLength(3);
 
     await teardown();
   });

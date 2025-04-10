@@ -1,7 +1,8 @@
 export enum ObjectTypes {
   COMPONENT = 'component',
-  CASE = 'case',
+  CASE = 'cas',
   CPU = 'cpu',
+  MEMORY = 'mem',
   SESSION = 'session',
   ACCOUNT = 'account',
   // EVENT = 'event',

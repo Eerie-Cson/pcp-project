@@ -9,6 +9,7 @@ import { DateResolver } from 'graphql-scalars';
 import path from 'path';
 import { constraintDirectiveTypeDefs } from 'graphql-constraint-directive';
 import { CpuResolver } from './resolvers/cpu.resolver';
+import { MemoryResolver } from './resolvers/memory.resolver';
 
 @Module({
   imports: [
@@ -63,6 +64,6 @@ import { CpuResolver } from './resolvers/cpu.resolver';
     }),
     ComponentModule,
   ],
-  providers: [CaseResolver, CpuResolver],
+  providers: [CaseResolver, CpuResolver, MemoryResolver],
 })
 export class ComponentsModule {}
