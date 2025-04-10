@@ -407,8 +407,8 @@ export interface IQuery {
     case(id: string): Nullable<Case> | Promise<Nullable<Case>>;
     CPUs(): Nullable<CPU>[] | Promise<Nullable<CPU>[]>;
     CPU(id: string): Nullable<CPU> | Promise<Nullable<CPU>>;
-    getMemorys(): Nullable<Memory>[] | Promise<Nullable<Memory>[]>;
-    getMemory(id: ObjectId): Nullable<Memory> | Promise<Nullable<Memory>>;
+    memorys(): Nullable<Memory>[] | Promise<Nullable<Memory>[]>;
+    memory(id: string): Nullable<Memory> | Promise<Nullable<Memory>>;
     getMotherboards(): Nullable<Motherboard>[] | Promise<Nullable<Motherboard>[]>;
     getMotherboard(id: ObjectId): Nullable<Motherboard> | Promise<Nullable<Motherboard>>;
     getPowerSupplys(): Nullable<PowerSupply>[] | Promise<Nullable<PowerSupply>[]>;

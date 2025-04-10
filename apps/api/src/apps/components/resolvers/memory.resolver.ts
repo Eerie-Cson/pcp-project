@@ -1,8 +1,8 @@
-import { Resolver, Mutation, Args } from '@nestjs/graphql';
-import { ComponentService } from '../../../features/component/component.service';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { ObjectId } from '@pcp/object-id';
-import { CreateMemoryInput } from '../../../libs/graphql-types';
 import { ComponentType } from '@pcp/types';
+import { ComponentService } from '../../../features/component/component.service';
+import { CreateMemoryInput } from '../../../libs/graphql-types';
 
 @Resolver('Memory')
 export class MemoryResolver {
@@ -20,5 +20,18 @@ export class MemoryResolver {
     });
 
     return true;
+  }
+  @Query('memory')
+  async getMemory(@Args('id') id: string) {
+    const memory = await this.componentService.findMemory({
+      id: ObjectId.from(id),
+    });
+
+    return memory;
+  }
+
+  @Query('memorys')
+  async getMemorys() {
+    return this.componentService.findMemorys({});
   }
 }

@@ -45,8 +45,8 @@ input UpdateMemoryInput {
 }
 
 type Query {
-  getMemorys: [Memory]!
-  getMemory(id: ObjectId!): Memory
+  memorys: [Memory]!
+  memory(id: String!): Memory
 }
 
 type Mutation {
