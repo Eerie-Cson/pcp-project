@@ -1,11 +1,12 @@
 import { useState } from 'react';
 
 import { ComponentType } from '../libs/graphql-types/component';
-import { useCasesQuery } from '../hooks/useCasesQuery';
 import { PcComponent } from '../libs/types/components';
 import enumToArray from '../libs/enumToArray';
 import { useCreateCase } from './useCaseMutation';
 import { useCreateCPU } from './useCpuMutation';
+import { useCreateMemory } from './useMemoryMutation';
+import { useCasesQuery } from '../hooks/useCasesQuery';
 import { useCpusQuery } from './useCpuQuery';
 
 export const useAdminPcBuilder = () => {
@@ -29,6 +30,7 @@ export const useAdminPcBuilder = () => {
   //TODO: Move this to a separate hook and add a mapper
   const { handleAddCase } = useCreateCase();
   const { handleAddCPU } = useCreateCPU();
+  const { handleAddMemory } = useCreateMemory();
 
   const handleAddComponent = async (component: any) => {
     if (component.type === ComponentType.Case) {
@@ -36,6 +38,9 @@ export const useAdminPcBuilder = () => {
     }
     if (component.type === ComponentType.Cpu) {
       await handleAddCPU(component);
+    }
+    if (component.type === ComponentType.Memory) {
+      await handleAddMemory(component);
     }
   };
 

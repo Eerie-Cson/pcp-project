@@ -64,10 +64,12 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
       { name: 'memorySlots', label: 'Memory Slots' },
     ],
     [ComponentType.Memory]: [
-      { name: 'capacity', label: 'Capacity (GB)' },
+      { name: 'formFactor', label: 'Form Factor' },
       { name: 'speed', label: 'Speed (MHz)' },
-      { name: 'type', label: 'Type' },
+      { name: 'voltage', label: 'Voltage (V)' },
       { name: 'modules', label: 'Modules' },
+      { name: 'color', label: 'Color' },
+      { name: 'heatSpreader', label: 'Heat Spreader', inputType: 'checkbox' },
     ],
     [ComponentType.Storage]: [
       { name: 'capacity', label: 'Capacity' },
@@ -424,9 +426,11 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
                             />
                             {(spec.name.includes('Clock') ||
                               spec.name === 'capacity' ||
-                              spec.name === 'wattage') && (
+                              spec.name === 'wattage' ||
+                              spec.name === 'speed') && (
                               <div className="absolute right-3 bg-gray-100 px-2 py-1 rounded text-xs font-medium text-gray-600">
-                                {spec.name.includes('Clock')
+                                {spec.name.includes('Clock') ||
+                                spec.name === 'speed'
                                   ? spec.label.includes('GHz')
                                     ? 'GHz'
                                     : 'MHz'
