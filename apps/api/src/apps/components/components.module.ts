@@ -17,7 +17,7 @@ import { MemoryResolver } from './resolvers/memory.resolver';
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (config: ConfigService) => ({
-        uri: config.get<string>('COMPONENT_URI'),
+        uri: config.get<string>('COMPONENTS_URI'),
       }),
       inject: [ConfigService],
     }),
@@ -28,7 +28,7 @@ import { MemoryResolver } from './resolvers/memory.resolver';
           csrfPrevention: false,
           playground: true,
           introspection: true,
-          typePaths: [path.resolve(__dirname, './schema/*.gql')],
+          typePaths: [path.resolve(__dirname, './schema/components/schema/*.gql')],
           resolvers: {
             Date: DateResolver,
           },

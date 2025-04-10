@@ -41,7 +41,7 @@ import { JwtModule } from '@nestjs/jwt';
           csrfPrevention: false,
           playground: true,
           introspection: true,
-          typePaths: [path.resolve(__dirname, './schema/*.gql')],
+          typePaths: [path.resolve(__dirname, './schema/accounts/schema/*.gql')],
           resolvers: {
             JSON: JSONResolver,
             Date: DateResolver,

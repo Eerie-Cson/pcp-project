@@ -13,7 +13,7 @@ import { AccountModule } from '../../features/account/account.module';
     }),
     MongooseModule.forRootAsync({
       useFactory: (config: ConfigService) => ({
-        uri: config.get<string>('AUTH_URI'),
+        uri: config.get<string>('AUTHS_URI'),
       }),
       inject: [ConfigService],
     }),

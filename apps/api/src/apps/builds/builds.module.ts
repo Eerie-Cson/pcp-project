@@ -26,7 +26,7 @@ import { constraintDirectiveTypeDefs } from 'graphql-constraint-directive';
           csrfPrevention: false,
           playground: true,
           introspection: true,
-          typePaths: [path.resolve(__dirname, './schema/*.gql')],
+          typePaths: [path.resolve(__dirname, './schema/builds/schema/*.gql')],
           resolvers: {
             Date: DateResolver,
           },
