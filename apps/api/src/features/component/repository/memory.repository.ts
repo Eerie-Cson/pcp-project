@@ -1,6 +1,6 @@
-import { Connection, Schema } from 'mongoose';
 import { MongooseRepository, Repository } from '@pcp/repository';
 import { Memory } from '@pcp/types';
+import { Connection, Schema } from 'mongoose';
 
 export type MemoryRepository = Repository<Memory>;
 
@@ -51,7 +51,7 @@ export function MemoryRepositoryFactory(connection: Connection) {
       required: true,
     },
     heatSpreader: {
-      type: String,
+      type: Boolean,
       required: true,
     },
     color: {
