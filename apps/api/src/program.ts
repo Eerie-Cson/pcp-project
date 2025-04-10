@@ -1,7 +1,9 @@
 import { Logger } from '@nestjs/common';
 import { program } from 'commander';
 
-program.option('-m, --mode <mode>', 'users | components').version('0.1.0');
+program
+  .option('-m, --mode <mode>', 'accounts | components | auth | builds')
+  .version('0.1.0');
 
 program.exitOverride();
 
@@ -12,5 +14,5 @@ try {
 }
 
 export const options = program.opts<{
-  mode: 'users' | 'components';
+  mode: 'accounts' | 'components' | 'auth' | 'builds';
 }>();
