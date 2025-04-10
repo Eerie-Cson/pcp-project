@@ -150,13 +150,13 @@ describe('Components.Query', () => {
       ComponentToken.MemoryRepository,
     );
 
-    const memories = R.times(() => ({
+    const memorys = R.times(() => ({
       ...generateComponent(ObjectTypes.MEMORY, ComponentType.MEMORY),
       componentType: ComponentType.MEMORY,
     }))(3);
 
     await Promise.all(
-      memories.map((component) => memoryRepository.create(component)),
+      memorys.map((component) => memoryRepository.create(component)),
     );
 
     const getMemoryResponse = await request.post('/graphql').send({
@@ -172,14 +172,14 @@ describe('Components.Query', () => {
         }
       `,
       variables: {
-        id: memories[0].id.toString(),
+        id: memorys[0].id.toString(),
       },
     });
 
-    const getMemoriesResponse = await request.post('/graphql').send({
+    const getMemorysResponse = await request.post('/graphql').send({
       query: `
         query {
-          memories {
+          memorys {
             id
             name
             partNumber
@@ -194,19 +194,19 @@ describe('Components.Query', () => {
 
     expect(getMemoryResponse.status).toEqual(200);
     expect(getMemoryResponse.body).not.toHaveProperty('errors');
-    expect(getMemoryResponse.body.data.Memory).toBeTruthy();
-    expect(getMemoryResponse.body.data.Memory).toMatchObject({
-      id: memories[0].id.toString(),
-      name: memories[0].name,
-      partNumber: memories[0].partNumber,
+    expect(getMemoryResponse.body.data.memory).toBeTruthy();
+    expect(getMemoryResponse.body.data.memory).toMatchObject({
+      id: memorys[0].id.toString(),
+      name: memorys[0].name,
+      partNumber: memorys[0].partNumber,
       componentType: ComponentType.MEMORY,
-      price: memories[0].price,
+      price: memorys[0].price,
     });
 
-    expect(getMemoriesResponse.status).toEqual(200);
-    expect(getMemoriesResponse.body.data.Memories).toBeTruthy();
-    expect(getMemoriesResponse.body).not.toHaveProperty('errors');
-    expect(getMemoriesResponse.body.data.Memories).toHaveLength(3);
+    expect(getMemorysResponse.status).toEqual(200);
+    expect(getMemorysResponse.body.data.memorys).toBeTruthy();
+    expect(getMemorysResponse.body).not.toHaveProperty('errors');
+    expect(getMemorysResponse.body.data.memorys).toHaveLength(3);
 
     await teardown();
   });
