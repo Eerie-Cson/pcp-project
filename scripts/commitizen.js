@@ -84,6 +84,22 @@ const prompter = (_, commit) => {
         return true;
       },
     },
+    {
+      type: 'input',
+      name: 'references',
+      message: 'References (comma separated, e.g. PCP-123):\n',
+      validate(input) {
+        if (!input) {
+          return true;
+        }
+
+        if (!/(PCP-\d+)(,PCP-\d+)*/gm.test(input)) {
+          throw Error('invalid reference format, e.g. (PCP-321)');
+        }
+
+        return true;
+      },
+    },
   ]).then((answers) =>
     commit(
       `${answers.type} (${answers.scope}): ${answers.message}\n\n${answers.references}`,
