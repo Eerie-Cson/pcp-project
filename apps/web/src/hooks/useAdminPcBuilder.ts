@@ -1,13 +1,14 @@
 import { useState } from 'react';
 
+import { useCasesQuery } from '../hooks/useCasesQuery';
+import enumToArray from '../libs/enumToArray';
 import { ComponentType } from '../libs/graphql-types/component';
 import { PcComponent } from '../libs/types/components';
-import enumToArray from '../libs/enumToArray';
 import { useCreateCase } from './useCaseMutation';
 import { useCreateCPU } from './useCpuMutation';
-import { useCreateMemory } from './useMemoryMutation';
-import { useCasesQuery } from '../hooks/useCasesQuery';
 import { useCpusQuery } from './useCpuQuery';
+import { useCreateMemory } from './useMemoryMutation';
+import { useMemorysQuery } from './useMemoryQuery';
 
 export const useAdminPcBuilder = () => {
   const [activeFilter, setActiveFilter] = useState<ComponentType>(
@@ -22,9 +23,12 @@ export const useAdminPcBuilder = () => {
 
   const { data: caseData } = useCasesQuery();
   const { data: cpuData } = useCpusQuery();
+  const { data: memoryData } = useMemorysQuery();
+
   const components: PcComponent<ComponentType>[] = [
     ...(caseData || []),
     ...(cpuData || []),
+    ...(memoryData || []),
   ];
 
   //TODO: Move this to a separate hook and add a mapper

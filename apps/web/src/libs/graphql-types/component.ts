@@ -384,8 +384,6 @@ export type Query = {
   CPUs: Array<Maybe<Cpu>>;
   case?: Maybe<Case>;
   cases: Array<Maybe<Case>>;
-  getMemory?: Maybe<Memory>;
-  getMemorys: Array<Maybe<Memory>>;
   getMotherboard?: Maybe<Motherboard>;
   getMotherboards: Array<Maybe<Motherboard>>;
   getPowerSupply?: Maybe<PowerSupply>;
@@ -394,6 +392,8 @@ export type Query = {
   getStorages: Array<Maybe<Storage>>;
   getVideoCard?: Maybe<VideoCard>;
   getVideoCards: Array<Maybe<VideoCard>>;
+  memory?: Maybe<Memory>;
+  memorys: Array<Maybe<Memory>>;
 };
 
 
@@ -404,11 +404,6 @@ export type QueryCpuArgs = {
 
 export type QueryCaseArgs = {
   id: Scalars['String']['input'];
-};
-
-
-export type QueryGetMemoryArgs = {
-  id: Scalars['ObjectId']['input'];
 };
 
 
@@ -429,6 +424,11 @@ export type QueryGetStorageArgs = {
 
 export type QueryGetVideoCardArgs = {
   id: Scalars['ObjectId']['input'];
+};
+
+
+export type QueryMemoryArgs = {
+  id: Scalars['String']['input'];
 };
 
 export enum SidePanelType {
@@ -616,6 +616,24 @@ export type Create_CpuMutationVariables = Exact<{
 
 export type Create_CpuMutation = { __typename?: 'Mutation', createCPU?: boolean | null };
 
+export type Create_MemoryMutationVariables = Exact<{
+  id: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  price: Scalars['String']['input'];
+  manufacturer: Scalars['String']['input'];
+  partNumber: Scalars['String']['input'];
+  componentType: ComponentType;
+  speed: Scalars['String']['input'];
+  formFactor: Scalars['String']['input'];
+  modules: Scalars['String']['input'];
+  voltage: Scalars['String']['input'];
+  heatSpreader: Scalars['Boolean']['input'];
+  color: Scalars['String']['input'];
+}>;
+
+
+export type Create_MemoryMutation = { __typename?: 'Mutation', createMemory?: boolean | null };
+
 export type CasesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -719,6 +737,50 @@ export function useCreate_CpuMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type Create_CpuMutationHookResult = ReturnType<typeof useCreate_CpuMutation>;
 export type Create_CpuMutationResult = Apollo.MutationResult<Create_CpuMutation>;
 export type Create_CpuMutationOptions = Apollo.BaseMutationOptions<Create_CpuMutation, Create_CpuMutationVariables>;
+export const Create_MemoryDocument = gql`
+    mutation CREATE_MEMORY($id: String!, $name: String!, $price: String!, $manufacturer: String!, $partNumber: String!, $componentType: ComponentType!, $speed: String!, $formFactor: String!, $modules: String!, $voltage: String!, $heatSpreader: Boolean!, $color: String!) {
+  createMemory(
+    createMemoryInput: {id: $id, name: $name, price: $price, manufacturer: $manufacturer, partNumber: $partNumber, componentType: $componentType, speed: $speed, formFactor: $formFactor, modules: $modules, voltage: $voltage, heatSpreader: $heatSpreader, color: $color}
+  )
+}
+    `;
+export type Create_MemoryMutationFn = Apollo.MutationFunction<Create_MemoryMutation, Create_MemoryMutationVariables>;
+
+/**
+ * __useCreate_MemoryMutation__
+ *
+ * To run a mutation, you first call `useCreate_MemoryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreate_MemoryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createMemoryMutation, { data, loading, error }] = useCreate_MemoryMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      name: // value for 'name'
+ *      price: // value for 'price'
+ *      manufacturer: // value for 'manufacturer'
+ *      partNumber: // value for 'partNumber'
+ *      componentType: // value for 'componentType'
+ *      speed: // value for 'speed'
+ *      formFactor: // value for 'formFactor'
+ *      modules: // value for 'modules'
+ *      voltage: // value for 'voltage'
+ *      heatSpreader: // value for 'heatSpreader'
+ *      color: // value for 'color'
+ *   },
+ * });
+ */
+export function useCreate_MemoryMutation(baseOptions?: Apollo.MutationHookOptions<Create_MemoryMutation, Create_MemoryMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Create_MemoryMutation, Create_MemoryMutationVariables>(Create_MemoryDocument, options);
+      }
+export type Create_MemoryMutationHookResult = ReturnType<typeof useCreate_MemoryMutation>;
+export type Create_MemoryMutationResult = Apollo.MutationResult<Create_MemoryMutation>;
+export type Create_MemoryMutationOptions = Apollo.BaseMutationOptions<Create_MemoryMutation, Create_MemoryMutationVariables>;
 export const CasesDocument = gql`
     query cases {
   cases {

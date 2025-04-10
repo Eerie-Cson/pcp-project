@@ -1,5 +1,5 @@
+import { DocumentNode, useQuery } from '@apollo/client';
 import { useEffect } from 'react';
-import { useQuery, DocumentNode } from '@apollo/client';
 import { ComponentType } from '../libs/graphql-types/component';
 import { PcComponent } from '../libs/types/components';
 import { UseComponentQueryReturnType } from '../libs/types/queryHooks';
