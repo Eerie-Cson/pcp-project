@@ -50,13 +50,13 @@ export class AccountsResolver {
   }
 
   @Query('accounts')
-  async Accounts() {
+  async accounts() {
     Logger.log('Accounts: ', await this.accountService.findAccounts({}));
     return this.accountService.findAccounts({});
   }
 
   @Query('account')
-  async Account(@Args('id') id: string) {
+  async account(@Args('id') id: string) {
     return this.accountService.findAccount({
       id: ObjectId.from(id),
     });
