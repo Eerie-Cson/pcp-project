@@ -12,7 +12,6 @@ export class MemoryResolver {
   async createMemory(
     @Args('createMemoryInput') createMemoryInput: CreateMemoryInput,
   ) {
-    console.log('createed');
     await this.componentService.createMemory({
       ...createMemoryInput,
       componentType: ComponentType.MEMORY,
