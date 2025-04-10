@@ -18,3 +18,26 @@ export const GET_CASES = gql`
     }
   }
 `;
+
+export const GET_CPUS = gql`
+  query CPUs {
+    CPUs {
+      id
+      name
+      componentType
+      price
+      manufacturer
+      partNumber
+      series
+      microarchitecture
+      coreFamily
+      socket
+      coreCount
+      coreClock
+      tdp
+      integratedGraphics
+      cooler
+      packaging
+    }
+  }
+`;

@@ -31,7 +31,7 @@ export function useComponentQuery<DataType, CType extends ComponentType>(
 
   useEffect(() => {
     if (error) {
-      alert(`Server connection issue: ${error.message}`);
+      alert(`Server connection issue @${gqlQueryEndpoint}: ${error.message}`);
     }
   }, [error]);
 

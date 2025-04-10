@@ -26,11 +26,29 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
   const componentTypes = enumToArray<ComponentType>(ComponentType);
   const specFields: Record<string, Record<string, any>[]> = {
     [ComponentType.Cpu]: [
-      { name: 'cores', label: 'Cores/Threads' },
-      { name: 'baseClock', label: 'Base Clock (GHz)' },
-      { name: 'boostClock', label: 'Boost Clock (GHz)' },
-      { name: 'socket', label: 'Socket' },
-      { name: 'tdp', label: 'TDP (W)' },
+      { name: 'cores', label: 'Cores/Threads', inputType: 'number' },
+      { name: 'coreClock', label: 'Core Clock (GHz)', inputType: 'text' },
+      { name: 'series', label: 'Series', inputType: 'text' },
+      { name: 'socket', label: 'Socket', inputType: 'text' },
+      { name: 'tdp', label: 'TDP (W)', inputType: 'text' },
+      {
+        name: 'microarchitecture',
+        label: 'Microarchitecture',
+        inputType: 'text',
+      },
+      { name: 'coreFamily', label: 'Core Family', inputType: 'text' },
+      {
+        name: 'integratedGraphics',
+        label: 'Integrated Graphics',
+        inputType: 'text',
+      },
+      {
+        name: 'packaging',
+        label: 'Packaging Type',
+        inputType: 'select',
+        options: ['BOXED'],
+      },
+      { name: 'cooler', label: 'Cooler Included', inputType: 'checkbox' },
     ],
     [ComponentType.VideoCard]: [
       { name: 'vram', label: 'VRAM (GB)' },

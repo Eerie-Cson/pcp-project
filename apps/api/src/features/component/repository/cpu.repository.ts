@@ -28,7 +28,10 @@ export function CpuRepositoryFactory(connection: Connection) {
       type: String,
       required: true,
     },
-
+    componentType: {
+      type: String,
+      required: true,
+    },
     socket: {
       type: String,
       required: true,
@@ -62,7 +65,7 @@ export function CpuRepositoryFactory(connection: Connection) {
       required: true,
     },
     cooler: {
-      type: String,
+      type: Boolean,
       required: true,
     },
     packaging: {

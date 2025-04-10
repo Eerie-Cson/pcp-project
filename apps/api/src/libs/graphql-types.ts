@@ -202,9 +202,10 @@ export interface UpdateCaseInput {
 }
 
 export interface CreateCPUInput {
-    id: ObjectId;
+    id: string;
     name: string;
     price: string;
+    componentType: ComponentType;
     manufacturer: string;
     partNumber: string;
     series: string;
@@ -401,10 +402,10 @@ export interface IQuery {
     node(id?: Nullable<ObjectId>): Nullable<Node> | Promise<Nullable<Node>>;
     getBuilds(): Nullable<Build>[] | Promise<Nullable<Build>[]>;
     getBuild(id: ObjectId): Nullable<Build> | Promise<Nullable<Build>>;
-    getCases(): Nullable<Case>[] | Promise<Nullable<Case>[]>;
-    getCase(id: string): Nullable<Case> | Promise<Nullable<Case>>;
-    getCPUs(): Nullable<CPU>[] | Promise<Nullable<CPU>[]>;
-    getCPU(id: ObjectId): Nullable<CPU> | Promise<Nullable<CPU>>;
+    cases(): Nullable<Case>[] | Promise<Nullable<Case>[]>;
+    case(id: string): Nullable<Case> | Promise<Nullable<Case>>;
+    CPUs(): Nullable<CPU>[] | Promise<Nullable<CPU>[]>;
+    CPU(id: ObjectId): Nullable<CPU> | Promise<Nullable<CPU>>;
     getMemorys(): Nullable<Memory>[] | Promise<Nullable<Memory>[]>;
     getMemory(id: ObjectId): Nullable<Memory> | Promise<Nullable<Memory>>;
     getMotherboards(): Nullable<Motherboard>[] | Promise<Nullable<Motherboard>[]>;
@@ -501,11 +502,12 @@ export interface Case {
 }
 
 export interface CPU {
-    id: ObjectId;
+    id: string;
     name: string;
     price: string;
     manufacturer: string;
     partNumber: string;
+    componentType: ComponentType;
     socket: string;
     series: string;
     microarchitecture: string;

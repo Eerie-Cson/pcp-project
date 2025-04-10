@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { PcComponent } from '../libs/types/components';
 import { ComponentType } from '../libs/graphql-types/component';
 import { useCasesQuery } from './useCasesQuery';
+import { useCpusQuery } from './useCpuQuery';
 import enumToArray from '../libs/enumToArray';
 
 export function useUserPcBuilder() {
@@ -21,8 +22,12 @@ export function useUserPcBuilder() {
   const itemsPerPage: number = 3;
 
   const { data: caseData } = useCasesQuery();
+  const { data: cpuData } = useCpusQuery();
 
-  const components: PcComponent<ComponentType>[] = caseData || [];
+  const components: PcComponent<ComponentType>[] = [
+    ...(caseData || []),
+    ...(cpuData || []),
+  ];
 
   const componentTypes = [
     'All' as ComponentType,

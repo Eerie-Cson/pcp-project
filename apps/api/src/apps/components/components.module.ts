@@ -8,6 +8,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { DateResolver } from 'graphql-scalars';
 import path from 'path';
 import { constraintDirectiveTypeDefs } from 'graphql-constraint-directive';
+import { CpuResolver } from './resolvers/cpu.resolver';
 
 @Module({
   imports: [
@@ -62,6 +63,6 @@ import { constraintDirectiveTypeDefs } from 'graphql-constraint-directive';
     }),
     ComponentModule,
   ],
-  providers: [CaseResolver],
+  providers: [CaseResolver, CpuResolver],
 })
 export class ComponentsModule {}

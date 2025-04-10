@@ -1,17 +1,12 @@
 import { useState } from 'react';
-import { useMutation } from '@apollo/client';
-import { CREATE_CASE } from '../graphql/component/mutation/create-component.mutation';
-import { ObjectId, ObjectTypes } from '@pcp/object-id';
-import {
-  Case,
-  CaseType,
-  ComponentType,
-  SidePanelType,
-} from '../libs/graphql-types/component';
+
+import { ComponentType } from '../libs/graphql-types/component';
 import { useCasesQuery } from '../hooks/useCasesQuery';
 import { PcComponent } from '../libs/types/components';
 import enumToArray from '../libs/enumToArray';
 import { useCreateCase } from './useCaseMutation';
+import { useCreateCPU } from './useCpuMutation';
+import { useCpusQuery } from './useCpuQuery';
 
 export const useAdminPcBuilder = () => {
   const [activeFilter, setActiveFilter] = useState<ComponentType>(
@@ -25,14 +20,22 @@ export const useAdminPcBuilder = () => {
   const itemsPerPage: number = 6;
 
   const { data: caseData } = useCasesQuery();
-  const components: PcComponent<ComponentType>[] = caseData || [];
+  const { data: cpuData } = useCpusQuery();
+  const components: PcComponent<ComponentType>[] = [
+    ...(caseData || []),
+    ...(cpuData || []),
+  ];
 
-  //TODO: Move this to a separate hook
+  //TODO: Move this to a separate hook and add a mapper
   const { handleAddCase } = useCreateCase();
+  const { handleAddCPU } = useCreateCPU();
 
   const handleAddComponent = async (component: any) => {
     if (component.type === ComponentType.Case) {
       await handleAddCase(component);
+    }
+    if (component.type === ComponentType.Cpu) {
+      await handleAddCPU(component);
     }
   };
 

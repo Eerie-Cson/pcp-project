@@ -4,12 +4,13 @@ enum PackagingType {
 
 type CPU {
   # image: String
-  id: ObjectId!
+  id: String!
   name: String!
   price: String!
   manufacturer: String!
   partNumber: String!
-  
+  componentType: ComponentType!
+
   socket: String!
   series: String!
   microarchitecture: String!
@@ -23,9 +24,10 @@ type CPU {
 }
 
 input CreateCPUInput {
-  id: ObjectId!
+  id: String!
   name: String!
   price: String!
+  componentType: ComponentType!
   manufacturer: String!
   partNumber: String!
   series: String!
@@ -58,8 +60,8 @@ input UpdateCPUInput {
 }
 
 type Query {
-  getCPUs: [CPU]!
-  getCPU(id: ObjectId!): CPU
+  CPUs: [CPU]!
+  CPU(id: String!): CPU
 }
 
 type Mutation {
