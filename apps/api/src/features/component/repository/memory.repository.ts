@@ -29,6 +29,11 @@ export function MemoryRepositoryFactory(connection: Connection) {
       required: true,
     },
 
+    componentType: {
+      type: String,
+      required: true,
+    },
+
     speed: {
       type: String,
       required: true,

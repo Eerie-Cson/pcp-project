@@ -96,8 +96,10 @@ export class ComponentService {
     return this.cpuRepository.list(params);
   }
 
-  async createMemory(data: Memory) {
-    return this.memoryRepository.create(data);
+  async createMemory(data: Component) {
+    if (data.componentType === ComponentType.MEMORY) {
+      return this.memoryRepository.create(data);
+    }
   }
 
   async updateMemory(params: {

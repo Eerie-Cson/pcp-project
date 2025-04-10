@@ -238,11 +238,12 @@ export interface UpdateCPUInput {
 }
 
 export interface CreateMemoryInput {
-    id: ObjectId;
+    id: string;
     name: string;
     price: string;
     manufacturer: string;
     partNumber: string;
+    componentType: ComponentType;
     speed: string;
     formFactor: string;
     modules: string;
@@ -405,7 +406,7 @@ export interface IQuery {
     cases(): Nullable<Case>[] | Promise<Nullable<Case>[]>;
     case(id: string): Nullable<Case> | Promise<Nullable<Case>>;
     CPUs(): Nullable<CPU>[] | Promise<Nullable<CPU>[]>;
-    CPU(id: ObjectId): Nullable<CPU> | Promise<Nullable<CPU>>;
+    CPU(id: string): Nullable<CPU> | Promise<Nullable<CPU>>;
     getMemorys(): Nullable<Memory>[] | Promise<Nullable<Memory>[]>;
     getMemory(id: ObjectId): Nullable<Memory> | Promise<Nullable<Memory>>;
     getMotherboards(): Nullable<Motherboard>[] | Promise<Nullable<Motherboard>[]>;
@@ -521,11 +522,12 @@ export interface CPU {
 }
 
 export interface Memory {
-    id: ObjectId;
+    id: string;
     name: string;
     price: string;
     manufacturer: string;
     partNumber: string;
+    componentType: ComponentType;
     speed: string;
     formFactor: string;
     modules: string;
