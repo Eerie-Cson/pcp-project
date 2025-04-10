@@ -18,12 +18,12 @@
         "isolatedConfig": false,
         "assets": [
           {
-            "input": "apps/api",
+            "input": "./",
             "glob": "docker-compose.yml",
             "output": "."
           },
           {
-            "input": "apps/api/src/apps/accounts/schema",
+            "input": "apps/api/src/apps/components/schema",
             "glob": "*.gql",
             "output": "./schema"
           }
@@ -52,7 +52,7 @@
       "configurations": {
         "development": {
           "buildTarget": "api:build:development",
-          "args": ["-m", "users"]
+          "args": ["-m", "components"]
         },
         "production": {
           "buildTarget": "api:build:production"
