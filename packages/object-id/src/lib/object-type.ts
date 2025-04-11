@@ -3,6 +3,7 @@ export enum ObjectTypes {
   CASE = 'cas',
   CPU = 'cpu',
   MEMORY = 'mem',
+  VIDEO_CARD = 'vdc',
   SESSION = 'session',
   ACCOUNT = 'account',
   // EVENT = 'event',
