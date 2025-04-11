@@ -170,10 +170,11 @@ export type CreateVideoCardInput = {
   TDP: Scalars['String']['input'];
   chipset: Scalars['String']['input'];
   color: Scalars['String']['input'];
+  componentType: ComponentType;
   coolingFans: Scalars['String']['input'];
   coreClock: Scalars['String']['input'];
   displayPortOutputs: Scalars['String']['input'];
-  id: Scalars['ObjectId']['input'];
+  id: Scalars['String']['input'];
   interface: Scalars['String']['input'];
   manufacturer: Scalars['String']['input'];
   memory: Scalars['String']['input'];
@@ -562,10 +563,11 @@ export type VideoCard = {
   TDP: Scalars['String']['output'];
   chipset: Scalars['String']['output'];
   color: Scalars['String']['output'];
+  componentType: ComponentType;
   coolingFans: Scalars['String']['output'];
   coreClock: Scalars['String']['output'];
   displayPortOutputs: Scalars['String']['output'];
-  id: Scalars['ObjectId']['output'];
+  id: Scalars['String']['output'];
   interface: Scalars['String']['output'];
   manufacturer: Scalars['String']['output'];
   memory: Scalars['String']['output'];
@@ -634,6 +636,29 @@ export type Create_MemoryMutationVariables = Exact<{
 
 export type Create_MemoryMutation = { __typename?: 'Mutation', createMemory?: boolean | null };
 
+export type Create_Video_CardMutationVariables = Exact<{
+  id: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  componentType: ComponentType;
+  price: Scalars['String']['input'];
+  manufacturer: Scalars['String']['input'];
+  partNumber: Scalars['String']['input'];
+  model: Scalars['String']['input'];
+  chipset: Scalars['String']['input'];
+  memory: Scalars['String']['input'];
+  memoryType: Scalars['String']['input'];
+  coreClock: Scalars['String']['input'];
+  interface: Scalars['String']['input'];
+  color: Scalars['String']['input'];
+  TDP: Scalars['String']['input'];
+  coolingFans: Scalars['String']['input'];
+  displayPortOutputs: Scalars['String']['input'];
+  HDMIOutputs: Scalars['String']['input'];
+}>;
+
+
+export type Create_Video_CardMutation = { __typename?: 'Mutation', createVideoCard?: boolean | null };
+
 export type CasesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -643,6 +668,11 @@ export type CpUsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type CpUsQuery = { __typename?: 'Query', CPUs: Array<{ __typename?: 'CPU', id: string, name: string, componentType: ComponentType, price: string, manufacturer: string, partNumber: string, series: string, microarchitecture: string, coreFamily: string, socket: string, coreCount: string, coreClock: string, tdp: string, integratedGraphics: string, cooler: boolean, packaging: PackagingType } | null> };
+
+export type MemorysQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MemorysQuery = { __typename?: 'Query', memorys: Array<{ __typename?: 'Memory', id: string, name: string, componentType: ComponentType, price: string, manufacturer: string, partNumber: string, speed: string, formFactor: string, modules: string, voltage: string, heatSpreader: boolean, color: string } | null> };
 
 
 export const Create_CaseDocument = gql`
@@ -781,6 +811,55 @@ export function useCreate_MemoryMutation(baseOptions?: Apollo.MutationHookOption
 export type Create_MemoryMutationHookResult = ReturnType<typeof useCreate_MemoryMutation>;
 export type Create_MemoryMutationResult = Apollo.MutationResult<Create_MemoryMutation>;
 export type Create_MemoryMutationOptions = Apollo.BaseMutationOptions<Create_MemoryMutation, Create_MemoryMutationVariables>;
+export const Create_Video_CardDocument = gql`
+    mutation CREATE_VIDEO_CARD($id: String!, $name: String!, $componentType: ComponentType!, $price: String!, $manufacturer: String!, $partNumber: String!, $model: String!, $chipset: String!, $memory: String!, $memoryType: String!, $coreClock: String!, $interface: String!, $color: String!, $TDP: String!, $coolingFans: String!, $displayPortOutputs: String!, $HDMIOutputs: String!) {
+  createVideoCard(
+    createVideoCardInput: {id: $id, name: $name, componentType: $componentType, price: $price, manufacturer: $manufacturer, partNumber: $partNumber, model: $model, chipset: $chipset, memory: $memory, memoryType: $memoryType, coreClock: $coreClock, interface: $interface, color: $color, TDP: $TDP, coolingFans: $coolingFans, displayPortOutputs: $displayPortOutputs, HDMIOutputs: $HDMIOutputs}
+  )
+}
+    `;
+export type Create_Video_CardMutationFn = Apollo.MutationFunction<Create_Video_CardMutation, Create_Video_CardMutationVariables>;
+
+/**
+ * __useCreate_Video_CardMutation__
+ *
+ * To run a mutation, you first call `useCreate_Video_CardMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreate_Video_CardMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createVideoCardMutation, { data, loading, error }] = useCreate_Video_CardMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      name: // value for 'name'
+ *      componentType: // value for 'componentType'
+ *      price: // value for 'price'
+ *      manufacturer: // value for 'manufacturer'
+ *      partNumber: // value for 'partNumber'
+ *      model: // value for 'model'
+ *      chipset: // value for 'chipset'
+ *      memory: // value for 'memory'
+ *      memoryType: // value for 'memoryType'
+ *      coreClock: // value for 'coreClock'
+ *      interface: // value for 'interface'
+ *      color: // value for 'color'
+ *      TDP: // value for 'TDP'
+ *      coolingFans: // value for 'coolingFans'
+ *      displayPortOutputs: // value for 'displayPortOutputs'
+ *      HDMIOutputs: // value for 'HDMIOutputs'
+ *   },
+ * });
+ */
+export function useCreate_Video_CardMutation(baseOptions?: Apollo.MutationHookOptions<Create_Video_CardMutation, Create_Video_CardMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Create_Video_CardMutation, Create_Video_CardMutationVariables>(Create_Video_CardDocument, options);
+      }
+export type Create_Video_CardMutationHookResult = ReturnType<typeof useCreate_Video_CardMutation>;
+export type Create_Video_CardMutationResult = Apollo.MutationResult<Create_Video_CardMutation>;
+export type Create_Video_CardMutationOptions = Apollo.BaseMutationOptions<Create_Video_CardMutation, Create_Video_CardMutationVariables>;
 export const CasesDocument = gql`
     query cases {
   cases {
@@ -885,3 +964,53 @@ export type CpUsQueryHookResult = ReturnType<typeof useCpUsQuery>;
 export type CpUsLazyQueryHookResult = ReturnType<typeof useCpUsLazyQuery>;
 export type CpUsSuspenseQueryHookResult = ReturnType<typeof useCpUsSuspenseQuery>;
 export type CpUsQueryResult = Apollo.QueryResult<CpUsQuery, CpUsQueryVariables>;
+export const MemorysDocument = gql`
+    query memorys {
+  memorys {
+    id
+    name
+    componentType
+    price
+    manufacturer
+    partNumber
+    speed
+    formFactor
+    modules
+    voltage
+    heatSpreader
+    color
+  }
+}
+    `;
+
+/**
+ * __useMemorysQuery__
+ *
+ * To run a query within a React component, call `useMemorysQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMemorysQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMemorysQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMemorysQuery(baseOptions?: Apollo.QueryHookOptions<MemorysQuery, MemorysQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MemorysQuery, MemorysQueryVariables>(MemorysDocument, options);
+      }
+export function useMemorysLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MemorysQuery, MemorysQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MemorysQuery, MemorysQueryVariables>(MemorysDocument, options);
+        }
+export function useMemorysSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<MemorysQuery, MemorysQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<MemorysQuery, MemorysQueryVariables>(MemorysDocument, options);
+        }
+export type MemorysQueryHookResult = ReturnType<typeof useMemorysQuery>;
+export type MemorysLazyQueryHookResult = ReturnType<typeof useMemorysLazyQuery>;
+export type MemorysSuspenseQueryHookResult = ReturnType<typeof useMemorysSuspenseQuery>;
+export type MemorysQueryResult = Apollo.QueryResult<MemorysQuery, MemorysQueryVariables>;

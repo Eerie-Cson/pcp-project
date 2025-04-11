@@ -9,6 +9,7 @@ import { useCreateCPU } from './useCpuMutation';
 import { useCpusQuery } from './useCpuQuery';
 import { useCreateMemory } from './useMemoryMutation';
 import { useMemorysQuery } from './useMemoryQuery';
+import { useCreateVideoCard } from './useVideoCardMutation';
 
 export const useAdminPcBuilder = () => {
   const [activeFilter, setActiveFilter] = useState<ComponentType>(
@@ -35,6 +36,7 @@ export const useAdminPcBuilder = () => {
   const { handleAddCase } = useCreateCase();
   const { handleAddCPU } = useCreateCPU();
   const { handleAddMemory } = useCreateMemory();
+  const { handleAddVideoCard } = useCreateVideoCard();
 
   const handleAddComponent = async (component: any) => {
     if (component.type === ComponentType.Case) {
@@ -45,6 +47,9 @@ export const useAdminPcBuilder = () => {
     }
     if (component.type === ComponentType.Memory) {
       await handleAddMemory(component);
+    }
+    if (component.type === ComponentType.VideoCard) {
+      await handleAddVideoCard(component);
     }
   };
 

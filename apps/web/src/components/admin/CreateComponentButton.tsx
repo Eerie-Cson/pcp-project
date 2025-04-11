@@ -51,11 +51,17 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
       { name: 'cooler', label: 'Cooler Included', inputType: 'checkbox' },
     ],
     [ComponentType.VideoCard]: [
-      { name: 'vram', label: 'VRAM (GB)' },
+      { name: 'memory', label: 'Memory (GB)' },
       { name: 'coreClock', label: 'Core Clock (MHz)' },
-      { name: 'boostClock', label: 'Boost Clock (MHz)' },
+      { name: 'memoryType', label: 'Memory Type' },
       { name: 'interface', label: 'Interface' },
-      { name: 'tdp', label: 'TDP (W)' },
+      { name: 'TDP', label: 'TDP (W)' },
+      { name: 'model', label: 'Model' },
+      { name: 'coolingFans', label: 'Cooling Fans' },
+      { name: 'color', label: 'Color' },
+      { name: 'chipset', label: 'Chipset' },
+      { name: 'displayPortOutputs', label: 'Display Port Outputs' },
+      { name: 'HDMIOutputs', label: 'HDMI Outputs' },
     ],
     [ComponentType.Motherboard]: [
       { name: 'socket', label: 'Socket' },
@@ -427,14 +433,16 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
                             {(spec.name.includes('Clock') ||
                               spec.name === 'capacity' ||
                               spec.name === 'wattage' ||
-                              spec.name === 'speed') && (
+                              spec.name === 'speed' ||
+                              spec.name === 'memory') && (
                               <div className="absolute right-3 bg-gray-100 px-2 py-1 rounded text-xs font-medium text-gray-600">
                                 {spec.name.includes('Clock') ||
                                 spec.name === 'speed'
                                   ? spec.label.includes('GHz')
                                     ? 'GHz'
                                     : 'MHz'
-                                  : spec.name === 'capacity'
+                                  : spec.name === 'capacity' ||
+                                      spec.name === 'memory'
                                     ? 'GB'
                                     : 'W'}
                               </div>
