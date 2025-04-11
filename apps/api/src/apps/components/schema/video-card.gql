@@ -60,8 +60,8 @@ input UpdateVideoCardInput {
 }
 
 type Query {
-  getVideoCards: [VideoCard]!
-  getVideoCard(id: ObjectId!): VideoCard
+  videoCards: [VideoCard]!
+  videoCard(id: String!): VideoCard
 }
 
 type Mutation {

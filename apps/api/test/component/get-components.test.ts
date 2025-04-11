@@ -1,5 +1,6 @@
 import { ObjectTypes } from '@pcp/object-id';
 import { ComponentType } from '@pcp/types';
+import { VideoCardRepository } from 'apps/api/src/features/component/repository/video-card.repository';
 import * as R from 'ramda';
 import { Tokens as ComponentToken } from '../../src/features/component/libs/tokens';
 import { CaseRepository } from '../../src/features/component/repository/case.repository';
@@ -207,6 +208,74 @@ describe('Components.Query', () => {
     expect(getMemorysResponse.body.data.memorys).toBeTruthy();
     expect(getMemorysResponse.body).not.toHaveProperty('errors');
     expect(getMemorysResponse.body.data.memorys).toHaveLength(3);
+
+    await teardown();
+  });
+
+  test('Get Video Card', async () => {
+    const { module, request, teardown } = await setupFixture();
+
+    const videoCardRepository = module.get<VideoCardRepository>(
+      ComponentToken.VideoCardRepository,
+    );
+
+    const videoCards = R.times(() => ({
+      ...generateComponent(ObjectTypes.VIDEO_CARD, ComponentType.VIDEO_CARD),
+      componentType: ComponentType.VIDEO_CARD,
+    }))(3);
+
+    await Promise.all(
+      videoCards.map((component) => videoCardRepository.create(component)),
+    );
+
+    const getVideoCardResponse = await request.post('/graphql').send({
+      query: `
+        query($id: String!) {
+          videoCard(id: $id) {
+            id
+            name
+            partNumber
+            componentType
+            price
+          }
+        }
+      `,
+      variables: {
+        id: videoCards[0].id.toString(),
+      },
+    });
+
+    const getVideoCardsResponse = await request.post('/graphql').send({
+      query: `
+        query {
+          videoCards {
+            id
+            name
+            partNumber
+            componentType
+            price
+          }
+        }
+      `,
+    });
+
+    await teardown();
+
+    expect(getVideoCardResponse.status).toEqual(200);
+    expect(getVideoCardResponse.body).not.toHaveProperty('errors');
+    expect(getVideoCardResponse.body.data.videoCard).toBeTruthy();
+    expect(getVideoCardResponse.body.data.videoCard).toMatchObject({
+      id: videoCards[0].id.toString(),
+      name: videoCards[0].name,
+      partNumber: videoCards[0].partNumber,
+      componentType: ComponentType.VIDEO_CARD,
+      price: videoCards[0].price,
+    });
+
+    expect(getVideoCardsResponse.status).toEqual(200);
+    expect(getVideoCardsResponse.body.data.videoCards).toBeTruthy();
+    expect(getVideoCardsResponse.body).not.toHaveProperty('errors');
+    expect(getVideoCardsResponse.body.data.videoCards).toHaveLength(3);
 
     await teardown();
   });
