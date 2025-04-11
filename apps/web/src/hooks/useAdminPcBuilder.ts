@@ -10,6 +10,7 @@ import { useCpusQuery } from './useCpuQuery';
 import { useCreateMemory } from './useMemoryMutation';
 import { useMemorysQuery } from './useMemoryQuery';
 import { useCreateVideoCard } from './useVideoCardMutation';
+import { useVideoCardsQuery } from './useVideoCardQuery';
 
 export const useAdminPcBuilder = () => {
   const [activeFilter, setActiveFilter] = useState<ComponentType>(
@@ -25,11 +26,13 @@ export const useAdminPcBuilder = () => {
   const { data: caseData } = useCasesQuery();
   const { data: cpuData } = useCpusQuery();
   const { data: memoryData } = useMemorysQuery();
+  const { data: videoCardData } = useVideoCardsQuery();
 
   const components: PcComponent<ComponentType>[] = [
     ...(caseData || []),
     ...(cpuData || []),
     ...(memoryData || []),
+    ...(videoCardData || []),
   ];
 
   //TODO: Move this to a separate hook and add a mapper
