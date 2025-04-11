@@ -189,7 +189,7 @@ describe('Components.Create', () => {
     expect(createdVideoCard).toMatchObject({
       id: videoCardComponent.id.toString(),
       name: videoCardComponent.name,
-      componentType: ComponentType.MEMORY,
+      componentType: ComponentType.VIDEO_CARD,
       price: videoCardComponent.price,
       manufacturer: videoCardComponent.manufacturer,
       partNumber: videoCardComponent.partNumber,

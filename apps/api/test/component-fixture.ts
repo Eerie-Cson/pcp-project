@@ -1,9 +1,9 @@
+import { ConfigService } from '@nestjs/config';
 import { Test } from '@nestjs/testing';
 import { getRandomPort } from 'get-port-please';
 import { MongoMemoryReplSet } from 'mongodb-memory-server';
-import { ComponentsModule } from '../src/apps/components/components.module';
-import { ConfigService } from '@nestjs/config';
 import supertest from 'supertest';
+import { ComponentsModule } from '../src/apps/components/components.module';
 
 export async function setupFixture(opts?: {
   mocks?: [
@@ -33,7 +33,7 @@ export async function setupFixture(opts?: {
     .overrideProvider(ConfigService)
     .useValue(
       new ConfigService({
-        COMPONENT_URI: mongo.getUri('COMPONENT_URI'),
+        COMPONENTS_URI: mongo.getUri('COMPONENTS_URI'),
       }),
     );
 
