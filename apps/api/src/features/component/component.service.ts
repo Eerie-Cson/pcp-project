@@ -92,7 +92,7 @@ export class ComponentService {
     return this.cpuRepository.find(params);
   }
 
-  async findCpus(params: Partial<Case>) {
+  async findCpus(params: Partial<Cpu>) {
     return this.cpuRepository.list(params);
   }
 
@@ -124,7 +124,7 @@ export class ComponentService {
     return this.memoryRepository.find(params);
   }
 
-  async findMemorys(params: Partial<Case>) {
+  async findMemorys(params: Partial<Memory>) {
     return this.memoryRepository.list(params);
   }
 
@@ -232,5 +232,8 @@ export class ComponentService {
 
   async findVideoCard(params: Partial<VideoCard>) {
     return this.videoCardRepository.find(params);
+  }
+  async findVideoCards(params: Partial<VideoCard>) {
+    return this.videoCardRepository.list(params);
   }
 }

@@ -20,4 +20,18 @@ export class VideoCardResolver {
 
     return true;
   }
+
+  @Query('videoCard')
+  async getVideoCard(@Args('id') id: string) {
+    const videoCard = await this.componentService.findVideoCard({
+      id: ObjectId.from(id),
+    });
+
+    return videoCard;
+  }
+
+  @Query('videoCards')
+  async getVideoCards() {
+    return this.componentService.findVideoCards({});
+  }
 }
