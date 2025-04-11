@@ -1,6 +1,6 @@
-import { Connection, Schema } from 'mongoose';
 import { MongooseRepository, Repository } from '@pcp/repository';
 import { VideoCard } from '@pcp/types';
+import { Connection, Schema } from 'mongoose';
 
 export type VideoCardRepository = Repository<VideoCard>;
 
@@ -25,6 +25,10 @@ export function VideoCardRepositoryFactory(connection: Connection) {
       required: true,
     },
     partNumber: {
+      type: String,
+      required: true,
+    },
+    componentType: {
       type: String,
       required: true,
     },

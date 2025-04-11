@@ -349,11 +349,12 @@ export interface UpdateStorageInput {
 }
 
 export interface CreateVideoCardInput {
-    id: ObjectId;
+    id: string;
     name: string;
     price: string;
     manufacturer: string;
     partNumber: string;
+    componentType: ComponentType;
     model: string;
     chipset: string;
     memory: string;
@@ -580,11 +581,12 @@ export interface Storage {
 }
 
 export interface VideoCard {
-    id: ObjectId;
+    id: string;
     name: string;
     price: string;
     manufacturer: string;
     partNumber: string;
+    componentType: ComponentType;
     model: string;
     chipset: string;
     memory: string;
