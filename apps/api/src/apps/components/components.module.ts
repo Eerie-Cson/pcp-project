@@ -1,15 +1,16 @@
-import { Module } from '@nestjs/common';
-import { CaseResolver } from './resolvers/case.resolver';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { MongooseModule } from '@nestjs/mongoose';
-import { ComponentModule } from '../../features/component/component.module';
-import { GraphQLModule as NestGraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { GraphQLModule as NestGraphQLModule } from '@nestjs/graphql';
+import { MongooseModule } from '@nestjs/mongoose';
+import { constraintDirectiveTypeDefs } from 'graphql-constraint-directive';
 import { DateResolver } from 'graphql-scalars';
 import path from 'path';
-import { constraintDirectiveTypeDefs } from 'graphql-constraint-directive';
+import { ComponentModule } from '../../features/component/component.module';
+import { CaseResolver } from './resolvers/case.resolver';
 import { CpuResolver } from './resolvers/cpu.resolver';
 import { MemoryResolver } from './resolvers/memory.resolver';
+import { VideoCardResolver } from './resolvers/video-card.resolver';
 
 @Module({
   imports: [
@@ -28,7 +29,10 @@ import { MemoryResolver } from './resolvers/memory.resolver';
           csrfPrevention: false,
           playground: true,
           introspection: true,
-          typePaths: [path.resolve(__dirname, './schema/components/schema/*.gql')],
+          typePaths: [
+            path.resolve(__dirname, './schema/components/schema/*.gql'),
+            path.resolve(__dirname, './schema/*.gql'),
+          ],
           resolvers: {
             Date: DateResolver,
           },
@@ -64,6 +68,6 @@ import { MemoryResolver } from './resolvers/memory.resolver';
     }),
     ComponentModule,
   ],
-  providers: [CaseResolver, CpuResolver, MemoryResolver],
+  providers: [CaseResolver, CpuResolver, MemoryResolver, VideoCardResolver],
 })
 export class ComponentsModule {}

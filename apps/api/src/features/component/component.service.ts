@@ -206,8 +206,10 @@ export class ComponentService {
     return this.storageRepository.find(params);
   }
 
-  async createVideoCard(data: VideoCard) {
-    return this.videoCardRepository.create(data);
+  async createVideoCard(data: Component) {
+    if (data.componentType === ComponentType.VIDEO_CARD) {
+      return this.videoCardRepository.create(data);
+    }
   }
 
   async updateVideoCard(params: {
