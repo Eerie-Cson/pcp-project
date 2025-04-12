@@ -1,6 +1,6 @@
 import { ObjectId, ObjectTypes } from '@pcp/object-id';
 import { Case, Component, ComponentType } from '@pcp/types';
-import { Tokens as ComponentToken } from '../../../..//src/features/component/libs/tokens';
+import { Tokens as ComponentToken } from '../../../../src/features/component/libs/tokens';
 import { CaseRepository } from '../../../../src/features/component/repository/case.repository';
 import { generateComponent } from '../../../helpers/generate-component';
 import { setupFixture } from '../../component-fixture';

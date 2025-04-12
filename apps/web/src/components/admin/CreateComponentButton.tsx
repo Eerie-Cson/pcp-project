@@ -76,13 +76,6 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
         options: ['DDR3', 'DDR4', 'DDR5'],
       },
       { name: 'color', label: 'Color' },
-      // socket: component.specs.socket,
-      // formFactor: component.specs.formFactor,
-      // chipset: component.specs.chipset,
-      // memoryMax: component.specs.memoryMax,
-      // memoryType: component.specs.memoryType,
-      // memorySlots: component.specs.memorySlots,
-      // color: component.specs.color,
     ],
     [ComponentType.Memory]: [
       { name: 'formFactor', label: 'Form Factor' },

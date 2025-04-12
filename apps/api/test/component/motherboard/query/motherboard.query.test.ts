@@ -42,8 +42,6 @@ describe('Component.Query', () => {
 
     await teardown();
 
-    console.log(getMotherboardResponse.text);
-
     expect(getMotherboardResponse.status).toEqual(200);
     expect(getMotherboardResponse.body).not.toHaveProperty('errors');
     expect(getMotherboardResponse.body.data.motherboard).toBeTruthy();
