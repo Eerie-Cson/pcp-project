@@ -1,4 +1,4 @@
-import { GET_VIDEO_CARDS } from '../graphql/component/query/get-components.mutation';
+import { GET_VIDEO_CARDS } from '../graphql/component/query/video-card/video-cards.query';
 import { ComponentType, VideoCard } from '../libs/graphql-types/component';
 import { PcComponent } from '../libs/types/components';
 import { UseComponentQueryReturnType } from '../libs/types/queryHooks';

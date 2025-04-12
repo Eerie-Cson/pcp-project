@@ -1,4 +1,4 @@
-import { GET_MEMORYS } from '../graphql/component/query/cases/cases.query';
+import { GET_MEMORYS } from '../graphql/component/query/memory/memorys.query';
 import { ComponentType, Memory } from '../libs/graphql-types/component';
 import { PcComponent } from '../libs/types/components';
 import { UseComponentQueryReturnType } from '../libs/types/queryHooks';

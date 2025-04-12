@@ -1,5 +1,5 @@
 import { ObjectId, ObjectTypes } from '@pcp/object-id';
-import { CREATE_CPU } from '../graphql/component/mutation/case/create-case.mutation';
+import { CREATE_CPU } from '../graphql/component/mutation/cpu/create-cpu.mutation';
 import { ComponentType, Cpu } from '../libs/graphql-types/component';
 import { PcComponent } from '../libs/types/components';
 import { useCreateComponent } from './useComponentMutation';

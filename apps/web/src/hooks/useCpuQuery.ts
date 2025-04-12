@@ -1,4 +1,4 @@
-import { GET_CPUS } from '../graphql/component/query/cases/cases.query';
+import { GET_CPUS } from '../graphql/component/query/cpu/cpus.query';
 import { ComponentType, Cpu } from '../libs/graphql-types/component';
 import { toPascalCase } from '../libs/toPascalCase';
 import { PcComponent } from '../libs/types/components';

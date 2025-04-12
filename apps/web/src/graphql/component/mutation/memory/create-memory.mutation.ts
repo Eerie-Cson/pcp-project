@@ -1,3 +1,5 @@
+import { gql } from '@apollo/client';
+
 export const CREATE_MEMORY = gql`
   mutation CREATE_MEMORY(
     $id: String!
