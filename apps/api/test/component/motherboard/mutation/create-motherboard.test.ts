@@ -37,8 +37,6 @@ describe('Component.Create', () => {
     );
 
     await teardown();
-    console.log(response.text);
-    console.log(createdmotherBoard);
 
     expect(response.status).toBe(200);
     expect(response.body).not.toHaveProperty('errors');
