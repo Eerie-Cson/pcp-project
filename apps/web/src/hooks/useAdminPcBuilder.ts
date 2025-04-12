@@ -10,6 +10,7 @@ import { useCpusQuery } from './useCpuQuery';
 import { useCreateMemory } from './useMemoryMutation';
 import { useMemorysQuery } from './useMemoryQuery';
 import { useCreateMotherboard } from './useMotherboardMutation';
+import { useMotherboardsQuery } from './useMotherboardQuery';
 import { useCreateVideoCard } from './useVideoCardMutation';
 import { useVideoCardsQuery } from './useVideoCardQuery';
 
@@ -28,8 +29,10 @@ export const useAdminPcBuilder = () => {
   const { data: cpuData } = useCpusQuery();
   const { data: memoryData } = useMemorysQuery();
   const { data: videoCardData } = useVideoCardsQuery();
+  const { data: motherboardData } = useMotherboardsQuery();
 
   const components: PcComponent<ComponentType>[] = [
+    ...(motherboardData || []),
     ...(caseData || []),
     ...(cpuData || []),
     ...(memoryData || []),
