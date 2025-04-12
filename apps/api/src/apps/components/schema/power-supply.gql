@@ -48,8 +48,8 @@ input UpdatePowerSupplyInput {
 }
 
 type Query {
-  getPowerSupplys: [PowerSupply]!
-  getPowerSupply(id: ObjectId!): PowerSupply
+  powerSupplies: [PowerSupply]!
+  powerSupply(id: String!): PowerSupply
 }
 
 type Mutation {
