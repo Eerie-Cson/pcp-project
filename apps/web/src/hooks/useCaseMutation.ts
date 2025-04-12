@@ -1,8 +1,8 @@
 import { ObjectId, ObjectTypes } from '@pcp/object-id';
+import { CREATE_CASE } from '../graphql/component/mutation/case/create-case.mutation';
 import { Case, ComponentType } from '../libs/graphql-types/component';
-import { useCreateComponent } from './useComponentMutation';
 import { PcComponent } from '../libs/types/components';
-import { CREATE_CASE } from '../graphql/component/mutation/create-component.mutation';
+import { useCreateComponent } from './useComponentMutation';
 
 export function useCreateCase() {
   const { createComponent, loading, error } =

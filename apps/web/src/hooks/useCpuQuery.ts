@@ -1,9 +1,9 @@
-import { GET_CPUS } from '../graphql/component/query/get-components.mutation';
+import { GET_CPUS } from '../graphql/component/query/cases/cases.query';
 import { ComponentType, Cpu } from '../libs/graphql-types/component';
-import { PcComponent } from '../libs/types/components';
-import { useComponentQuery } from './useComponentQuery';
-import { UseComponentQueryReturnType } from '../libs/types/queryHooks';
 import { toPascalCase } from '../libs/toPascalCase';
+import { PcComponent } from '../libs/types/components';
+import { UseComponentQueryReturnType } from '../libs/types/queryHooks';
+import { useComponentQuery } from './useComponentQuery';
 
 export function useCpusQuery(): UseComponentQueryReturnType<
   PcComponent<ComponentType.Cpu>

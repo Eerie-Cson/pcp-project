@@ -1,8 +1,8 @@
 import { ObjectId, ObjectTypes } from '@pcp/object-id';
+import { CREATE_CPU } from '../graphql/component/mutation/case/create-case.mutation';
 import { ComponentType, Cpu } from '../libs/graphql-types/component';
-import { useCreateComponent } from './useComponentMutation';
 import { PcComponent } from '../libs/types/components';
-import { CREATE_CPU } from '../graphql/component/mutation/create-component.mutation';
+import { useCreateComponent } from './useComponentMutation';
 
 export function useCreateCPU() {
   const { createComponent, loading, error } =

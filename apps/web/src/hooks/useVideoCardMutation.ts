@@ -1,5 +1,5 @@
 import { ObjectId, ObjectTypes } from '@pcp/object-id';
-import { CREATE_VIDEO_CARD } from '../graphql/component/mutation/create-component.mutation';
+import { CREATE_VIDEO_CARD } from '../graphql/component/mutation/case/create-case.mutation';
 import { ComponentType, VideoCard } from '../libs/graphql-types/component';
 import { PcComponent } from '../libs/types/components';
 import { useCreateComponent } from './useComponentMutation';
