@@ -297,11 +297,12 @@ export interface UpdateMotherboardInput {
 }
 
 export interface CreatePowerSupplyInput {
-    id: ObjectId;
+    id: string;
     name: string;
     price: string;
     manufacturer: string;
     partNumber: string;
+    componentType: ComponentType;
     model: string;
     type: string;
     wattage: string;
@@ -412,8 +413,8 @@ export interface IQuery {
     CPU(id: string): Nullable<CPU> | Promise<Nullable<CPU>>;
     memorys(): Nullable<Memory>[] | Promise<Nullable<Memory>[]>;
     memory(id: string): Nullable<Memory> | Promise<Nullable<Memory>>;
-    getMotherboards(): Nullable<Motherboard>[] | Promise<Nullable<Motherboard>[]>;
-    getMotherboard(id: ObjectId): Nullable<Motherboard> | Promise<Nullable<Motherboard>>;
+    motherboards(): Nullable<Motherboard>[] | Promise<Nullable<Motherboard>[]>;
+    motherboard(id: string): Nullable<Motherboard> | Promise<Nullable<Motherboard>>;
     getPowerSupplys(): Nullable<PowerSupply>[] | Promise<Nullable<PowerSupply>[]>;
     getPowerSupply(id: ObjectId): Nullable<PowerSupply> | Promise<Nullable<PowerSupply>>;
     getStorages(): Nullable<Storage>[] | Promise<Nullable<Storage>[]>;
@@ -556,11 +557,12 @@ export interface Motherboard {
 }
 
 export interface PowerSupply {
-    id: ObjectId;
+    id: string;
     name: string;
     price: string;
     manufacturer: string;
     partNumber: string;
+    componentType: ComponentType;
     model: string;
     type: string;
     wattage: string;

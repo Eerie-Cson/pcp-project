@@ -1,6 +1,6 @@
-import { Connection, Schema } from 'mongoose';
 import { MongooseRepository, Repository } from '@pcp/repository';
-import { PowerSupply } from '@pcp/types';
+import { ComponentType, PowerSupply } from '@pcp/types';
+import { Connection, Schema } from 'mongoose';
 
 export type PowerSupplyRepository = Repository<PowerSupply>;
 
@@ -25,6 +25,10 @@ export function PowerSupplyRepositoryFactory(connection: Connection) {
       required: true,
     },
     partNumber: {
+      type: String,
+      required: true,
+    },
+    componentType: {
       type: String,
       required: true,
     },

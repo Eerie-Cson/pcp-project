@@ -160,8 +160,10 @@ export class ComponentService {
     return this.motherboardRepository.list(params);
   }
 
-  async createPowerSupply(data: PowerSupply) {
-    return this.powerSupplyRepository.create(data);
+  async createPowerSupply(data: Component) {
+    if (data.componentType === ComponentType.POWER_SUPPLY) {
+      return this.powerSupplyRepository.create(data);
+    }
   }
 
   async updatePowerSupply(params: {
