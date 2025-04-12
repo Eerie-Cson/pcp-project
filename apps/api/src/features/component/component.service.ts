@@ -156,6 +156,10 @@ export class ComponentService {
     return this.motherboardRepository.find(params);
   }
 
+  async findMotherboards(params: Partial<Motherboard>) {
+    return this.motherboardRepository.list(params);
+  }
+
   async createPowerSupply(data: PowerSupply) {
     return this.powerSupplyRepository.create(data);
   }
