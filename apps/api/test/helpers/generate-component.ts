@@ -1,16 +1,16 @@
 import {
-  Component,
-  SidePanelType,
-  MemoryType,
   CaseType,
-  PackagingType,
-  StorageType,
+  Component,
   ComponentType,
+  MemoryType,
+  PackagingType,
+  SidePanelType,
+  StorageType,
 } from '@pcp/types';
 
-import { ObjectId } from '@pcp/object-id';
-import { ObjectTypes } from '@pcp/object-id';
 import { faker } from '@faker-js/faker';
+import { ObjectId, ObjectTypes } from '@pcp/object-id';
+import * as R from 'ramda';
 
 type ComponentWithType<T extends ComponentType> = Extract<
   Component,
@@ -88,14 +88,24 @@ const componentFactories: Record<ComponentType, () => Partial<Component>> = {
 
 export function generateComponent<T extends ComponentType>(
   objectType: ObjectTypes,
-  componentType: T,
-): ComponentWithType<T> {
+) {
+  const componentType = Object.keys(ObjectTypes).find(
+    (key) => ObjectTypes[key] === objectType,
+  );
+
+  const componentFixture = () =>
+    ({
+      id: ObjectId.generate(objectType),
+      name: faker.commerce.productName(),
+      price: faker.commerce.price(),
+      manufacturer: faker.company.name(),
+      partNumber: faker.string.alphanumeric(7).toUpperCase(),
+      componentType,
+      ...componentFactories[componentType](),
+    }) as ComponentWithType<T>;
+
   return {
-    id: ObjectId.generate(objectType),
-    name: faker.commerce.productName(),
-    price: faker.commerce.price(),
-    manufacturer: faker.company.name(),
-    partNumber: faker.string.alphanumeric(7).toUpperCase(),
-    ...componentFactories[componentType](),
-  } as ComponentWithType<T>;
+    component: componentFixture(),
+    componentTimes: R.times(componentFixture),
+  };
 }

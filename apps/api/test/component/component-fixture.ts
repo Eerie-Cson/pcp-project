@@ -3,7 +3,7 @@ import { Test } from '@nestjs/testing';
 import { getRandomPort } from 'get-port-please';
 import { MongoMemoryReplSet } from 'mongodb-memory-server';
 import supertest from 'supertest';
-import { ComponentsModule } from '../src/apps/components/components.module';
+import { ComponentsModule } from '../../src/apps/components/components.module';
 
 export async function setupFixture(opts?: {
   mocks?: [

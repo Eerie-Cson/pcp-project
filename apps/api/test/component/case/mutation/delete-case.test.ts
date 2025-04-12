@@ -1,12 +1,11 @@
-import { setupFixture } from '../component-fixture';
-import { CaseRepository } from '../../src/features/component/repository/case.repository';
-import { Tokens as ComponentToken } from '../../src/features/component/libs/tokens';
-import { generateComponent } from '../helpers/generate-component';
-import { ObjectTypes } from '@pcp/object-type';
-import { Case, ComponentType } from '@pcp/types';
-import { ObjectId } from '@pcp/object-id';
+import { ObjectId, ObjectTypes } from '@pcp/object-id';
+import { Case, Component, ComponentType } from '@pcp/types';
+import { Tokens as ComponentToken } from '../../../..//src/features/component/libs/tokens';
+import { CaseRepository } from '../../../../src/features/component/repository/case.repository';
+import { generateComponent } from '../../../helpers/generate-component';
+import { setupFixture } from '../../component-fixture';
 
-describe('Components.Delete', () => {
+describe('Component.Delete', () => {
   test('Delete Case', async () => {
     const { module, request, teardown } = await setupFixture();
 
@@ -14,9 +13,8 @@ describe('Components.Delete', () => {
       ComponentToken.CaseRepository,
     );
 
-    const caseComponent = generateComponent(
+    const { component: caseComponent } = generateComponent<ComponentType.CASE>(
       ObjectTypes.CASE,
-      ComponentType.CASE,
     );
 
     await caseRepository.create(caseComponent);
