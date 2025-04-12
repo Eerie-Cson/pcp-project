@@ -1,16 +1,18 @@
 enum MemoryType {
+  DDR3
   DDR4
   DDR5
 }
 
 type Motherboard {
   # image: String
-  id: ObjectId!
+  id: String!
   name: String!
   price: String!
   manufacturer: String!
   partNumber: String!
-  
+  componentType: ComponentType!
+
   socket: String!
   formFactor: String!
   chipset: String!
@@ -21,11 +23,13 @@ type Motherboard {
 }
 
 input CreateMotherboardInput {
-  id: ObjectId!
+  id: String!
   name: String!
   price: String!
   manufacturer: String!
   partNumber: String!
+  componentType: ComponentType!
+
   socket: String!
   formFactor: String!
   chipset: String!
@@ -56,6 +60,9 @@ type Query {
 
 type Mutation {
   createMotherboard(createMotherboardInput: CreateMotherboardInput!): Boolean
-  updateMotherboard(id: ObjectId!, updateMotherboardInput: UpdateMotherboardInput!): Boolean
+  updateMotherboard(
+    id: ObjectId!
+    updateMotherboardInput: UpdateMotherboardInput!
+  ): Boolean
   deleteMotherboard(id: ObjectId!): Boolean
 }

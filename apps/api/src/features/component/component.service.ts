@@ -128,8 +128,10 @@ export class ComponentService {
     return this.memoryRepository.list(params);
   }
 
-  async createMotherboard(data: Motherboard) {
-    return this.motherboardRepository.create(data);
+  async createMotherboard(data: Component) {
+    if (data.componentType === ComponentType.MOTHERBOARD) {
+      return this.motherboardRepository.create(data);
+    }
   }
 
   async updateMotherboard(params: {
