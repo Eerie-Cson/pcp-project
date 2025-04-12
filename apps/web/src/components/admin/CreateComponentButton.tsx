@@ -93,8 +93,12 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
     ],
     [ComponentType.PowerSupply]: [
       { name: 'wattage', label: 'Wattage' },
-      { name: 'efficiency', label: 'Efficiency Rating' },
-      { name: 'modular', label: 'Modular Type' },
+      { name: 'model', label: 'Model' },
+      { name: 'type', label: 'Type' },
+      { name: 'color', label: 'Color' },
+      { name: 'SATAConnectors', label: 'SATA Connectors' },
+      { name: 'length', label: 'Length' },
+      { name: 'fanless', label: 'Fanless', inputType: 'checkbox' },
     ],
     [ComponentType.Case]: [
       {
