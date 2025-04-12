@@ -50,7 +50,7 @@ export function PowerSupplyRepositoryFactory(connection: Connection) {
       required: true,
     },
     fanless: {
-      type: String,
+      type: Boolean,
       required: true,
     },
     SATAConnectors: {
