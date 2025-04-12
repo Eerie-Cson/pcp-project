@@ -10,6 +10,7 @@ import { ComponentModule } from '../../features/component/component.module';
 import { CaseResolver } from './resolvers/case.resolver';
 import { CpuResolver } from './resolvers/cpu.resolver';
 import { MemoryResolver } from './resolvers/memory.resolver';
+import { MotherboardResolver } from './resolvers/motherboard.resolver';
 import { VideoCardResolver } from './resolvers/video-card.resolver';
 
 @Module({
@@ -68,6 +69,12 @@ import { VideoCardResolver } from './resolvers/video-card.resolver';
     }),
     ComponentModule,
   ],
-  providers: [CaseResolver, CpuResolver, MemoryResolver, VideoCardResolver],
+  providers: [
+    CaseResolver,
+    CpuResolver,
+    MemoryResolver,
+    VideoCardResolver,
+    MotherboardResolver,
+  ],
 })
 export class ComponentsModule {}

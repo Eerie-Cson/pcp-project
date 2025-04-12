@@ -1,6 +1,6 @@
-import { Connection, Schema } from 'mongoose';
 import { MongooseRepository, Repository } from '@pcp/repository';
 import { Motherboard } from '@pcp/types';
+import { Connection, Schema } from 'mongoose';
 
 export type MotherboardRepository = Repository<Motherboard>;
 
@@ -25,6 +25,10 @@ export function MotherboardRepositoryFactory(connection: Connection) {
       required: true,
     },
     partNumber: {
+      type: String,
+      required: true,
+    },
+    componentType: {
       type: String,
       required: true,
     },

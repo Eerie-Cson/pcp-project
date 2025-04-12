@@ -48,6 +48,7 @@ export enum PackagingType {
 }
 
 export enum MemoryType {
+    DDR3 = "DDR3",
     DDR4 = "DDR4",
     DDR5 = "DDR5"
 }
@@ -266,11 +267,12 @@ export interface UpdateMemoryInput {
 }
 
 export interface CreateMotherboardInput {
-    id: ObjectId;
+    id: string;
     name: string;
     price: string;
     manufacturer: string;
     partNumber: string;
+    componentType: ComponentType;
     socket: string;
     formFactor: string;
     chipset: string;
@@ -416,8 +418,8 @@ export interface IQuery {
     getPowerSupply(id: ObjectId): Nullable<PowerSupply> | Promise<Nullable<PowerSupply>>;
     getStorages(): Nullable<Storage>[] | Promise<Nullable<Storage>[]>;
     getStorage(id: ObjectId): Nullable<Storage> | Promise<Nullable<Storage>>;
-    getVideoCards(): Nullable<VideoCard>[] | Promise<Nullable<VideoCard>[]>;
-    getVideoCard(id: ObjectId): Nullable<VideoCard> | Promise<Nullable<VideoCard>>;
+    videoCards(): Nullable<VideoCard>[] | Promise<Nullable<VideoCard>[]>;
+    videoCard(id: string): Nullable<VideoCard> | Promise<Nullable<VideoCard>>;
 }
 
 export interface IMutation {
@@ -538,11 +540,12 @@ export interface Memory {
 }
 
 export interface Motherboard {
-    id: ObjectId;
+    id: string;
     name: string;
     price: string;
     manufacturer: string;
     partNumber: string;
+    componentType: ComponentType;
     socket: string;
     formFactor: string;
     chipset: string;
