@@ -141,8 +141,9 @@ export type CreateMotherboardInput = {
 export type CreatePowerSupplyInput = {
   SATAConnectors: Scalars['String']['input'];
   color: Scalars['String']['input'];
+  componentType: ComponentType;
   fanless: Scalars['Boolean']['input'];
-  id: Scalars['ObjectId']['input'];
+  id: Scalars['String']['input'];
   length: Scalars['String']['input'];
   manufacturer: Scalars['String']['input'];
   model: Scalars['String']['input'];
@@ -370,8 +371,9 @@ export type PowerSupply = {
   __typename?: 'PowerSupply';
   SATAConnectors: Scalars['String']['output'];
   color: Scalars['String']['output'];
+  componentType: ComponentType;
   fanless: Scalars['Boolean']['output'];
-  id: Scalars['ObjectId']['output'];
+  id: Scalars['String']['output'];
   length: Scalars['String']['output'];
   manufacturer: Scalars['String']['output'];
   model: Scalars['String']['output'];
@@ -388,14 +390,14 @@ export type Query = {
   CPUs: Array<Maybe<Cpu>>;
   case?: Maybe<Case>;
   cases: Array<Maybe<Case>>;
-  getMotherboard?: Maybe<Motherboard>;
-  getMotherboards: Array<Maybe<Motherboard>>;
   getPowerSupply?: Maybe<PowerSupply>;
   getPowerSupplys: Array<Maybe<PowerSupply>>;
   getStorage?: Maybe<Storage>;
   getStorages: Array<Maybe<Storage>>;
   memory?: Maybe<Memory>;
   memorys: Array<Maybe<Memory>>;
+  motherboard?: Maybe<Motherboard>;
+  motherboards: Array<Maybe<Motherboard>>;
   videoCard?: Maybe<VideoCard>;
   videoCards: Array<Maybe<VideoCard>>;
 };
@@ -411,11 +413,6 @@ export type QueryCaseArgs = {
 };
 
 
-export type QueryGetMotherboardArgs = {
-  id: Scalars['ObjectId']['input'];
-};
-
-
 export type QueryGetPowerSupplyArgs = {
   id: Scalars['ObjectId']['input'];
 };
@@ -427,6 +424,11 @@ export type QueryGetStorageArgs = {
 
 
 export type QueryMemoryArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryMotherboardArgs = {
   id: Scalars['String']['input'];
 };
 
@@ -658,6 +660,25 @@ export type Create_MotherboardMutationVariables = Exact<{
 
 export type Create_MotherboardMutation = { __typename?: 'Mutation', createMotherboard?: boolean | null };
 
+export type Create_Power_SupplyMutationVariables = Exact<{
+  id: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  componentType: ComponentType;
+  price: Scalars['String']['input'];
+  manufacturer: Scalars['String']['input'];
+  partNumber: Scalars['String']['input'];
+  model: Scalars['String']['input'];
+  type: Scalars['String']['input'];
+  wattage: Scalars['String']['input'];
+  color: Scalars['String']['input'];
+  fanless: Scalars['Boolean']['input'];
+  SATAConnectors: Scalars['String']['input'];
+  length: Scalars['String']['input'];
+}>;
+
+
+export type Create_Power_SupplyMutation = { __typename?: 'Mutation', createPowerSupply?: boolean | null };
+
 export type Create_Video_CardMutationVariables = Exact<{
   id: Scalars['String']['input'];
   name: Scalars['String']['input'];
@@ -695,6 +716,11 @@ export type MemorysQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type MemorysQuery = { __typename?: 'Query', memorys: Array<{ __typename?: 'Memory', id: string, name: string, componentType: ComponentType, price: string, manufacturer: string, partNumber: string, speed: string, formFactor: string, modules: string, voltage: string, heatSpreader: boolean, color: string } | null> };
+
+export type MotherboardsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MotherboardsQuery = { __typename?: 'Query', motherboards: Array<{ __typename?: 'Motherboard', id: string, name: string, componentType: ComponentType, price: string, manufacturer: string, partNumber: string, socket: string, formFactor: string, chipset: string, memoryMax: string, memoryType: MemoryType, memorySlots: string, color: string } | null> };
 
 export type VideoCardsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -883,6 +909,51 @@ export function useCreate_MotherboardMutation(baseOptions?: Apollo.MutationHookO
 export type Create_MotherboardMutationHookResult = ReturnType<typeof useCreate_MotherboardMutation>;
 export type Create_MotherboardMutationResult = Apollo.MutationResult<Create_MotherboardMutation>;
 export type Create_MotherboardMutationOptions = Apollo.BaseMutationOptions<Create_MotherboardMutation, Create_MotherboardMutationVariables>;
+export const Create_Power_SupplyDocument = gql`
+    mutation CREATE_POWER_SUPPLY($id: String!, $name: String!, $componentType: ComponentType!, $price: String!, $manufacturer: String!, $partNumber: String!, $model: String!, $type: String!, $wattage: String!, $color: String!, $fanless: Boolean!, $SATAConnectors: String!, $length: String!) {
+  createPowerSupply(
+    createPowerSupplyInput: {id: $id, name: $name, componentType: $componentType, price: $price, manufacturer: $manufacturer, partNumber: $partNumber, model: $model, type: $type, wattage: $wattage, color: $color, fanless: $fanless, SATAConnectors: $SATAConnectors, length: $length}
+  )
+}
+    `;
+export type Create_Power_SupplyMutationFn = Apollo.MutationFunction<Create_Power_SupplyMutation, Create_Power_SupplyMutationVariables>;
+
+/**
+ * __useCreate_Power_SupplyMutation__
+ *
+ * To run a mutation, you first call `useCreate_Power_SupplyMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreate_Power_SupplyMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPowerSupplyMutation, { data, loading, error }] = useCreate_Power_SupplyMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      name: // value for 'name'
+ *      componentType: // value for 'componentType'
+ *      price: // value for 'price'
+ *      manufacturer: // value for 'manufacturer'
+ *      partNumber: // value for 'partNumber'
+ *      model: // value for 'model'
+ *      type: // value for 'type'
+ *      wattage: // value for 'wattage'
+ *      color: // value for 'color'
+ *      fanless: // value for 'fanless'
+ *      SATAConnectors: // value for 'SATAConnectors'
+ *      length: // value for 'length'
+ *   },
+ * });
+ */
+export function useCreate_Power_SupplyMutation(baseOptions?: Apollo.MutationHookOptions<Create_Power_SupplyMutation, Create_Power_SupplyMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Create_Power_SupplyMutation, Create_Power_SupplyMutationVariables>(Create_Power_SupplyDocument, options);
+      }
+export type Create_Power_SupplyMutationHookResult = ReturnType<typeof useCreate_Power_SupplyMutation>;
+export type Create_Power_SupplyMutationResult = Apollo.MutationResult<Create_Power_SupplyMutation>;
+export type Create_Power_SupplyMutationOptions = Apollo.BaseMutationOptions<Create_Power_SupplyMutation, Create_Power_SupplyMutationVariables>;
 export const Create_Video_CardDocument = gql`
     mutation CREATE_VIDEO_CARD($id: String!, $name: String!, $componentType: ComponentType!, $price: String!, $manufacturer: String!, $partNumber: String!, $model: String!, $chipset: String!, $memory: String!, $memoryType: String!, $coreClock: String!, $interface: String!, $color: String!, $TDP: String!, $coolingFans: String!, $displayPortOutputs: String!, $HDMIOutputs: String!) {
   createVideoCard(
@@ -1086,6 +1157,57 @@ export type MemorysQueryHookResult = ReturnType<typeof useMemorysQuery>;
 export type MemorysLazyQueryHookResult = ReturnType<typeof useMemorysLazyQuery>;
 export type MemorysSuspenseQueryHookResult = ReturnType<typeof useMemorysSuspenseQuery>;
 export type MemorysQueryResult = Apollo.QueryResult<MemorysQuery, MemorysQueryVariables>;
+export const MotherboardsDocument = gql`
+    query motherboards {
+  motherboards {
+    id
+    name
+    componentType
+    price
+    manufacturer
+    partNumber
+    socket
+    formFactor
+    chipset
+    memoryMax
+    memoryType
+    memorySlots
+    color
+  }
+}
+    `;
+
+/**
+ * __useMotherboardsQuery__
+ *
+ * To run a query within a React component, call `useMotherboardsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMotherboardsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMotherboardsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMotherboardsQuery(baseOptions?: Apollo.QueryHookOptions<MotherboardsQuery, MotherboardsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MotherboardsQuery, MotherboardsQueryVariables>(MotherboardsDocument, options);
+      }
+export function useMotherboardsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MotherboardsQuery, MotherboardsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MotherboardsQuery, MotherboardsQueryVariables>(MotherboardsDocument, options);
+        }
+export function useMotherboardsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<MotherboardsQuery, MotherboardsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<MotherboardsQuery, MotherboardsQueryVariables>(MotherboardsDocument, options);
+        }
+export type MotherboardsQueryHookResult = ReturnType<typeof useMotherboardsQuery>;
+export type MotherboardsLazyQueryHookResult = ReturnType<typeof useMotherboardsLazyQuery>;
+export type MotherboardsSuspenseQueryHookResult = ReturnType<typeof useMotherboardsSuspenseQuery>;
+export type MotherboardsQueryResult = Apollo.QueryResult<MotherboardsQuery, MotherboardsQueryVariables>;
 export const VideoCardsDocument = gql`
     query videoCards {
   videoCards {
