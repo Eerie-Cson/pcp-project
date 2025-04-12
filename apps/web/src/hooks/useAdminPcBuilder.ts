@@ -9,6 +9,7 @@ import { useCreateCPU } from './useCpuMutation';
 import { useCpusQuery } from './useCpuQuery';
 import { useCreateMemory } from './useMemoryMutation';
 import { useMemorysQuery } from './useMemoryQuery';
+import { useCreateMotherboard } from './useMotherboardMutation';
 import { useCreateVideoCard } from './useVideoCardMutation';
 import { useVideoCardsQuery } from './useVideoCardQuery';
 
@@ -40,6 +41,7 @@ export const useAdminPcBuilder = () => {
   const { handleAddCPU } = useCreateCPU();
   const { handleAddMemory } = useCreateMemory();
   const { handleAddVideoCard } = useCreateVideoCard();
+  const { handleAddMotherboard } = useCreateMotherboard();
 
   const handleAddComponent = async (component: any) => {
     if (component.type === ComponentType.Case) {
@@ -53,6 +55,9 @@ export const useAdminPcBuilder = () => {
     }
     if (component.type === ComponentType.VideoCard) {
       await handleAddVideoCard(component);
+    }
+    if (component.type === ComponentType.Motherboard) {
+      await handleAddMotherboard(component);
     }
   };
 
