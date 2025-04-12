@@ -1,6 +1,5 @@
 import { ObjectTypes } from '@pcp/object-id';
 import { ComponentType } from '@pcp/types';
-import * as R from 'ramda';
 import { Tokens as ComponentToken } from '../../../../src/features/component/libs/tokens';
 import { MemoryRepository } from '../../../../src/features/component/repository/memory.repository';
 import { generateComponent } from '../../../helpers/generate-component';
