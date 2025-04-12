@@ -12,6 +12,7 @@ import { useMemorysQuery } from './useMemoryQuery';
 import { useCreateMotherboard } from './useMotherboardMutation';
 import { useMotherboardsQuery } from './useMotherboardQuery';
 import { useCreatePowerSupply } from './usePowerSupplyMutation';
+import { usePowerSuppliesQuery } from './usePowerSupplyQuery';
 import { useCreateVideoCard } from './useVideoCardMutation';
 import { useVideoCardsQuery } from './useVideoCardQuery';
 
@@ -31,6 +32,7 @@ export const useAdminPcBuilder = () => {
   const { data: memoryData } = useMemorysQuery();
   const { data: videoCardData } = useVideoCardsQuery();
   const { data: motherboardData } = useMotherboardsQuery();
+  const { data: powerSupplyData } = usePowerSuppliesQuery();
 
   const components: PcComponent<ComponentType>[] = [
     ...(motherboardData || []),
@@ -38,6 +40,7 @@ export const useAdminPcBuilder = () => {
     ...(cpuData || []),
     ...(memoryData || []),
     ...(videoCardData || []),
+    ...(powerSupplyData || []),
   ];
 
   //TODO: Move this to a separate hook and add a mapper

@@ -6,6 +6,7 @@ import { useCasesQuery } from './useCasesQuery';
 import { useCpusQuery } from './useCpuQuery';
 import { useMemorysQuery } from './useMemoryQuery';
 import { useMotherboardsQuery } from './useMotherboardQuery';
+import { usePowerSuppliesQuery } from './usePowerSupplyQuery';
 import { useVideoCardsQuery } from './useVideoCardQuery';
 
 export function useUserPcBuilder() {
@@ -29,6 +30,8 @@ export function useUserPcBuilder() {
   const { data: memoryData } = useMemorysQuery();
   const { data: videoCardData } = useVideoCardsQuery();
   const { data: motherboardData } = useMotherboardsQuery();
+  const { data: powerSupplyData } = usePowerSuppliesQuery();
+  console.log(powerSupplyData);
 
   const components: PcComponent<ComponentType>[] = [
     ...(caseData || []),
@@ -36,6 +39,7 @@ export function useUserPcBuilder() {
     ...(memoryData || []),
     ...(videoCardData || []),
     ...(motherboardData || []),
+    ...(powerSupplyData || []),
   ];
 
   const componentTypes = [
