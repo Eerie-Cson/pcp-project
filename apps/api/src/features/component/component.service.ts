@@ -188,6 +188,10 @@ export class ComponentService {
     return this.powerSupplyRepository.find(params);
   }
 
+  async findPowerSupplies(params: Partial<PowerSupply>) {
+    return this.powerSupplyRepository.list(params);
+  }
+
   async createStorage(data: Storage) {
     return this.storageRepository.create(data);
   }

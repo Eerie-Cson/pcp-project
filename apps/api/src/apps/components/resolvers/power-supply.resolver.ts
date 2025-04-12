@@ -1,4 +1,4 @@
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { ObjectId } from '@pcp/object-id';
 import { ComponentType } from '@pcp/types';
 import { ComponentService } from '../../../features/component/component.service';
@@ -20,5 +20,19 @@ export class PowerSupplyResolver {
     });
 
     return true;
+  }
+
+  @Query('powerSupply')
+  async getPowerSupply(@Args('id') id: string) {
+    const powerSupply = await this.componentService.findPowerSupply({
+      id: ObjectId.from(id),
+    });
+
+    return powerSupply;
+  }
+
+  @Query('powerSupplies')
+  async getPowerSupplies() {
+    return this.componentService.findPowerSupplies({});
   }
 }

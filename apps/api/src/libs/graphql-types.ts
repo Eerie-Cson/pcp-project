@@ -415,8 +415,8 @@ export interface IQuery {
     memory(id: string): Nullable<Memory> | Promise<Nullable<Memory>>;
     motherboards(): Nullable<Motherboard>[] | Promise<Nullable<Motherboard>[]>;
     motherboard(id: string): Nullable<Motherboard> | Promise<Nullable<Motherboard>>;
-    getPowerSupplys(): Nullable<PowerSupply>[] | Promise<Nullable<PowerSupply>[]>;
-    getPowerSupply(id: ObjectId): Nullable<PowerSupply> | Promise<Nullable<PowerSupply>>;
+    powerSupplies(): Nullable<PowerSupply>[] | Promise<Nullable<PowerSupply>[]>;
+    powerSupply(id: string): Nullable<PowerSupply> | Promise<Nullable<PowerSupply>>;
     getStorages(): Nullable<Storage>[] | Promise<Nullable<Storage>[]>;
     getStorage(id: ObjectId): Nullable<Storage> | Promise<Nullable<Storage>>;
     videoCards(): Nullable<VideoCard>[] | Promise<Nullable<VideoCard>[]>;
