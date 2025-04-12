@@ -1,4 +1,4 @@
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { ObjectId } from '@pcp/object-id';
 import { ComponentType } from '@pcp/types';
 import { ComponentService } from '../../../features/component/component.service';
@@ -20,5 +20,19 @@ export class MotherboardResolver {
     });
 
     return true;
+  }
+
+  @Query('motherboard')
+  async getMotherboard(@Args('id') id: string) {
+    const motherboard = await this.componentService.findMotherboard({
+      id: ObjectId.from(id),
+    });
+
+    return motherboard;
+  }
+
+  @Query('motherboards')
+  async getMotherboards() {
+    return this.componentService.findMotherboards({});
   }
 }

@@ -54,8 +54,8 @@ input UpdateMotherboardInput {
 }
 
 type Query {
-  getMotherboards: [Motherboard]!
-  getMotherboard(id: ObjectId!): Motherboard
+  motherboards: [Motherboard]!
+  motherboard(id: String!): Motherboard
 }
 
 type Mutation {
