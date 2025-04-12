@@ -1,11 +1,11 @@
-import { setupFixture } from '../component-fixture';
-import { generateComponent } from '../helpers/generate-component';
-import { CaseRepository } from '../../src/features/component/repository/case.repository';
-import { Tokens as ComponentToken } from '../../src/features/component/libs/tokens';
+import { ObjectTypes } from '@pcp/object-id';
 import { Case, ComponentType } from '@pcp/types';
-import { ObjectTypes } from '@pcp/object-type';
+import { Tokens as ComponentToken } from '../../../../src/features/component/libs/tokens';
+import { CaseRepository } from '../../../../src/features/component/repository/case.repository';
+import { generateComponent } from '../../../helpers/generate-component';
+import { setupFixture } from '../../component-fixture';
 
-describe('Components.Update', () => {
+describe('Component.Update', () => {
   test('Update Case', async () => {
     const { module, request, teardown } = await setupFixture();
 
@@ -13,9 +13,8 @@ describe('Components.Update', () => {
       ComponentToken.CaseRepository,
     );
 
-    const caseComponent = await generateComponent(
+    const { component: caseComponent } = generateComponent<ComponentType.CASE>(
       ObjectTypes.CASE,
-      ComponentType.CASE,
     );
 
     const updateInput = {

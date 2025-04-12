@@ -4,6 +4,10 @@ export enum ObjectTypes {
   CPU = 'cpu',
   MEMORY = 'mem',
   VIDEO_CARD = 'vdc',
+  MOTHERBOARD = 'mbd',
+  STORAGE = 'sto',
+  POWER_SUPPLY = 'psu',
+
   SESSION = 'session',
   ACCOUNT = 'account',
   // EVENT = 'event',
