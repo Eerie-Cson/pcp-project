@@ -5,6 +5,7 @@ import { PcComponent } from '../libs/types/components';
 import { useCasesQuery } from './useCasesQuery';
 import { useCpusQuery } from './useCpuQuery';
 import { useMemorysQuery } from './useMemoryQuery';
+import { useMotherboardsQuery } from './useMotherboardQuery';
 import { useVideoCardsQuery } from './useVideoCardQuery';
 
 export function useUserPcBuilder() {
@@ -27,12 +28,14 @@ export function useUserPcBuilder() {
   const { data: cpuData } = useCpusQuery();
   const { data: memoryData } = useMemorysQuery();
   const { data: videoCardData } = useVideoCardsQuery();
+  const { data: motherboardData } = useMotherboardsQuery();
 
   const components: PcComponent<ComponentType>[] = [
     ...(caseData || []),
     ...(cpuData || []),
     ...(memoryData || []),
     ...(videoCardData || []),
+    ...(motherboardData || []),
   ];
 
   const componentTypes = [
