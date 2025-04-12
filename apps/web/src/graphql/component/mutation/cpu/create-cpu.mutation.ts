@@ -1,3 +1,5 @@
+import { gql } from '@apollo/client';
+
 export const CREATE_CPU = gql`
   mutation CREATE_CPU(
     $id: String!
