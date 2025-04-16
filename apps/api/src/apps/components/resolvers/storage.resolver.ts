@@ -20,4 +20,18 @@ export class StorageResolver {
 
     return true;
   }
+
+  @Query('storage')
+  async getStorage(@Args('id') id: string) {
+    const storage = await this.componentService.findStorage({
+      id: ObjectId.from(id),
+    });
+
+    return storage;
+  }
+
+  @Query('storages')
+  async getStorages() {
+    return this.componentService.findStorages({});
+  }
 }

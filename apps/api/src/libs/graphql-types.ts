@@ -418,8 +418,8 @@ export interface IQuery {
     motherboard(id: string): Nullable<Motherboard> | Promise<Nullable<Motherboard>>;
     powerSupplies(): Nullable<PowerSupply>[] | Promise<Nullable<PowerSupply>[]>;
     powerSupply(id: string): Nullable<PowerSupply> | Promise<Nullable<PowerSupply>>;
-    getStorages(): Nullable<Storage>[] | Promise<Nullable<Storage>[]>;
-    getStorage(id: ObjectId): Nullable<Storage> | Promise<Nullable<Storage>>;
+    storages(): Nullable<Storage>[] | Promise<Nullable<Storage>[]>;
+    storage(id: string): Nullable<Storage> | Promise<Nullable<Storage>>;
     videoCards(): Nullable<VideoCard>[] | Promise<Nullable<VideoCard>[]>;
     videoCard(id: string): Nullable<VideoCard> | Promise<Nullable<VideoCard>>;
 }

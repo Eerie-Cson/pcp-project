@@ -47,8 +47,8 @@ input UpdateStorageInput {
 }
 
 type Query {
-  getStorages: [Storage]!
-  getStorage(id: ObjectId!): Storage
+  storages: [Storage]!
+  storage(id: String!): Storage
 }
 
 type Mutation {
