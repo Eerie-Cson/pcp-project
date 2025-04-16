@@ -192,8 +192,9 @@ export class ComponentService {
     return this.powerSupplyRepository.list(params);
   }
 
-  async createStorage(data: Storage) {
-    return this.storageRepository.create(data);
+  async createStorage(data: Component) {
+    if (data.componentType === ComponentType.STORAGE)
+      return this.storageRepository.create(data);
   }
 
   async updateStorage(params: {

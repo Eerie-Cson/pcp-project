@@ -5,12 +5,13 @@ enum StorageType {
 
 type Storage {
   # image: String
-  id: ObjectId!
+  id: String!
   name: String!
   price: String!
   manufacturer: String!
   partNumber: String!
-  
+  componentType: ComponentType!
+
   capacity: String!
   type: StorageType!
   formFactor: String!
@@ -19,11 +20,13 @@ type Storage {
 }
 
 input CreateStorageInput {
-  id: ObjectId!
+  id: String!
   name: String!
   price: String!
   manufacturer: String!
   partNumber: String!
+  componentType: ComponentType!
+
   capacity: String!
   type: StorageType!
   formFactor: String!
