@@ -14,6 +14,7 @@ import { useMotherboardsQuery } from './useMotherboardQuery';
 import { useCreatePowerSupply } from './usePowerSupplyMutation';
 import { usePowerSuppliesQuery } from './usePowerSupplyQuery';
 import { useCreateStorage } from './useStorageMutation';
+import { useStoragesQuery } from './useStorageQuery';
 import { useCreateVideoCard } from './useVideoCardMutation';
 import { useVideoCardsQuery } from './useVideoCardQuery';
 
@@ -34,11 +35,13 @@ export const useAdminPcBuilder = () => {
   const { data: videoCardData } = useVideoCardsQuery();
   const { data: motherboardData } = useMotherboardsQuery();
   const { data: powerSupplyData } = usePowerSuppliesQuery();
+  const { data: storageData } = useStoragesQuery();
 
   const components: PcComponent<ComponentType>[] = [
     ...(motherboardData || []),
     ...(caseData || []),
     ...(cpuData || []),
+    ...(storageData || []),
     ...(memoryData || []),
     ...(videoCardData || []),
     ...(powerSupplyData || []),
