@@ -50,7 +50,7 @@ export function StorageRepositoryFactory(connection: Connection) {
       required: true,
     },
     NVME: {
-      type: String,
+      type: Boolean,
       required: true,
     },
     dateTimeCreated: {

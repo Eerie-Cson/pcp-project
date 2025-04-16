@@ -219,6 +219,10 @@ export class ComponentService {
     return this.storageRepository.find(params);
   }
 
+  async findStorages(params: Partial<Storage>) {
+    return this.storageRepository.list(params);
+  }
+
   async createVideoCard(data: Component) {
     if (data.componentType === ComponentType.VIDEO_CARD) {
       return this.videoCardRepository.create(data);
