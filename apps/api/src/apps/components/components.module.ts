@@ -12,6 +12,7 @@ import { CpuResolver } from './resolvers/cpu.resolver';
 import { MemoryResolver } from './resolvers/memory.resolver';
 import { MotherboardResolver } from './resolvers/motherboard.resolver';
 import { PowerSupplyResolver } from './resolvers/power-supply.resolver';
+import { StorageResolver } from './resolvers/storage.resolver';
 import { VideoCardResolver } from './resolvers/video-card.resolver';
 
 @Module({
@@ -77,6 +78,7 @@ import { VideoCardResolver } from './resolvers/video-card.resolver';
     VideoCardResolver,
     MotherboardResolver,
     PowerSupplyResolver,
+    StorageResolver,
   ],
 })
 export class ComponentsModule {}

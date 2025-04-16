@@ -327,11 +327,12 @@ export interface UpdatePowerSupplyInput {
 }
 
 export interface CreateStorageInput {
-    id: ObjectId;
+    id: string;
     name: string;
     price: string;
     manufacturer: string;
     partNumber: string;
+    componentType: ComponentType;
     capacity: string;
     type: StorageType;
     formFactor: string;
@@ -573,11 +574,12 @@ export interface PowerSupply {
 }
 
 export interface Storage {
-    id: ObjectId;
+    id: string;
     name: string;
     price: string;
     manufacturer: string;
     partNumber: string;
+    componentType: ComponentType;
     capacity: string;
     type: StorageType;
     formFactor: string;
