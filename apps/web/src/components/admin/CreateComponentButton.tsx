@@ -87,9 +87,15 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
     ],
     [ComponentType.Storage]: [
       { name: 'capacity', label: 'Capacity' },
-      { name: 'type', label: 'Type' },
+      {
+        name: 'type',
+        label: 'Type',
+        inputType: 'select',
+        options: ['HDD', 'SDD'],
+      },
       { name: 'interface', label: 'Interface' },
-      { name: 'readSpeed', label: 'Read Speed' },
+      { name: 'NVME', label: 'NVME', inputType: 'checkbox' },
+      { name: 'formFactor', label: 'Form Factor' },
     ],
     [ComponentType.PowerSupply]: [
       { name: 'wattage', label: 'Wattage' },
@@ -358,10 +364,12 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
                             <option value="">Select {spec.label}</option>
                             {spec.options?.map((option: string) => (
                               <option key={option} value={option}>
-                                {option
-                                  .replace(/_/g, ' ')
-                                  .toLowerCase()
-                                  .replace(/^\w/, (c) => c.toUpperCase())}
+                                {option === 'SSD' || 'HDD'
+                                  ? option
+                                  : option
+                                      .replace(/_/g, ' ')
+                                      .toLowerCase()
+                                      .replace(/^\w/, (c) => c.toUpperCase())}
                               </option>
                             ))}
                           </select>

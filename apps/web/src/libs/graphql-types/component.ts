@@ -157,8 +157,9 @@ export type CreatePowerSupplyInput = {
 export type CreateStorageInput = {
   NVME: Scalars['Boolean']['input'];
   capacity: Scalars['String']['input'];
+  componentType: ComponentType;
   formFactor: Scalars['String']['input'];
-  id: Scalars['ObjectId']['input'];
+  id: Scalars['String']['input'];
   interface: Scalars['String']['input'];
   manufacturer: Scalars['String']['input'];
   name: Scalars['String']['input'];
@@ -390,14 +391,14 @@ export type Query = {
   CPUs: Array<Maybe<Cpu>>;
   case?: Maybe<Case>;
   cases: Array<Maybe<Case>>;
-  getPowerSupply?: Maybe<PowerSupply>;
-  getPowerSupplys: Array<Maybe<PowerSupply>>;
   getStorage?: Maybe<Storage>;
   getStorages: Array<Maybe<Storage>>;
   memory?: Maybe<Memory>;
   memorys: Array<Maybe<Memory>>;
   motherboard?: Maybe<Motherboard>;
   motherboards: Array<Maybe<Motherboard>>;
+  powerSupplies: Array<Maybe<PowerSupply>>;
+  powerSupply?: Maybe<PowerSupply>;
   videoCard?: Maybe<VideoCard>;
   videoCards: Array<Maybe<VideoCard>>;
 };
@@ -410,11 +411,6 @@ export type QueryCpuArgs = {
 
 export type QueryCaseArgs = {
   id: Scalars['String']['input'];
-};
-
-
-export type QueryGetPowerSupplyArgs = {
-  id: Scalars['ObjectId']['input'];
 };
 
 
@@ -433,6 +429,11 @@ export type QueryMotherboardArgs = {
 };
 
 
+export type QueryPowerSupplyArgs = {
+  id: Scalars['String']['input'];
+};
+
+
 export type QueryVideoCardArgs = {
   id: Scalars['String']['input'];
 };
@@ -446,8 +447,9 @@ export type Storage = {
   __typename?: 'Storage';
   NVME: Scalars['Boolean']['output'];
   capacity: Scalars['String']['output'];
+  componentType: ComponentType;
   formFactor: Scalars['String']['output'];
-  id: Scalars['ObjectId']['output'];
+  id: Scalars['String']['output'];
   interface: Scalars['String']['output'];
   manufacturer: Scalars['String']['output'];
   name: Scalars['String']['output'];
@@ -679,6 +681,23 @@ export type Create_Power_SupplyMutationVariables = Exact<{
 
 export type Create_Power_SupplyMutation = { __typename?: 'Mutation', createPowerSupply?: boolean | null };
 
+export type Create_StorageMutationVariables = Exact<{
+  id: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  componentType: ComponentType;
+  price: Scalars['String']['input'];
+  manufacturer: Scalars['String']['input'];
+  partNumber: Scalars['String']['input'];
+  capacity: Scalars['String']['input'];
+  type: StorageType;
+  formFactor: Scalars['String']['input'];
+  interface: Scalars['String']['input'];
+  NVME: Scalars['Boolean']['input'];
+}>;
+
+
+export type Create_StorageMutation = { __typename?: 'Mutation', createStorage?: boolean | null };
+
 export type Create_Video_CardMutationVariables = Exact<{
   id: Scalars['String']['input'];
   name: Scalars['String']['input'];
@@ -721,6 +740,11 @@ export type MotherboardsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type MotherboardsQuery = { __typename?: 'Query', motherboards: Array<{ __typename?: 'Motherboard', id: string, name: string, componentType: ComponentType, price: string, manufacturer: string, partNumber: string, socket: string, formFactor: string, chipset: string, memoryMax: string, memoryType: MemoryType, memorySlots: string, color: string } | null> };
+
+export type PowerSuppliesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type PowerSuppliesQuery = { __typename?: 'Query', powerSupplies: Array<{ __typename?: 'PowerSupply', id: string, name: string, componentType: ComponentType, price: string, manufacturer: string, partNumber: string, model: string, type: string, wattage: string, color: string, fanless: boolean, SATAConnectors: string, length: string } | null> };
 
 export type VideoCardsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -954,6 +978,49 @@ export function useCreate_Power_SupplyMutation(baseOptions?: Apollo.MutationHook
 export type Create_Power_SupplyMutationHookResult = ReturnType<typeof useCreate_Power_SupplyMutation>;
 export type Create_Power_SupplyMutationResult = Apollo.MutationResult<Create_Power_SupplyMutation>;
 export type Create_Power_SupplyMutationOptions = Apollo.BaseMutationOptions<Create_Power_SupplyMutation, Create_Power_SupplyMutationVariables>;
+export const Create_StorageDocument = gql`
+    mutation CREATE_STORAGE($id: String!, $name: String!, $componentType: ComponentType!, $price: String!, $manufacturer: String!, $partNumber: String!, $capacity: String!, $type: StorageType!, $formFactor: String!, $interface: String!, $NVME: Boolean!) {
+  createStorage(
+    createStorageInput: {id: $id, name: $name, componentType: $componentType, price: $price, manufacturer: $manufacturer, partNumber: $partNumber, capacity: $capacity, type: $type, formFactor: $formFactor, interface: $interface, NVME: $NVME}
+  )
+}
+    `;
+export type Create_StorageMutationFn = Apollo.MutationFunction<Create_StorageMutation, Create_StorageMutationVariables>;
+
+/**
+ * __useCreate_StorageMutation__
+ *
+ * To run a mutation, you first call `useCreate_StorageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreate_StorageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createStorageMutation, { data, loading, error }] = useCreate_StorageMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      name: // value for 'name'
+ *      componentType: // value for 'componentType'
+ *      price: // value for 'price'
+ *      manufacturer: // value for 'manufacturer'
+ *      partNumber: // value for 'partNumber'
+ *      capacity: // value for 'capacity'
+ *      type: // value for 'type'
+ *      formFactor: // value for 'formFactor'
+ *      interface: // value for 'interface'
+ *      NVME: // value for 'NVME'
+ *   },
+ * });
+ */
+export function useCreate_StorageMutation(baseOptions?: Apollo.MutationHookOptions<Create_StorageMutation, Create_StorageMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Create_StorageMutation, Create_StorageMutationVariables>(Create_StorageDocument, options);
+      }
+export type Create_StorageMutationHookResult = ReturnType<typeof useCreate_StorageMutation>;
+export type Create_StorageMutationResult = Apollo.MutationResult<Create_StorageMutation>;
+export type Create_StorageMutationOptions = Apollo.BaseMutationOptions<Create_StorageMutation, Create_StorageMutationVariables>;
 export const Create_Video_CardDocument = gql`
     mutation CREATE_VIDEO_CARD($id: String!, $name: String!, $componentType: ComponentType!, $price: String!, $manufacturer: String!, $partNumber: String!, $model: String!, $chipset: String!, $memory: String!, $memoryType: String!, $coreClock: String!, $interface: String!, $color: String!, $TDP: String!, $coolingFans: String!, $displayPortOutputs: String!, $HDMIOutputs: String!) {
   createVideoCard(
@@ -1208,6 +1275,57 @@ export type MotherboardsQueryHookResult = ReturnType<typeof useMotherboardsQuery
 export type MotherboardsLazyQueryHookResult = ReturnType<typeof useMotherboardsLazyQuery>;
 export type MotherboardsSuspenseQueryHookResult = ReturnType<typeof useMotherboardsSuspenseQuery>;
 export type MotherboardsQueryResult = Apollo.QueryResult<MotherboardsQuery, MotherboardsQueryVariables>;
+export const PowerSuppliesDocument = gql`
+    query powerSupplies {
+  powerSupplies {
+    id
+    name
+    componentType
+    price
+    manufacturer
+    partNumber
+    model
+    type
+    wattage
+    color
+    fanless
+    SATAConnectors
+    length
+  }
+}
+    `;
+
+/**
+ * __usePowerSuppliesQuery__
+ *
+ * To run a query within a React component, call `usePowerSuppliesQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePowerSuppliesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePowerSuppliesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function usePowerSuppliesQuery(baseOptions?: Apollo.QueryHookOptions<PowerSuppliesQuery, PowerSuppliesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PowerSuppliesQuery, PowerSuppliesQueryVariables>(PowerSuppliesDocument, options);
+      }
+export function usePowerSuppliesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PowerSuppliesQuery, PowerSuppliesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PowerSuppliesQuery, PowerSuppliesQueryVariables>(PowerSuppliesDocument, options);
+        }
+export function usePowerSuppliesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<PowerSuppliesQuery, PowerSuppliesQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<PowerSuppliesQuery, PowerSuppliesQueryVariables>(PowerSuppliesDocument, options);
+        }
+export type PowerSuppliesQueryHookResult = ReturnType<typeof usePowerSuppliesQuery>;
+export type PowerSuppliesLazyQueryHookResult = ReturnType<typeof usePowerSuppliesLazyQuery>;
+export type PowerSuppliesSuspenseQueryHookResult = ReturnType<typeof usePowerSuppliesSuspenseQuery>;
+export type PowerSuppliesQueryResult = Apollo.QueryResult<PowerSuppliesQuery, PowerSuppliesQueryVariables>;
 export const VideoCardsDocument = gql`
     query videoCards {
   videoCards {
