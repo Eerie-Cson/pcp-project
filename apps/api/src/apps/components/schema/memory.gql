@@ -52,5 +52,5 @@ type Query {
 type Mutation {
   createMemory(createMemoryInput: CreateMemoryInput!): Boolean
   updateMemory(id: ObjectId!, updateMemoryInput: UpdateMemoryInput!): Boolean
-  deleteMemory(id: ObjectId!): Boolean
+  deleteMemory(id: String!): Boolean
 }

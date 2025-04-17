@@ -33,4 +33,11 @@ export class MemoryResolver {
   async getMemorys() {
     return this.componentService.findMemorys({});
   }
+
+  @Mutation('deleteMemory')
+  async deleteMemory(@Args('id') id: string) {
+    await this.componentService.deleteMemory(id);
+
+    return true;
+  }
 }
