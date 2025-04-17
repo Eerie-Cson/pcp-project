@@ -70,5 +70,5 @@ type Mutation {
     id: ObjectId!
     updateVideoCardInput: UpdateVideoCardInput!
   ): Boolean
-  deleteVideoCard(id: ObjectId!): Boolean
+  deleteVideoCard(id: String!): Boolean
 }
