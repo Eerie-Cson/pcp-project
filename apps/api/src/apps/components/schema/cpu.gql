@@ -67,5 +67,5 @@ type Query {
 type Mutation {
   createCPU(createCPUInput: CreateCPUInput!): Boolean
   updateCPU(id: ObjectId!, updateCPUInput: UpdateCPUInput!): Boolean
-  deleteCPU(id: ObjectId!): Boolean
+  deleteCPU(id: String!): Boolean
 }
