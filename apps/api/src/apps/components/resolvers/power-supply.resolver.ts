@@ -35,4 +35,10 @@ export class PowerSupplyResolver {
   async getPowerSupplies() {
     return this.componentService.findPowerSupplies({});
   }
+
+  @Mutation('deletePowerSupply')
+  async deletePowerSupply(@Args('id') id: string) {
+    await this.componentService.deletePowerSupply(id);
+    return true;
+  }
 }

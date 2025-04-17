@@ -58,5 +58,5 @@ type Mutation {
     id: ObjectId!
     updatePowerSupplyInput: UpdatePowerSupplyInput!
   ): Boolean
-  deletePowerSupply(id: ObjectId!): Boolean
+  deletePowerSupply(id: String!): Boolean
 }
