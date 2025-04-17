@@ -91,7 +91,7 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
         name: 'type',
         label: 'Type',
         inputType: 'select',
-        options: ['HDD', 'SDD'],
+        options: ['HDD', 'SSD'],
       },
       { name: 'interface', label: 'Interface' },
       { name: 'NVME', label: 'NVME', inputType: 'checkbox' },
