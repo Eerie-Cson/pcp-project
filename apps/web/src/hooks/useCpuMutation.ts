@@ -11,7 +11,7 @@ export function useCreateCPU() {
   const handleAddCPU = async (component: PcComponent<ComponentType.Cpu>) => {
     //TODO Create a transform library for this
     const variables: Cpu = {
-      id: ObjectId.generate(ObjectTypes.CASE).toString(),
+      id: ObjectId.generate(ObjectTypes.CPU).toString(),
       name: component.name,
       componentType: component.type,
       price: component.price.toString(),
