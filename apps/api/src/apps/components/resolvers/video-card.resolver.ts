@@ -34,4 +34,11 @@ export class VideoCardResolver {
   async getVideoCards() {
     return this.componentService.findVideoCards({});
   }
+
+  @Mutation('deleteVideoCard')
+  async deleteVideoCard(@Args('id') id: string) {
+    await this.componentService.deleteVideoCard(id);
+
+    return true;
+  }
 }
