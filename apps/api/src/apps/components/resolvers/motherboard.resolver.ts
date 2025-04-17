@@ -35,4 +35,11 @@ export class MotherboardResolver {
   async getMotherboards() {
     return this.componentService.findMotherboards({});
   }
+
+  @Mutation('deleteMotherboard')
+  async deleteMotherboard(@Args('id') id: string) {
+    await this.componentService.deleteMotherboard(id);
+
+    return true;
+  }
 }

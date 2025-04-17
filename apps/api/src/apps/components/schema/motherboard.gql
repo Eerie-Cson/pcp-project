@@ -64,5 +64,5 @@ type Mutation {
     id: ObjectId!
     updateMotherboardInput: UpdateMotherboardInput!
   ): Boolean
-  deleteMotherboard(id: ObjectId!): Boolean
+  deleteMotherboard(id: String!): Boolean
 }
