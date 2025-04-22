@@ -2,7 +2,10 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { ObjectId } from '@pcp/object-id';
 import { ComponentType } from '@pcp/types';
 import { ComponentService } from '../../../features/component/component.service';
-import { CreateMemoryInput } from '../../../libs/graphql-types';
+import {
+  CreateMemoryInput,
+  UpdateMemoryInput,
+} from '../../../libs/graphql-types';
 
 @Resolver('Memory')
 export class MemoryResolver {
@@ -37,6 +40,20 @@ export class MemoryResolver {
   @Mutation('deleteMemory')
   async deleteMemory(@Args('id') id: string) {
     await this.componentService.deleteMemory(id);
+
+    return true;
+  }
+
+  @Mutation('updateMemory')
+  async updateMemory(
+    @Args('id') id: string,
+    @Args('updateMemoryInput')
+    updateMemoryInput: UpdateMemoryInput,
+  ) {
+    await this.componentService.updateMemory({
+      id,
+      data: updateMemoryInput,
+    });
 
     return true;
   }
