@@ -34,4 +34,11 @@ export class StorageResolver {
   async getStorages() {
     return this.componentService.findStorages({});
   }
+
+  @Mutation('deleteStorage')
+  async deleteStorage(@Args('id') id: string) {
+    await this.componentService.deleteStorage(id);
+
+    return true;
+  }
 }
