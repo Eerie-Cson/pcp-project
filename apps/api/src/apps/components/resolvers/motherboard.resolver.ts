@@ -2,7 +2,7 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { ObjectId } from '@pcp/object-id';
 import { ComponentType } from '@pcp/types';
 import { ComponentService } from '../../../features/component/component.service';
-import { CreateMotherboardInput } from '../../../libs/graphql-types';
+import { CreateMotherboardInput, UpdateMotherboardInput } from '../../../libs/graphql-types';
 
 @Resolver('Motherboard')
 export class MotherboardResolver {
@@ -39,6 +39,20 @@ export class MotherboardResolver {
   @Mutation('deleteMotherboard')
   async deleteMotherboard(@Args('id') id: string) {
     await this.componentService.deleteMotherboard(id);
+
+    return true;
+  }
+
+  @Mutation('updateMotherboard')
+  async updateMotherboard(
+    @Args('id') id: string,
+    @Args('updateMotherboardInput')
+    updateMotherboardInput: UpdateMotherboardInput,
+  ) {
+    await this.componentService.updateMotherboard({
+      id,
+      data: updateMotherboardInput,
+    });
 
     return true;
   }
