@@ -1,5 +1,5 @@
 import { ObjectId, ObjectTypes } from '@pcp/object-id';
-import { Case, Component, ComponentType } from '@pcp/types';
+import { ComponentType } from '@pcp/types';
 import { Tokens as ComponentToken } from '../../../../src/features/component/libs/tokens';
 import { CaseRepository } from '../../../../src/features/component/repository/case.repository';
 import { generateComponent } from '../../../helpers/generate-component';
@@ -30,9 +30,9 @@ describe('Component.Delete', () => {
       },
     });
 
-    const foundCase = (await caseRepository.find(
+    const foundCase = await caseRepository.find(
       ObjectId.from(caseComponent.id.toString()),
-    )) as Case;
+    );
 
     await teardown();
 
