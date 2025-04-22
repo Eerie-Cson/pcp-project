@@ -67,7 +67,7 @@ type Query {
 type Mutation {
   createVideoCard(createVideoCardInput: CreateVideoCardInput!): Boolean
   updateVideoCard(
-    id: ObjectId!
+    id: String!
     updateVideoCardInput: UpdateVideoCardInput!
   ): Boolean
   deleteVideoCard(id: String!): Boolean

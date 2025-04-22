@@ -55,7 +55,7 @@ type Query {
 type Mutation {
   createPowerSupply(createPowerSupplyInput: CreatePowerSupplyInput!): Boolean
   updatePowerSupply(
-    id: ObjectId!
+    id: String!
     updatePowerSupplyInput: UpdatePowerSupplyInput!
   ): Boolean
   deletePowerSupply(id: String!): Boolean

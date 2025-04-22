@@ -61,7 +61,7 @@ type Query {
 type Mutation {
   createMotherboard(createMotherboardInput: CreateMotherboardInput!): Boolean
   updateMotherboard(
-    id: ObjectId!
+    id: String!
     updateMotherboardInput: UpdateMotherboardInput!
   ): Boolean
   deleteMotherboard(id: String!): Boolean
