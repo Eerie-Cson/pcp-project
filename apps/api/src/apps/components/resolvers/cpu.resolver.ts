@@ -2,7 +2,7 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { ObjectId } from '@pcp/object-id';
 import { ComponentType } from '@pcp/types';
 import { ComponentService } from '../../../features/component/component.service';
-import { CreateCPUInput } from '../../../libs/graphql-types';
+import { CreateCPUInput, UpdateCPUInput } from '../../../libs/graphql-types';
 
 @Resolver('Cpu')
 export class CpuResolver {
@@ -36,6 +36,20 @@ export class CpuResolver {
   @Mutation('deleteCPU')
   async deleteCPU(@Args('id') id: string) {
     await this.componentService.deleteCpu(id);
+
+    return true;
+  }
+
+  @Mutation('updateCPU')
+  async updateCPU(
+    @Args('id') id: string,
+    @Args('updateCPUInput')
+    updateCPUInput: UpdateCPUInput,
+  ) {
+    await this.componentService.updateCpu({
+      id,
+      data: updateCPUInput,
+    });
 
     return true;
   }

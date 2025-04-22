@@ -9,18 +9,18 @@ describe('Component.Update', () => {
   test('Update Memory', async () => {
     const { module, request, teardown } = await setupFixture();
 
-    const MemoryRepository = module.get<MemoryRepository>(
+    const memoryRepository = module.get<MemoryRepository>(
       ComponentToken.MemoryRepository,
     );
 
-    const { component: MemoryComponent } =
+    const { component: memoryComponent } =
       generateComponent<ComponentType.MEMORY>(ObjectTypes.MEMORY);
 
     const updateInput = {
       name: 'Updated Memory',
     };
 
-    await MemoryRepository.create(MemoryComponent);
+    await memoryRepository.create(memoryComponent);
 
     const response = await request.post('/graphql').send({
       query: `
@@ -32,14 +32,12 @@ describe('Component.Update', () => {
           }
       `,
       variables: {
-        id: MemoryComponent.id.toString(),
+        id: memoryComponent.id.toString(),
         updateMemoryInput: updateInput,
       },
     });
 
-    const updatedMemory = await MemoryRepository.find(
-      MemoryComponent.id,
-    );
+    const updatedMemory = await memoryRepository.find(memoryComponent.id);
 
     await teardown();
     expect(response.status).toBe(200);
