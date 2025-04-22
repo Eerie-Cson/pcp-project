@@ -2,7 +2,7 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { ObjectId } from '@pcp/object-id';
 import { ComponentType } from '@pcp/types';
 import { ComponentService } from '../../../features/component/component.service';
-import { CreateVideoCardInput } from '../../../libs/graphql-types';
+import { CreateVideoCardInput, UpdateVideoCardInput } from '../../../libs/graphql-types';
 
 @Resolver('VideoCard')
 export class VideoCardResolver {
@@ -38,6 +38,20 @@ export class VideoCardResolver {
   @Mutation('deleteVideoCard')
   async deleteVideoCard(@Args('id') id: string) {
     await this.componentService.deleteVideoCard(id);
+
+    return true;
+  }
+
+  @Mutation('updateVideoCard')
+  async updateVideoCard(
+    @Args('id') id: string,
+    @Args('updateVideoCardInput')
+    updateVideoCardInput: UpdateVideoCardInput,
+  ) {
+    await this.componentService.updateVideoCard({
+      id,
+      data: updateVideoCardInput,
+    });
 
     return true;
   }
