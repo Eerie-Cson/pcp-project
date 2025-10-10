@@ -1,11 +1,12 @@
-import { COMPONENT_TYPES_MAP } from '../libs/types/components';
-import { useAdminPcBuilder } from '../hooks/useAdminPcBuilder';
-import CreateComponentButton from '../components/admin/CreateComponentButton';
+import ComponentDetailsModal from '../components/admin/ComponentDetailsModal';
 import ComponentFilters from '../components/admin/ComponentFilters';
-import ComponentSorting from '../components/common/ComponentSorting';
 import ComponentGrid from '../components/admin/ComponentGrid';
-import Pagination from '../components/common/Pagination';
 import ComponentListHeader from '../components/admin/ComponentListHeader';
+import CreateComponentButton from '../components/admin/CreateComponentButton';
+import ComponentSorting from '../components/common/ComponentSorting';
+import Pagination from '../components/common/Pagination';
+import { useAdminPcBuilder } from '../hooks/useAdminPcBuilder';
+import { COMPONENT_TYPES_MAP } from '../libs/types/components';
 
 export default function AdminPcBuilder() {
   const {
@@ -14,6 +15,9 @@ export default function AdminPcBuilder() {
     sortBy,
     sortOrder,
     isModalOpen,
+    isDetailsModalOpen,
+    isEditModalOpen,
+    selectedComponent,
     currentPage,
     componentTypes,
     sortedComponents,
@@ -25,6 +29,11 @@ export default function AdminPcBuilder() {
     handleSort,
     resetFilters,
     handleAddComponent,
+    handleEditComponent,
+    handleViewDetails,
+    handleEdit,
+    closeDetailsModal,
+    closeEditModal,
     itemsPerPage,
   } = useAdminPcBuilder();
 
@@ -50,6 +59,8 @@ export default function AdminPcBuilder() {
       <ComponentGrid
         components={paginatedComponents}
         onResetFilters={resetFilters}
+        onViewDetails={handleViewDetails}
+        onEdit={handleEdit}
       />
 
       {sortedComponents.length > 0 && (
@@ -62,10 +73,28 @@ export default function AdminPcBuilder() {
         />
       )}
 
+      {/* Add Component Modal */}
       <CreateComponentButton
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onSubmit={handleAddComponent}
+        mode="add"
+      />
+
+      {/* Edit Component Modal */}
+      <CreateComponentButton
+        isOpen={isEditModalOpen}
+        onClose={closeEditModal}
+        onSubmit={handleEditComponent}
+        editComponent={selectedComponent}
+        mode="edit"
+      />
+
+      {/* View Details Modal */}
+      <ComponentDetailsModal
+        isOpen={isDetailsModalOpen}
+        onClose={closeDetailsModal}
+        component={selectedComponent}
       />
     </div>
   );

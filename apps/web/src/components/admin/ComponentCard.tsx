@@ -4,9 +4,15 @@ import { PcComponent } from '../../libs/types/components';
 
 interface ComponentCardProps {
   component: PcComponent<ComponentType>;
+  onViewDetails: (component: PcComponent<ComponentType>) => void;
+  onEdit: (component: PcComponent<ComponentType>) => void;
 }
 
-const ComponentCard: React.FC<ComponentCardProps> = ({ component }) => {
+const ComponentCard: React.FC<ComponentCardProps> = ({
+  component,
+  onViewDetails,
+  onEdit,
+}) => {
   return (
     <div className="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow flex flex-col h-full">
       <div className="flex p-4 flex-grow">
@@ -45,10 +51,16 @@ const ComponentCard: React.FC<ComponentCardProps> = ({ component }) => {
         </div>
       </div>
       <div className="flex border-t mt-auto">
-        <button className="flex-1 py-2 text-center text-sm hover:bg-gray-50 transition-colors">
+        <button
+          className="flex-1 py-2 text-center text-sm hover:bg-gray-50 transition-colors"
+          onClick={() => onViewDetails(component)}
+        >
           View Details
         </button>
-        <button className="flex-1 py-2 text-center text-sm text-green-600 border-l hover:bg-gray-50 transition-colors">
+        <button
+          className="flex-1 py-2 text-center text-sm text-green-600 border-l hover:bg-gray-50 transition-colors"
+          onClick={() => onEdit(component)}
+        >
           Edit
         </button>
       </div>

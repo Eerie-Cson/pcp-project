@@ -26,6 +26,10 @@ export const useAdminPcBuilder = () => {
   const [sortBy, setSortBy] = useState<string>('name');
   const [sortOrder, setSortOrder] = useState<string>('asc');
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState<boolean>(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
+  const [selectedComponent, setSelectedComponent] =
+    useState<PcComponent<ComponentType> | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage: number = 6;
 
@@ -78,6 +82,23 @@ export const useAdminPcBuilder = () => {
     if (component.type === ComponentType.Storage) {
       await handleAddStorage(component);
     }
+  };
+
+  const handleEditComponent = async (component: any) => {
+    // TODO: Implement update mutations for each component type
+    console.log('Editing component:', component);
+    // This would call the appropriate update mutation based on component type
+    // Similar to handleAddComponent but for updates
+  };
+
+  const handleViewDetails = (component: PcComponent<ComponentType>) => {
+    setSelectedComponent(component);
+    setIsDetailsModalOpen(true);
+  };
+
+  const handleEdit = (component: PcComponent<ComponentType>) => {
+    setSelectedComponent(component);
+    setIsEditModalOpen(true);
   };
 
   const componentTypes = [
@@ -139,6 +160,16 @@ export const useAdminPcBuilder = () => {
     setCurrentPage(1);
   };
 
+  const closeDetailsModal = () => {
+    setIsDetailsModalOpen(false);
+    setSelectedComponent(null);
+  };
+
+  const closeEditModal = () => {
+    setIsEditModalOpen(false);
+    setSelectedComponent(null);
+  };
+
   return {
     // State
     activeFilter,
@@ -146,6 +177,9 @@ export const useAdminPcBuilder = () => {
     sortBy,
     sortOrder,
     isModalOpen,
+    isDetailsModalOpen,
+    isEditModalOpen,
+    selectedComponent,
     currentPage,
 
     // Data
@@ -166,6 +200,10 @@ export const useAdminPcBuilder = () => {
     handleSort,
     resetFilters,
     handleAddComponent,
-    // handleFunction,
+    handleEditComponent,
+    handleViewDetails,
+    handleEdit,
+    closeDetailsModal,
+    closeEditModal,
   };
 };

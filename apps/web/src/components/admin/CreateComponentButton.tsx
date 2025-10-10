@@ -1,18 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import enumToArray from '../../libs/enumToArray';
 import { ComponentType } from '../../libs/graphql-types/component';
-import { COMPONENT_TYPES_MAP } from '../../libs/types/components';
+import { COMPONENT_TYPES_MAP, PcComponent } from '../../libs/types/components';
 
 interface ComponentAddModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (componentData: any) => void;
+  editComponent?: PcComponent<ComponentType> | null;
+  mode?: 'add' | 'edit';
 }
 
 const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
   isOpen,
   onClose,
   onSubmit,
+  editComponent = null,
+  mode = 'add',
 }) => {
   const [activeTab, setActiveTab] = useState<ComponentType>(ComponentType.Case);
   const [formData, setFormData] = useState<Record<string, any>>({
@@ -22,6 +26,25 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
     partNumber: '',
     specs: {},
   });
+
+  // Initialize form data when editing
+  useEffect(() => {
+    if (mode === 'edit' && editComponent) {
+      console.log(editComponent);
+
+      setFormData({
+        name: editComponent.name || '',
+        brand: editComponent.brand || '',
+        price: editComponent.price?.toString() || '',
+        partNumber: editComponent.partNumber || '',
+        // description: editComponent.description || '',
+        specs: editComponent.specs || {},
+      });
+      setActiveTab(editComponent.type);
+    } else if (mode === 'add') {
+      resetForm();
+    }
+  }, [mode, editComponent, isOpen]);
 
   const componentTypes = enumToArray<ComponentType>(ComponentType);
   const specFields: Record<string, Record<string, any>[]> = {
@@ -178,7 +201,19 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
       }
     });
 
-    onSubmit({ type: activeTab, ...formData, specs: updatedSpecs });
+    const componentData = {
+      type: activeTab,
+      ...formData,
+      specs: updatedSpecs,
+      id: '1',
+    };
+
+    // Include ID if editing
+    if (mode === 'edit' && editComponent) {
+      componentData.id = editComponent.id;
+    }
+
+    onSubmit(componentData);
     resetForm();
     onClose();
   };
@@ -196,11 +231,15 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
 
   if (!isOpen) return null;
 
+  const modalTitle = mode === 'edit' ? 'Edit Component' : 'Add Component';
+  const submitButtonText =
+    mode === 'edit' ? 'Update Component' : 'Add Component';
+
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black bg-opacity-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center border-b px-6 py-4">
-          <h2 className="text-2xl font-semibold">Add Component</h2>
+          <h2 className="text-2xl font-semibold">{modalTitle}</h2>
           <button
             onClick={() => {
               resetForm();
@@ -238,6 +277,7 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
                 }`}
                 onClick={() => setActiveTab(type)}
                 type="button"
+                disabled={mode === 'edit'} // Disable tab switching in edit mode
               >
                 {COMPONENT_TYPES_MAP[type]}
               </button>
@@ -563,7 +603,7 @@ const CreateComponentButton: React.FC<ComponentAddModalProps> = ({
                 type="submit"
                 className="px-4 py-2 bg-green-400 text-white rounded-md hover:bg-green-500"
               >
-                Add Component
+                {submitButtonText}
               </button>
             </div>
           </form>
